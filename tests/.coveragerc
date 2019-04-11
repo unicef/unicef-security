@@ -1,6 +1,7 @@
 [run]
 branch = true
 source = unicef_security
+omit = *migrations*
 
 [report]
 fail_under = 95
