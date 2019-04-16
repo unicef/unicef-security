@@ -18,7 +18,7 @@ build
 # Logs:
 *.log
 
-*idea*
+.idea/
 
 static/*
 media
