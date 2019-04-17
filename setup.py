@@ -91,6 +91,7 @@ setup(
         'test': [
             'vcrpy',
             'mock',
+            'requests-mock',
             'factory-boy',
             'pytest',
             'pytest-pythonpath',

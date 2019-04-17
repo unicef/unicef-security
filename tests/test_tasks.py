@@ -10,7 +10,7 @@ from django.test.utils import override_settings
 # @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
 # @override_settings(CELERY_ALWAYS_EAGER=True)
 # def test_sync_business_area(celery_worker, monkeypatch):
-# @pytest.mark.skip(reason="figure this out.. now it just blocks..")
+# @pytest.mark.skip(reason="maybe figure out how to `delay` the task..")
 @pytest.mark.usefixtures('depends_on_current_app')
 def test_sync_business_area(monkeypatch):
     # with celery_app.conf.update(CELERY_ALWAYS_EAGER=True):
@@ -20,11 +20,11 @@ def test_sync_business_area(monkeypatch):
 
     # sync_business_area.delay()
 
-    mf_1 = mock.Mock()
-
+    # importing this at top results with error, it needs some of the lib fixtures loaded
     from unicef_security.tasks import sync_business_area
-    monkeypatch.setattr('unicef_security.tasks.load_business_area', mf_1)
+    mock_load_ba = mock.Mock()
+    monkeypatch.setattr('unicef_security.tasks.load_business_area', mock_load_ba)
     with pytest.raises(AssertionError):
-        mf_1.assert_called_with()
+        mock_load_ba.assert_called_with()
     sync_business_area()
-    mf_1.assert_called_with()
+    mock_load_ba.assert_called_with()
