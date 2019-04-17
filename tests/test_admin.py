@@ -1,10 +1,14 @@
 import mock
+
 import os
 import pytest
 import requests
 
 from django.contrib.admin.sites import AdminSite
 from django.urls import reverse
+
+from tests.fixtures import patch_admin_extra_urls_decorators
+patch_admin_extra_urls_decorators()
 
 from unicef_security import admin
 from unicef_security.models import User, Region
@@ -16,6 +20,7 @@ def test_admin_reverse():
     reversed = reverse(f"admin:{model._meta.app_label}_{model._meta.model_name}_{page}")
     assert reversed == admin.admin_reverse(User)
 
+# def test_region_admin_sync(monkeypatch):
 def test_region_admin_sync(monkeypatch, requests_mock):
     region_admin = admin.RegionAdmin(Region, AdminSite())
 
@@ -23,23 +28,11 @@ def test_region_admin_sync(monkeypatch, requests_mock):
         mock_load_region = mock.Mock()
         m.setattr('unicef_security.admin.load_region', mock_load_region)
 
-        # mock_request = mock.Mock()
-        # m.setattr('unicef_security.admin.ExtraUrlMixin', mock.Mock())
-        # m.setattr('unicef_security.admin.link', mock.Mock())
-        # m.setattr('unicef_security.admin.action', mock.Mock())
-        # m.setattr('unicef_security.admin.extras', mock.Mock())
-        # m.setattr('admin_extra_urls.extras.ExtraUrlMixin', mock.Mock())
-        # m.setattr('admin_extra_urls.extras.link', mock.Mock())
-        # m.setattr('admin_extra_urls.extras.action', mock.Mock())
-        # m.setattr('admin_extra_urls.extras', mock.Mock())
-
         with pytest.raises(AssertionError):
-            mock_load_region.assert_called_with()
-        # region_admin.sync(mock_request)
-        # region_admin.sync(mock.Mock())
-        request = requests_mock.get(admin.admin_reverse(User))
-        region_admin.sync(request)
-        mock_load_region.assert_called_with()
+            mock_load_region.assert_called_with(requests_mock)
+
+        region_admin.sync(requests_mock)
+        mock_load_region.assert_called_with(requests_mock)
 
 def test_business_area_admin_sync(monkeypatch):
     pass
