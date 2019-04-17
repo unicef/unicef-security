@@ -27,12 +27,13 @@ def test_region_admin_sync(monkeypatch, requests_mock):
     with monkeypatch.context() as m:
         mock_load_region = mock.Mock()
         m.setattr('unicef_security.admin.load_region', mock_load_region)
+        setattr(requests_mock, 'GET', {})
 
         with pytest.raises(AssertionError):
-            mock_load_region.assert_called_with(requests_mock)
+            mock_load_region.assert_called_with()
 
         region_admin.sync(requests_mock)
-        mock_load_region.assert_called_with(requests_mock)
+        mock_load_region.assert_called_with()
 
 def test_business_area_admin_sync(monkeypatch):
     pass
