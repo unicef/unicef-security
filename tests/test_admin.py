@@ -11,7 +11,7 @@ from tests.fixtures import patch_admin_extra_urls_decorators
 patch_admin_extra_urls_decorators()
 
 from unicef_security import admin
-from unicef_security.models import User, Region
+from unicef_security.models import User, Region, BusinessArea
 
 
 def test_admin_reverse():
@@ -20,7 +20,6 @@ def test_admin_reverse():
     reversed = reverse(f"admin:{model._meta.app_label}_{model._meta.model_name}_{page}")
     assert reversed == admin.admin_reverse(User)
 
-# def test_region_admin_sync(monkeypatch):
 def test_region_admin_sync(monkeypatch, requests_mock):
     region_admin = admin.RegionAdmin(Region, AdminSite())
 
@@ -35,15 +34,39 @@ def test_region_admin_sync(monkeypatch, requests_mock):
         region_admin.sync(requests_mock)
         mock_load_region.assert_called_with()
 
-def test_business_area_admin_sync(monkeypatch):
-    pass
+def test_business_area_admin_sync(monkeypatch, requests_mock):
+    ba_admin = admin.BusinessAreaAdmin(BusinessArea, AdminSite())
 
-def test_business_area_admin_sync_err(monkeypatch):
-    pass
+    with monkeypatch.context() as m:
+        mock_load_ba = mock.Mock()
+        m.setattr('unicef_security.admin.load_business_area', mock_load_ba)
+        setattr(requests_mock, 'GET', {})
+
+        with pytest.raises(AssertionError):
+            mock_load_ba.assert_called_with()
+
+        ba_admin.sync(requests_mock)
+        mock_load_ba.assert_called_with()
+
+def test_business_area_admin_sync_err(monkeypatch, requests_mock):
+    ba_admin = admin.BusinessAreaAdmin(BusinessArea, AdminSite())
+
+    with monkeypatch.context() as m:
+        mock_load_ba_err = mock.Mock(side_effect=Exception)
+        m.setattr('unicef_security.admin.load_business_area', mock_load_ba_err)
+        setattr(requests_mock, 'GET', {})
+
+        with pytest.raises(AssertionError):
+            mock_load_ba_err.assert_called_with()
+
+        with pytest.raises(Exception):
+            ba_admin.sync(requests_mock)
+            # test logger msg
+
+        mock_load_ba_err.assert_called_with()
 
 class TestUserAdmin2():
     def test_is_linked(self):
-        print('test_is_linked')
         pass
     
     def test_impersonate(self):
