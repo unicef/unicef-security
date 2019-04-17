@@ -18,8 +18,8 @@ build
 # Logs:
 *.log
 
-*idea*
 .vscode
+.idea/
 
 static/*
 media
