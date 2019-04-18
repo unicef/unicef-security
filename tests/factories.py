@@ -1,6 +1,6 @@
-from unicef_security.models import User
-
 import factory
+
+from unicef_security.models import User
 
 
 class UserFactory(factory.django.DjangoModelFactory):

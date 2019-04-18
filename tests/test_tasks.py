@@ -1,10 +1,8 @@
 # import celery
 import mock
+
 import pytest
 
-# from celery.contrib.pytest import celery_app
-# from django.test.utils import override_settings
-# from unicef_security.tasks import sync_business_area
 
 # @mock.patch('celery.app.default_app.task')
 # @override_settings(CELERY_TASK_ALWAYS_EAGER=True)

@@ -1,7 +1,6 @@
 import pytest
 
-from unicef_security.models import Region, AbstractBusinessArea, User
-# from unicef_security.models import Region, AbstractBusinessArea
+from unicef_security.models import AbstractBusinessArea, Region, User
 
 
 def test_region():

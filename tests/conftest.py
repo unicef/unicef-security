@@ -1,6 +1,6 @@
-import pytest
-
 from tests import factories
+
+import pytest
 
 
 @pytest.fixture(scope="module")

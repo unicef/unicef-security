@@ -1,14 +1,11 @@
 import mock
-import pytest
-
 from django.contrib.admin.sites import AdminSite
 from django.urls import reverse
 
-from tests.fixtures import patch_admin_extra_urls_decorators
-patch_admin_extra_urls_decorators() # noqa
+import pytest
 
 from unicef_security import admin
-from unicef_security.models import User, Region, BusinessArea
+from unicef_security.models import BusinessArea, Region, User
 
 
 def test_admin_reverse():
