@@ -2,9 +2,11 @@ import pytest
 
 from tests import factories
 
+
 @pytest.fixture(scope="module")
 def user():
     return factories.UserFactory()
+
 
 @pytest.fixture(scope='session')
 def celery_config():

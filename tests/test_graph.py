@@ -10,8 +10,10 @@ from unicef_security.graph import Synchronizer
 def default_group():
     pass
 
+
 def test_get_unicef_user():
     pass
+
 
 def test_get_unicef_user_doesnotexists():
     pass
@@ -31,7 +33,6 @@ class TestSynchronizer():
     def test_token(self):
         s = Synchronizer()
         assert s.access_token
-
 
     @pytest.mark.skipif(os.environ.get("CIRCLECI") == "true", reason="Skip in CirlceCI")
     @VCR.use_cassette(str(Path(__file__).parent / 'vcr_cassettes/test_user_data.yml'))

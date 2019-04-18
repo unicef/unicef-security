@@ -2,8 +2,8 @@
 import mock
 import pytest
 
-from celery.contrib.pytest import celery_app
-from django.test.utils import override_settings
+# from celery.contrib.pytest import celery_app
+# from django.test.utils import override_settings
 # from unicef_security.tasks import sync_business_area
 
 # @mock.patch('celery.app.default_app.task')
@@ -13,10 +13,12 @@ from django.test.utils import override_settings
 # @pytest.mark.skip(reason="maybe figure out how to `delay` the task..")
 @pytest.mark.usefixtures('depends_on_current_app')
 def test_sync_business_area(monkeypatch):
-    # with celery_app.conf.update(CELERY_ALWAYS_EAGER=True):
-        # monkeypatch.setitem('celery.app.default_app', 'task', lambda: a)
-        # monkeypatch.setattr('celery.app.default_app', 'task', lambda: a, raising=False)
-        # monkeypatch.setattr('default_app', 'task', lambda: a)
+    '''
+    with celery_app.conf.update(CELERY_ALWAYS_EAGER=True):
+        monkeypatch.setitem('celery.app.default_app', 'task', lambda: a)
+        monkeypatch.setattr('celery.app.default_app', 'task', lambda: a, raising=False)
+        monkeypatch.setattr('default_app', 'task', lambda: a)
+    '''
 
     # sync_business_area.delay()
 
