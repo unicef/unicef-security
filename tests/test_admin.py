@@ -64,11 +64,21 @@ def test_business_area_admin_sync_err(monkeypatch, requests_mock):
 
 
 class TestUserAdmin2():
-    def test_is_linked(self):
-        pass
+    @classmethod
+    def setup_class(cls):
+        cls.useradmin = admin.UserAdmin2(User, AdminSite)
+        cls.user = User()
 
-    def test_impersonate(self):
-        pass
+    def test_is_linked(self):
+        azure_mock = mock.Mock(return_value={"is_linked": True})
+        assert self.useradmin.is_linked(azure_mock) is True
+
+    @pytest.mark.skip(reason="'impersonate' does not seem to exist")
+    def test_impersonate(self, requests_mock):
+        test_req = self.useradmin.impersonate(requests_mock, self.user.id)
+        assert test_req.status_code == 200
+        assert test_req.url == reverse('impersonate-start', args=[self.user.id])
+        # TODO: clarify where actually is 'impersonate'
 
     def test_sync_user(self):
         pass
