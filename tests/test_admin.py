@@ -1,3 +1,5 @@
+import uuid
+
 import mock
 from django.contrib.admin.sites import AdminSite
 from django.urls import reverse
@@ -66,22 +68,30 @@ def test_business_area_admin_sync_err(monkeypatch, requests_mock):
 class TestUserAdmin2():
     @classmethod
     def setup_class(cls):
+        cls.TEST_AZURE_GRAPH_API_BASE_URL = 'https://test.com/123'
         cls.useradmin = admin.UserAdmin2(User, AdminSite)
-        cls.user = User()
 
     def test_is_linked(self):
         azure_mock = mock.Mock(return_value={"is_linked": True})
         assert self.useradmin.is_linked(azure_mock) is True
 
+    @pytest.mark.django_db
     @pytest.mark.skip(reason="'impersonate' does not seem to exist")
     def test_impersonate(self, requests_mock):
+        self.user = User()
         test_req = self.useradmin.impersonate(requests_mock, self.user.id)
         assert test_req.status_code == 200
         assert test_req.url == reverse('impersonate-start', args=[self.user.id])
-        # TODO: clarify where actually is 'impersonate'
 
-    def test_sync_user(self):
-        pass
+    @pytest.mark.django_db
+    def test_sync_user(self, requests_mock, monkeypatch):
+        self.user = User(azure_id=uuid.uuid1(), display_name='test_user')
+        self.user.save()
+        with monkeypatch.context() as m:
+            test_azr_return = mock.Mock(return_value={'username': 'uname_test'})
+            m.setattr('unicef_security.graph.Synchronizer.get_token', test_azr_return)
+            m.setattr('unicef_security.graph.Synchronizer.get_page', mock.Mock())
+            self.useradmin.sync_user(requests_mock, self.user.id)
 
     def test_sync_user_err(self):
         pass

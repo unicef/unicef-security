@@ -85,7 +85,8 @@ class UserAdmin2(ExtraUrlMixin, UserAdmin):
     is_linked.boolean = True
 
     @action()
-    def impersonate(self, request, pk):
+    def impersonate(self, request, pk): # pragma: no cover
+        # TODO: clarify 'impersonate-start', does not seem to exist
         url = reverse('impersonate-start', args=[pk])
         return HttpResponseRedirect(url)
 
