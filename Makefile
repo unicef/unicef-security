@@ -26,7 +26,7 @@ help:
 
 develop:
 	@${MAKE} clean
-	pipenv install -d .[test] --skip-lock
+	pipenv install -e .[test] --skip-lock
 
 
 clean:

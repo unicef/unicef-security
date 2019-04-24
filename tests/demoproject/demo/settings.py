@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'unicef_security',
+    'admin_extra_urls',
     'demo'
 ]
 
