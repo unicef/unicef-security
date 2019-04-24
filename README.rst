@@ -34,11 +34,11 @@ Contributing
 Environment Setup
 ~~~~~~~~~~~~~~~~~
 
-To install the necessary libraries
+To configure the development environment
 
 .. code-block:: bash
 
-    $ make install
+    $ make develop
 
 
 Coding Standards
@@ -74,9 +74,9 @@ Links
 +--------------------+----------------+--------------+--------------------+
 | Development        | |dev-build|    | |dev-cov|    |                    |
 +--------------------+----------------+--------------+--------------------+
-| Source Code        |https://github.com/unicef/unicef-security             |
+| Source Code        |https://github.com/unicef/unicef-security           |
 +--------------------+----------------+-----------------------------------+
-| Issue tracker      |https://github.com/unicef/unicef-security/issues      |
+| Issue tracker      |https://github.com/unicef/unicef-security/issues    |
 +--------------------+----------------+-----------------------------------+
 
 
