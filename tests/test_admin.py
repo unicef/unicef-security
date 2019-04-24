@@ -1,11 +1,4 @@
-import mock
-from django.contrib.admin.sites import AdminSite
 from django.urls import reverse
-
-import pytest
-
-from unicef_security import admin
-from unicef_security.models import BusinessArea
 
 
 def test_changelist(django_app, admin_user):

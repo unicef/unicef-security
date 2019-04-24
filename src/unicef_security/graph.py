@@ -16,8 +16,6 @@ from social_django.models import UserSocialAuth
 
 from . import config
 
-from . import config
-
 AZURE_GRAPH_API_TOKEN_CACHE_KEY = 'azure_graph_api_token_cache_key'
 AZURE_GRAPH_DELTA_LINK_KEY = 'azure_graph_delta_link_key'
 

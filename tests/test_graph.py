@@ -1,11 +1,8 @@
-import os
-
-import mock
 
 from unicef_security.graph import Synchronizer
 
 
-def test_token(graph_vcr, monkeypatch):
+def test_token(graph_vcr):
     with graph_vcr.use_cassette('test_token.yml'):
         s = Synchronizer()
         assert s.access_token
