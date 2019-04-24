@@ -70,6 +70,7 @@ setup(
             'pytest-django',
             'pytest-echo',
             'pytest-pythonpath',
+            'requests-mock',
             'vcrpy',
         ],
     },
