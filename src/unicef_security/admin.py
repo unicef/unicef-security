@@ -7,7 +7,6 @@ from django.contrib.admin import ModelAdmin, widgets
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.forms import Form
-from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -83,11 +82,6 @@ class UserAdmin2(ExtraUrlMixin, UserAdmin):
         return bool(obj.azure_id)
 
     is_linked.boolean = True
-
-    @action()
-    def impersonate(self, request, pk):
-        url = reverse('impersonate-start', args=[pk])
-        return HttpResponseRedirect(url)
 
     @action(label='Sync')
     def sync_user(self, request, pk):
