@@ -3,7 +3,7 @@ branch = true
 source = unicef_security
 
 [report]
-fail_under = 95
+fail_under = 50
 ignore_errors = True
 exclude_lines =
    pragma: no cover
