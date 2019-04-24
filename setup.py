@@ -63,6 +63,7 @@ setup(
             'django-webtest',
             'factory-boy',
             'flake8',
+            'ipdb',
             'isort',
             'mock',
             'pytest',
