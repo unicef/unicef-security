@@ -1,4 +1,4 @@
-from unicef_security.models import BusinessArea, Region
+from unicef_security.models import BusinessArea, Region, User
 
 
 def test_region():
@@ -9,3 +9,18 @@ def test_region():
 def test_business_area():
     ab = BusinessArea(name="test_name")
     assert str(ab) == 'test_name'
+
+
+def test_user():
+    user = User(username="user_name")
+    assert str(user) == 'user_name'
+    assert user.label == 'user_name'
+
+    user = User(display_name="display_name")
+    assert user.label == 'display_name'
+
+    user = User(first_name="first_name")
+    assert user.label == 'first_name'
+
+    user = User(first_name="first_name", last_name="last_name")
+    assert user.label == 'first_name last_name:'
