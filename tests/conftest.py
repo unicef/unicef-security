@@ -17,9 +17,6 @@ def celery_config():
     return {
         'broker_url': 'amqp://',
         'result_backend': 'redis://',
-        # CELERY_TASK_ALWAYS_EAGER: True,
-        # CELERY_ALWAYS_EAGER: True,
-        # 'task_always_eager': True,
     }
 
 

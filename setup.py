@@ -69,6 +69,7 @@ setup(
             'pytest-django',
             'pytest-echo',
             'pytest-pythonpath',
+            'pytest-redis',
             'requests-mock',
             'vcrpy',
         ],
