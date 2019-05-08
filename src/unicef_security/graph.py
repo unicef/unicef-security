@@ -295,7 +295,6 @@ class Synchronizer:
         url = "%s/%s" % (self._baseurl, azure_id or user.azure_id)
         user_info = self.get_page(url, single=True)
         pk, values = self.get_record(user_info)
-        print('pk, values', pk, values)
         user, __ = self.user_model.objects.update_or_create(**pk,
                                                             defaults=values)
         return user
