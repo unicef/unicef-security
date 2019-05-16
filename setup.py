@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import ast
 import codecs
 import os
@@ -34,29 +33,28 @@ setup(
     url='https://github.com/unicef/unicef-security',
     author='UNICEF',
     author_email='rapidpro@unicef.org',
-    description='',
+    description='Provides Basic Unicef User model and integration with Azure',
     long_description=read('README.rst'),
     platforms=['any'],
     license='Apache 2 License',
     classifiers=[
         'Environment :: Web Environment',
-        'Framework :: Django',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-    ],
+        'Programming Language :: Python :: 3.7',
+        'Framework :: Django',
+        'Framework :: Django :: 2.1',
+        'Framework :: Django :: 2.2',
+        'Intended Audience :: Developers'],
     install_requires = [
-        'django',
         'admin-extra-urls',
-        'requests',
-        'django-countries',
-        'django-constance',
-        'django-crashlog',
-        'social-auth-app-django',
-        'django-constance',
-        'cryptography',
         'celery'
+        'cryptography',
+        'django',
+        'django-constance',
+        'django-countries',
+        'django-crashlog',
+        'requests',
+        'social-auth-app-django',
     ],
     extras_require={
         'test': [
