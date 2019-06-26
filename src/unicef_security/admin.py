@@ -124,6 +124,7 @@ class UserAdmin2(ExtraUrlMixin, UserAdmin):
             return TemplateResponse(request, 'admin/link_user.html', ctx)
 
         except Exception as e:
+            # raise e
             self.message_user(request, str(e), messages.ERROR)
 
     @link()

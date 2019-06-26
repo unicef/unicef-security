@@ -23,7 +23,8 @@ logger = logging.getLogger(__name__)
 
 DJANGOUSERMAP = {'_pk': ['username'],
                  'username': 'userPrincipalName',
-                 'email': 'mail',
+                 # 'email': 'mail',
+                 'email': 'userPrincipalName',
                  'azure_id': 'id',
                  'job_title': 'jobTitle',
                  'display_name': 'displayName',
@@ -193,7 +194,9 @@ class Synchronizer:
                      'client_id': self.id,
                      'client_secret': self.secret,
                      'resource': config.AZURE_GRAPH_API_BASE_URL}
+        # print('get_token', config.AZURE_TOKEN_URL, post_dict)
         response = requests.post(config.AZURE_TOKEN_URL, post_dict)
+        # print('get_token->response', response)
         if response.status_code != 200:  # pragma: no cover
             logger.error(f"Unable to fetch token from Azure. {response.status_code} {response.content}")
             raise Exception(f'Error during token retrieval: {response.status_code} {response.content}')
@@ -214,6 +217,8 @@ class Synchronizer:
             headers = {'Authorization': 'Bearer {}'.format(self.get_token())}
             try:
                 response = requests.get(url, headers=headers)
+                # print('get_page->url', url)
+                # print('get_page->resposne', response.status_code, response.json())
                 if response.status_code == 401:
                     data = response.json()
                     if data["error"]["message"] == "Access token has expired.":
@@ -226,12 +231,15 @@ class Synchronizer:
                                           f'Error processing the response {response.content}')
                 break
             except ConnectionError as e:
+                # print('get_page->url exception', url)
+                # print('get_page->response exception', response.status_code, response.json())
                 logger.exception(e)
                 raise
 
         jresponse = response.json()
         self.next_link = jresponse.get('@odata.nextLink', None)
         self.delta_link = jresponse.get('@odata.deltaLink', None)
+        # print('get_page(), single, jresponse', single, jresponse)
         if single:
             return jresponse
         return jresponse.get('value', [])
@@ -276,6 +284,8 @@ class Synchronizer:
             filters.append("givenName eq '%s'" % record.first_name)
 
         page = self.get_page(url + " or ".join(filters), single=True)
+        # print('search_users->url', url + " or ".join(filters))
+        # print('search_users->page', page)
         return page['value']
 
     def filter_users_by_email(self, email):
@@ -285,6 +295,7 @@ class Synchronizer:
         return page['value']
 
     def get_user(self, username):
+        # print('get_user->uname', username)
         url = "%s/%s" % (self._baseurl, username)
         user_info = self.get_page(url, single=True)
         return user_info
@@ -295,6 +306,7 @@ class Synchronizer:
         url = "%s/%s" % (self._baseurl, azure_id or user.azure_id)
         user_info = self.get_page(url, single=True)
         pk, values = self.get_record(user_info)
+        # print('pk, values', pk, values)
         user, __ = self.user_model.objects.update_or_create(**pk,
                                                             defaults=values)
         return user
