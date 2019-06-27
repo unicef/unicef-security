@@ -9,25 +9,25 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '184'
+      - '170'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
       - python-requests/2.21.0
     method: POST
-    uri: https://login.microsoftonline.com/unicef.org/oauth2/token
+    uri: https://login.microsoftonline.com/943a86e8-cb8c-4098-9f0a-46768ed486dd/oauth2/token
   response:
     body:
-      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1556134678","not_before":"1556130778","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYVEJmc2dQUkJic2F4YkhfRXBqZzUzU0ZuM1dWMnFLYVJhenNRUGVtaWJNNW51WTZiZ291OGl1ZU1RdVFDRUZXcDY3NTJxdHNJd25Gd1J2NWRiSFlETFNBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiSEJ4bDltQWU2Z3hhdkNrY29PVTJUSHNETmEwIiwia2lkIjoiSEJ4bDltQWU2Z3hhdkNrY29PVTJUSHNETmEwIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC83NzQxMDE5NS0xNGUxLTRmYjgtOTA0Yi1hYjE4OTIwMjM2NjcvIiwiaWF0IjoxNTU2MTMwNzc4LCJuYmYiOjE1NTYxMzA3NzgsImV4cCI6MTU1NjEzNDY3OCwiYWlvIjoiNDJaZ1lPQmZzRzd0ZEg1ZVBpSHZvNU9QdDdyT0J3QT0iLCJhcHBfZGlzcGxheW5hbWUiOiJ1bmktZnJnLWV0b29scy1kZXYiLCJhcHBpZCI6ImQxYmQ3OWI1LTI5YzYtNDcyZS04ZjY2LWYyYzE0NWI2YWE1ZCIsImFwcGlkYWNyIjoiMSIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0Lzc3NDEwMTk1LTE0ZTEtNGZiOC05MDRiLWFiMTg5MjAyMzY2Ny8iLCJvaWQiOiIwZThmOWQ0Yi03Yzg0LTQ3MDYtYTY1Ny0wMzQ2ZmE0OGRhN2IiLCJyb2xlcyI6WyJEaXJlY3RvcnkuUmVhZC5BbGwiLCJVc2VyLlJlYWQuQWxsIl0sInN1YiI6IjBlOGY5ZDRiLTdjODQtNDcwNi1hNjU3LTAzNDZmYTQ4ZGE3YiIsInRpZCI6Ijc3NDEwMTk1LTE0ZTEtNGZiOC05MDRiLWFiMTg5MjAyMzY2NyIsInV0aSI6InExNmxKc09HVzBHMDlBV2lRNmNBQUEiLCJ2ZXIiOiIxLjAiLCJ4bXNfdGNkdCI6MTM3MTEyNzk0OX0.qwzkvzciD06MwpBFFJaAkV8qTXuZrjdJxcz5oj3gPQO3QzVwzheoACHV3WnBlpCKcdjMTbHQ_s5xDmFjAd2agxKVrKNjochbnx4GNqRdwpPFnnb-V2nMrt4f2BguS_NVc27Icw7D2vAzNGh4IsPYI6OsduiDjfx_so0YdMkJZ5YPvLIQJ014Wj9HHXIol3sUo4t4Iu5LSfr3308Grn4MmpF2nFWIPZwoHQn4VV1IbrN53Ll9SsWOTTHHLZjNttScBjKK5W-iYgsTfdpGM-1AEk85lak56YA4BC0T3EwXUDvR7eP2Q1hwgTnvPa8BM1hzOrPHhNHdvJlw3iAViQcqIQ"}'
+      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1561669173","not_before":"1561665273","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYUWJvYjl6RWFLSXdPWTBDR09HMEh4a0I0SjMyX2EtWTRKVDZvV3Rnam1uLXBHMk9LRVhQUzI3Tmg3T1BIU2FJRnMyUFBzNXd5cVFlUFhVM04zdWdoY2lBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYxNjY1MjczLCJuYmYiOjE1NjE2NjUyNzMsImV4cCI6MTU2MTY2OTE3MywiYWlvIjoiNDJaZ1lQZ1R5NkN5UWNheDQrNk9QdmZsSjExM0F3QT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoiTTFqSm5uR1Q0RU9IWXpUNlBaVlZBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.PAFwkq874kAgkQ6TWhlF0TiNVFsSAmMo4c3sH4taZoyrgeB8WvzezPNCx2bWLnROUzIhZRYGjkJk3CsLJO4KG3Q7C4wAyng_NA5yTUVtMCpd5c1oPB0olcomVT436jLtFU7XfGJaeTuTN1_3XBczDNlQpG-hRbWOiwI9tHvtfpO_mtLuDubp0Tvb-JIvmRawazZ0lbXiYHWwSbsFNzNkpD0KNpuPaRApFo0mX-xA1861Sqra-SQr6vPyTa2QGMwQ5zzmaOk082dsn9TB9JFRu_T91R8y_jUjRbzscTjk9W9oGTHQ-8CvcwNWvXcvGv4KONqE2KBMUVDVIs2Aea-SaA"}'
     headers:
       Cache-Control:
       - no-cache, no-store
       Content-Length:
-      - '1652'
+      - '1755'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 24 Apr 2019 18:37:57 GMT
+      - Thu, 27 Jun 2019 19:59:33 GMT
       Expires:
       - '-1'
       P3P:
@@ -35,8 +35,8 @@ interactions:
       Pragma:
       - no-cache
       Set-Cookie:
-      - fpc=AiRaP6fYcoZHlfA53VZsoPuhqu4lAQAAAAWkUtQOAAAA; expires=Fri, 24-May-2019
-        18:37:58 GMT; path=/; secure; HttpOnly
+      - fpc=Aj6egKBDBXdLke8ay_pKgGNsnEofAQAAACUXp9QOAAAA; expires=Sat, 27-Jul-2019
+        19:59:33 GMT; path=/; secure; HttpOnly
       - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
       - stsservicecookie=ests; path=/; secure; HttpOnly
       Strict-Transport-Security:
@@ -44,7 +44,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       x-ms-request-id:
-      - 26a55eab-86c3-415b-b4f4-05a243a70000
+      - 9ec95833-9371-43e0-8763-34fa3d955500
     status:
       code: 200
       message: OK
@@ -67,7 +67,7 @@ interactions:
     uri: https://login.microsoftonline.com/943a86e8-cb8c-4098-9f0a-46768ed486dd/oauth2/token
   response:
     body:
-      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1560946038","not_before":"1560942138","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYUlo0aV81WC01MUZjZEpza2hxSVpONC1nT3VmRk56U2pjTERxNHJ0LThiMkJ0bXVNQnd2akViMlpxb29KZFdZYkFBQkhDQzl6d01ycVltanVQNkc0cFNBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYwOTQyMTM4LCJuYmYiOjE1NjA5NDIxMzgsImV4cCI6MTU2MDk0NjAzOCwiYWlvIjoiNDJaZ1lGZ1VOeXZsNmhUbGU4K25iWkg0cXUyL0R3QT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoiYnpjNXpOejNZa3FzWjFGR2YtY2FBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.PCbUNI1cOK9gz0LVPmuYwK0KdruMwwhx36C641rjEJGQ0zuxVv-i8g9NSBSS3Op-EWvlWGltqmGu-e0BSG3GOxzPiNeNdjt0XCOfy0umgZGWPBuzD2doK96kDVUby3TpIheH0bfO3hhrevd9SedcQny2GP6pm_F1R79fyS-c4UGGrC2LMD1TMIg-d94ev9_SNGDM-u7QxHiJ0Daom0HwAQcitk_LSYK2VtQcynC0B6b4FycygPCNnptxOyF2WFA0wPfc_sodtiAdpT_XdOwPnJ75gFhRgYHHVNun4pke_nqokkztSmcOWfryJ-1YhoXIxwLvyO4U4xY812NSRQtLDg"}'
+      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1561669173","not_before":"1561665273","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYaEdDWW83ZVFaeWN3YXVUY000WXBMc2RtcnB4cnBXS0Jvd1pEZGdLVHFzN3RqSlpMZFdrd1NDU295MHFVZ0Q4MGlieHh3cDJqQkhBcTU5ejNVSzFCOGlBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYxNjY1MjczLCJuYmYiOjE1NjE2NjUyNzMsImV4cCI6MTU2MTY2OTE3MywiYWlvIjoiNDJaZ1lIaTJ5ZnFEM01rd1BmZHltUmV4RXg5c0JBQT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoieDk3dHlNRVVmazY2UXhHbDhtMVVBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.LUIU1QLDdnD6Imn8rD9AeMfWZQ-Zrs089v19DsTVcMZ7f2qo7GcBnSZ8bWJT97t--HMHshJqQYugURnvtvvoZdPwV1Pbb4epkr92_fOPRvfTz9AroSVCgvxZI-yyrrvQyai-yKmTwmyW22lziICJL8hkdpnyjVxEPLUkdz04gEwyJjzbOIQ3BSe5XnrIS6qA-sAKqbcXHwwa7ZkGTgI5XjwonapnwH6wSf_bs3gI0NtydDUqjjQETjKhZ4xrBqgAhWwmPmpd3CnEwhW_SsP5EMYQSku58lWBeRtwoGXpI12O4Dl9DBES3fTooCbpAHsgk96KSCq36dpBkLOycNyqaw"}'
     headers:
       Cache-Control:
       - no-cache, no-store
@@ -76,7 +76,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 19 Jun 2019 11:07:18 GMT
+      - Thu, 27 Jun 2019 19:59:33 GMT
       Expires:
       - '-1'
       P3P:
@@ -84,8 +84,8 @@ interactions:
       Pragma:
       - no-cache
       Set-Cookie:
-      - fpc=ArgRVtMb7tBNqUth_eS4_AFsnEofAQAAAGYOnNQOAAAA; expires=Fri, 19-Jul-2019
-        11:07:18 GMT; path=/; secure; HttpOnly
+      - fpc=Ajz7Ec0HQQROuS7rbnKVeRBsnEofAQAAACUXp9QOAAAA; expires=Sat, 27-Jul-2019
+        19:59:33 GMT; path=/; secure; HttpOnly
       - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
       - stsservicecookie=ests; path=/; secure; HttpOnly
       Strict-Transport-Security:
@@ -93,7 +93,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       x-ms-request-id:
-      - cc39376f-f7dc-4a62-ac67-51467fe71a00
+      - c8eddec7-14c1-4e7e-ba43-11a5f26d5400
     status:
       code: 200
       message: OK
@@ -128,205 +128,9 @@ interactions:
       Content-Type:
       - application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
       Date:
-      - Wed, 19 Jun 2019 11:07:19 GMT
+      - Thu, 27 Jun 2019 19:59:33 GMT
       Duration:
-      - '39.657'
-      OData-Version:
-      - '4.0'
-      Strict-Transport-Security:
-      - max-age=31536000
-      Vary:
-      - Accept-Encoding
-      client-request-id:
-      - 97e71890-49bb-4138-9a54-d3dcec895b4a
-      request-id:
-      - 97e71890-49bb-4138-9a54-d3dcec895b4a
-      x-ms-ags-diagnostic:
-      - '{"ServerInfo":{"DataCenter":"North Europe","Slice":"SliceC","Ring":"3","ScaleUnit":"001","RoleInstance":"AGSFE_IN_24","ADSiteName":"NEU"}}'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: grant_type=client_credentials&resource=https%3A%2F%2Fgraph.microsoft.com
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '170'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - python-requests/2.21.0
-    method: POST
-    uri: https://login.microsoftonline.com/943a86e8-cb8c-4098-9f0a-46768ed486dd/oauth2/token
-  response:
-    body:
-      string: '{"token_type":"Bearer","expires_in":"3599","ext_expires_in":"3599","expires_on":"1560954933","not_before":"1560951033","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYT3Y5R1Z1bDFfNW5xcnVKOUZIa1RkRWdEUWlORHJSb2pWbW5BV3JtZTkyMldTM2FCX1IyaUF6ZXZCeURPSVM1TEdzVVB1M0hWcWUzSEpqQllYZkdIaGlBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYwOTUxMDMzLCJuYmYiOjE1NjA5NTEwMzMsImV4cCI6MTU2MDk1NDkzMywiYWlvIjoiNDJaZ1lQQTZHUEx1ZFBXME04S0NsemVwKyswM0FBQT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoiTl9FOVNIZ3pEVUcwSU5FVV9FQmVBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.aW-qZoS-y2RCACc0s9SLY0Kj18ESIV3mRU9edo8Z7vd37zPuIkofYbE14sBM8Ksa2RwG7hnGDoKSj1LVrBsR6nqu6OhpelC905XPZIkTBguUn9hjrqWIXDdXkCFUm2k9YhLCdzr3MRPoeYlfp4sYk91wGKScfZKKOvUIPUmW_W1AFazMb--lq0Q5AhXLUppNQmpY3GHE4DRnEISAmgK53bnCAayoG36wOGj3SS3WDAWZy-T7ww-MBWd40b2eMRsnC-GSQpAtdERlCic9q7iSNC0v3mXqLiQoXr9dzklSkzUvtUq-lOIQcAGgJZpu7lY9-6WQvrMy7cYx3eGz8Xi8hQ"}'
-    headers:
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '1755'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Wed, 19 Jun 2019 13:35:32 GMT
-      Expires:
-      - '-1'
-      P3P:
-      - CP="DSP CUR OTPi IND OTRi ONL FIN"
-      Pragma:
-      - no-cache
-      Set-Cookie:
-      - fpc=AkxMY4YUJV9Pn72Zgvduh6dsnEofAQAAACMxnNQOAAAA; expires=Fri, 19-Jul-2019
-        13:35:33 GMT; path=/; secure; HttpOnly
-      - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
-      - stsservicecookie=ests; path=/; secure; HttpOnly
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains
-      X-Content-Type-Options:
-      - nosniff
-      x-ms-request-id:
-      - 483df137-3378-410d-b420-d114fc405e00
-    status:
-      code: 200
-      message: OK
-- request:
-    body: grant_type=client_credentials&resource=https%3A%2F%2Fgraph.microsoft.com
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '170'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - python-requests/2.21.0
-    method: POST
-    uri: https://login.microsoftonline.com/943a86e8-cb8c-4098-9f0a-46768ed486dd/oauth2/token
-  response:
-    body:
-      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1561659419","not_before":"1561655519","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYVC1SWmRkYTNXRUREdDZjTzU1X0RYVGFrU3ZibDR1SUIzTEhhVklEN0NMM2xtWUhyUjlHYlRrOTU2Y1ExTVVfZl9yV0ZLbURQbk5SNFZsQ0p2bG03WUNBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYxNjU1NTE5LCJuYmYiOjE1NjE2NTU1MTksImV4cCI6MTU2MTY1OTQxOSwiYWlvIjoiNDJaZ1lQam1rbmZiNlo3QUkrVk5seWFuQlZyTkJ3QT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoicmpySXJNX2k4RW13bVU1bk4xOWhBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.JDZ84Dyo_3gcnBf_oyik9I3nu6y3Qv6Llc4XaUVNeigp9eaHSjZFiBIQG3fJXCWZT2tONY2dtsQzYkkxuJE8-hyyKAIq0-3E_n2Hboe-XguxM-lFs6tJ6sklCoygTnsKEzz5LQyTTiVXiYkJT2cYlWLEpS3EY1fwEiNFUJGPWCl5Le2uTiLy_12dYYe_JyE_4lA6NZeqsmj-e4KllCH9H2CK4ZLcDDcACN6KV1PgHt9jlkRo4aqR7JYD43O0mpIkvte1l_vGvzRmNMzYZlXfzfQG72kE8W_3fD0opkX3HyfX1ZaZv2FD8Cg53NBb_eXKqwhh5Z6ink8Yf6tR2uNYqw"}'
-    headers:
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '1755'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Thu, 27 Jun 2019 17:16:58 GMT
-      Expires:
-      - '-1'
-      P3P:
-      - CP="DSP CUR OTPi IND OTRi ONL FIN"
-      Pragma:
-      - no-cache
-      Set-Cookie:
-      - fpc=AjVnw_T0p2RGrITduaYt2HBsnEofAQAAAArxptQOAAAA; expires=Sat, 27-Jul-2019
-        17:16:59 GMT; path=/; secure; HttpOnly
-      - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
-      - stsservicecookie=ests; path=/; secure; HttpOnly
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains
-      X-Content-Type-Options:
-      - nosniff
-      x-ms-request-id:
-      - acc83aae-e2cf-49f0-b099-4e67375f6100
-    status:
-      code: 200
-      message: OK
-- request:
-    body: grant_type=client_credentials&resource=https%3A%2F%2Fgraph.microsoft.com
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '170'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - python-requests/2.21.0
-    method: POST
-    uri: https://login.microsoftonline.com/943a86e8-cb8c-4098-9f0a-46768ed486dd/oauth2/token
-  response:
-    body:
-      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1561659419","not_before":"1561655519","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYeG5PVHgzcDRwWHFFWXlBRGpHeE5hZDZSTkxEUVhjRWZGSzgyZ0pfOVpwUVc5bEJBSmplRGw1MndCRTQ0MUY5ZWJaTHVTV3dDeGViUy1HaTJncG4zX0NBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYxNjU1NTE5LCJuYmYiOjE1NjE2NTU1MTksImV4cCI6MTU2MTY1OTQxOSwiYWlvIjoiNDJaZ1lKank0cDE5YTk3dnc5ZDBiUko1OTZvNEFBQT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoiVTJ1UUxPWkZ2VXV6NXp0NVlwUmZBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.FwxTtMKeUZWJS4IFZY6FWJQFR-ReZqCfh5CQXbQZ2mSJy3Zb1yCCPokbunu3UTgJZ9R0eYLlGKNavaIpLCaQjJWkg0v6IXXDsQ5cgsV5n5NI6uPnFIJvzAE6sCIopYNJOwxyRKdySEgGSuhn6OlL01L3P6YQkN3Dvp0-VoSAKx6Qhj2G5GPLUBtr2iodmiApbMRfBcOeuSnfmR4_VWR4ib9Q0exAJ8mijUoyWPf3J1qkCjzEULvL_zmkgUpXCNu8xktYVsgc--xZZAog4ckBwKn0ZuIN4Hh0hKr41CgXMxpNIfaHfQFVUCqavDbqHagt5q4S2yvG0KTierod0di63A"}'
-    headers:
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '1755'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Thu, 27 Jun 2019 17:16:59 GMT
-      Expires:
-      - '-1'
-      P3P:
-      - CP="DSP CUR OTPi IND OTRi ONL FIN"
-      Pragma:
-      - no-cache
-      Set-Cookie:
-      - fpc=AkRaCC9T0h5Jj_hup7eo2TBsnEofAQAAAAvxptQOAAAA; expires=Sat, 27-Jul-2019
-        17:16:59 GMT; path=/; secure; HttpOnly
-      - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
-      - stsservicecookie=ests; path=/; secure; HttpOnly
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains
-      X-Content-Type-Options:
-      - nosniff
-      x-ms-request-id:
-      - 2c906b53-45e6-4bbd-b3e7-3b7962945f00
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.21.0
-    method: GET
-    uri: https://graph.microsoft.com/v1.0/users/e02822f9-c473-4c77-9343-1c8e6c062f5e
-  response:
-    body:
-      string: !!binary |
-        H4sIAAAAAAAEAO29B2AcSZYlJi9tynt/SvVK1+B0oQiAYBMk2JBAEOzBiM3mkuwdaUcjKasqgcpl
-        VmVdZhZAzO2dvPfee++999577733ujudTif33/8/XGZkAWz2zkrayZ4hgKrIHz9+fB8/In7xR79n
-        NcvabDytlm3+rv3o0Ufztl01j+7evaiz1Xy8KKZ11VTnLbVY3L3cHe/c/d0WeZvhpR9fN3nd3P3d
-        8mVbtNcfjT6arJtimTfNy3lFPz569L3vjz6aFc2qzK5fZIucgJ802SRLn+b4evTRRXGZL/1v6LOf
-        riZvirakj5brshx9tMiK0v5eTYoyZ+jmo+r8vJjmz6tp1hbV0ny6qvPzvK7z2fNsebHOLmzzZl0v
-        pT+DA8bwsi6W02KVlYrLFLiMZ2jxey6relZWF8UUBKD2xYwa5Dt7B3t75w+3p/sP7m3vTx882H54
-        b//e9u70IP90uvPp3vn9/KNf8v8AQ5X4S10BAAA=
-    headers:
-      Cache-Control:
-      - private
-      Content-Encoding:
-      - gzip
-      Content-Type:
-      - application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
-      Date:
-      - Thu, 27 Jun 2019 17:16:59 GMT
-      Duration:
-      - '133.1602'
+      - '45.8098'
       OData-Version:
       - '4.0'
       Strict-Transport-Security:
@@ -336,309 +140,11 @@ interactions:
       Vary:
       - Accept-Encoding
       client-request-id:
-      - 04b83e5b-5870-4a5e-b54f-53663d142fdb
+      - 0c9b4d78-5286-4cde-a701-cd9f9eef5a2c
       request-id:
-      - 04b83e5b-5870-4a5e-b54f-53663d142fdb
+      - 0c9b4d78-5286-4cde-a701-cd9f9eef5a2c
       x-ms-ags-diagnostic:
-      - '{"ServerInfo":{"DataCenter":"North Europe","Slice":"SliceC","Ring":"3","ScaleUnit":"002","RoleInstance":"AGSFE_IN_19","ADSiteName":"NEU"}}'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: grant_type=client_credentials&resource=https%3A%2F%2Fgraph.microsoft.com
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '170'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - python-requests/2.21.0
-    method: POST
-    uri: https://login.microsoftonline.com/943a86e8-cb8c-4098-9f0a-46768ed486dd/oauth2/token
-  response:
-    body:
-      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1561659473","not_before":"1561655573","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYRFpRcFJ0aFM0RURrNW12YktTekhldmFxYjVRZDFva1R3N1pjZXpuQUtLdk00d1hBY2w0bnVnZDVRQkhUMTdGcDM5bDFVc2pXWTRLZ2dFRWpWTlhtYWlBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYxNjU1NTczLCJuYmYiOjE1NjE2NTU1NzMsImV4cCI6MTU2MTY1OTQ3MywiYWlvIjoiNDJaZ1lPak1mM3B2OTgrNWxjRlorZWNQY2xVc0JRQT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoiU3VXOGVyLWpIVVM1WWg1N0VPSlhBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.KHKI56fNx-2DhBWxd6l1e9F5EL3nzWJU4gmM7auf4QcPWsfp4weQJ28MESIrEO3O0hly8IJ1WEUtLDDI_dki2zZHqOP-QgS61BdQ5MM0iTt9sb_7VXUS6oB1Q3DOS-1TE7LEhcCS-rIIR4m1-ATxvQJdf4PtHgz-hgT6Q_ur4rFORsHVjeabQsAEeeNluegD65_9qjy3e2o3krfPHzYY5jDi72-nHMvvxxa2vFx2tId3lNS7oOhFRWib4UUYaf7NTqnlnMkZu1guOD4BEUB-s3c2DdlaTQyVi9Bn0VEZB814dNqRhc4awgFBw-Vte2pw4SjkT95VKWhIe1J7MG_1VA"}'
-    headers:
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '1755'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Thu, 27 Jun 2019 17:17:53 GMT
-      Expires:
-      - '-1'
-      P3P:
-      - CP="DSP CUR OTPi IND OTRi ONL FIN"
-      Pragma:
-      - no-cache
-      Set-Cookie:
-      - fpc=AnyEEqu7TP1Lsm-hoipu_v9snEofAQAAAEHxptQOAAAA; expires=Sat, 27-Jul-2019
-        17:17:53 GMT; path=/; secure; HttpOnly
-      - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
-      - stsservicecookie=ests; path=/; secure; HttpOnly
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains
-      X-Content-Type-Options:
-      - nosniff
-      x-ms-request-id:
-      - 7abce54a-a3bf-441d-b962-1e7b10e25700
-    status:
-      code: 200
-      message: OK
-- request:
-    body: grant_type=client_credentials&resource=https%3A%2F%2Fgraph.microsoft.com
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '170'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - python-requests/2.21.0
-    method: POST
-    uri: https://login.microsoftonline.com/943a86e8-cb8c-4098-9f0a-46768ed486dd/oauth2/token
-  response:
-    body:
-      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1561659473","not_before":"1561655573","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYMTlYOU1qSHplSmFNVXBoc2VMajFQSkVjVThjMmpQaUltUnl2VlpuQ0QwRUdfT0kyZ2UwNWJZT2JQSTB6YWlCM1p6cEl3M1dMd0tsamhLRHpLbEdoWnlBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYxNjU1NTczLCJuYmYiOjE1NjE2NTU1NzMsImV4cCI6MTU2MTY1OTQ3MywiYWlvIjoiNDJaZ1lQaHh5ZEwweXMwRHd1SUwvemNsY0w2VEFBQT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoiOEJJLUtNRGh3RWVadE1PV3Z5TlpBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.bu5puBnOr21TBMspSws99qInA_OrS2Ecb0EfvQ3YAJFPr6wVltxKH1zYj5gjkvFRx_J8meBzD7LywPGC4YIEsYEa11JR13hG7X6yu33s9fwE4CUUUXnwZl4VQxDvS3QgebLl1PZEiUH5dYhPR_HMDHzLw8JYAUuvpCzE0H0sQPWx-PDsdu5GrWDiu7WF2vgXMaWgjxMXuW6asq3ErgWfQtLkP7sO7lYbI82g6UTGpvv68eBKeukWPOvOcsACulR0Do7pgF6joGySiHAWxjg80j3oq9Jiy4UxiQivv5Hk_JAPRdwLQ3EaxJD6ymh04CxIu2L0jMOapJ1AY0Jyr0KC2A"}'
-    headers:
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '1755'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Thu, 27 Jun 2019 17:17:52 GMT
-      Expires:
-      - '-1'
-      P3P:
-      - CP="DSP CUR OTPi IND OTRi ONL FIN"
-      Pragma:
-      - no-cache
-      Set-Cookie:
-      - fpc=AsLtFLGga4FPtJ7xJC7sNtxsnEofAQAAAEDxptQOAAAA; expires=Sat, 27-Jul-2019
-        17:17:53 GMT; path=/; secure; HttpOnly
-      - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
-      - stsservicecookie=ests; path=/; secure; HttpOnly
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains
-      X-Content-Type-Options:
-      - nosniff
-      x-ms-request-id:
-      - 283e12f0-e1c0-47c0-99b4-c396bf235900
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.21.0
-    method: GET
-    uri: https://graph.microsoft.com/v1.0/users/e02822f9-c473-4c77-9343-1c8e6c062f5e
-  response:
-    body:
-      string: !!binary |
-        H4sIAAAAAAAEAO29B2AcSZYlJi9tynt/SvVK1+B0oQiAYBMk2JBAEOzBiM3mkuwdaUcjKasqgcpl
-        VmVdZhZAzO2dvPfee++999577733ujudTif33/8/XGZkAWz2zkrayZ4hgKrIHz9+fB8/In7xR79n
-        NcvabDytlm3+rv3o0Ufztl01j+7evaiz1Xy8KKZ11VTnLbVY3L3cHe/c/d0WeZvhpR9fN3nd3P3d
-        8mVbtNcfjT6arJtimTfNy3lFPz569L3vjz6aFc2qzK5fZIucgJ802SRLn+b4evTRRXGZL/1v6LOf
-        riZvirakj5brshx9tMiK0v5eTYoyZ+jmo+r8vJjmz6tp1hbV0ny6qvPzvK7z2fNsebHOLmzzZl0v
-        pT+DA8bwsi6W02KVlYrLFLiMZ2jxey6relZWF8UUBKD2xYwa5Dt7B3t75w+3p/sP7m3vTx882H54
-        b//e9u70IP90uvPp3vn9/KNf8v8AQ5X4S10BAAA=
-    headers:
-      Cache-Control:
-      - private
-      Content-Encoding:
-      - gzip
-      Content-Type:
-      - application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
-      Date:
-      - Thu, 27 Jun 2019 17:17:53 GMT
-      Duration:
-      - '39.0612'
-      OData-Version:
-      - '4.0'
-      Strict-Transport-Security:
-      - max-age=31536000
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      client-request-id:
-      - 1da7af22-ddcd-41d8-9114-3c7645fff07a
-      request-id:
-      - 1da7af22-ddcd-41d8-9114-3c7645fff07a
-      x-ms-ags-diagnostic:
-      - '{"ServerInfo":{"DataCenter":"North Europe","Slice":"SliceC","Ring":"3","ScaleUnit":"001","RoleInstance":"AGSFE_IN_44","ADSiteName":"NEU"}}'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: grant_type=client_credentials&resource=https%3A%2F%2Fgraph.microsoft.com
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '170'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - python-requests/2.21.0
-    method: POST
-    uri: https://login.microsoftonline.com/943a86e8-cb8c-4098-9f0a-46768ed486dd/oauth2/token
-  response:
-    body:
-      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1561660661","not_before":"1561656761","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYbFFsY1hZRXlvM3g1YURESnlhdmJQbktsN1lSd1E1LXZaZ1daVXJFb2RnSGhXU2FTbFRnbWg2eHF4dkNxZktMZzQzcWVuQnNtSmhaZEVzOUVTV2doMlNBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYxNjU2NzYxLCJuYmYiOjE1NjE2NTY3NjEsImV4cCI6MTU2MTY2MDY2MSwiYWlvIjoiNDJaZ1lQaDdvMFJhVnZvdVMrZ3NxMWptTmEzTUFBPT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoiN2p2VDBRb1diRXVIVWQwSmZVTmZBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.THHQfY_gdZvtN_g1T5sH6y4HT9BhV47H7zhFNXGkZ0ZfcK0rgph5dmBNmIkONT7pUQO5Vamouipc38zxAvHP1-z-gIKRI6ev4DIRDhl8E7LdijdlItR9sdPREmEIwYYz-ra1DFvuSh8oaRAbJM-30d6ZfgR7pbDLGE1Is37j67hRnOszWMhg32chkB5fVYO4AXaF7rrqvgvdEmZelHKQiVohMTmhO1Tx7odiY8Hcd6W9nkfEKmvTRh4-9nQVLDxqFF7ey3oVQb86YaYIXa6y8_Nemh2l629Qm8uiLHR6lfhV5Z3UOVpeog7BEnItBj82YbI2UmL65ma7n3qf-LeGdg"}'
-    headers:
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '1755'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Thu, 27 Jun 2019 17:37:40 GMT
-      Expires:
-      - '-1'
-      P3P:
-      - CP="DSP CUR OTPi IND OTRi ONL FIN"
-      Pragma:
-      - no-cache
-      Set-Cookie:
-      - fpc=Aq4-Q09IP5FPsfUVSa6W9PdsnEofAQAAAOT1ptQOAAAA; expires=Sat, 27-Jul-2019
-        17:37:41 GMT; path=/; secure; HttpOnly
-      - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
-      - stsservicecookie=ests; path=/; secure; HttpOnly
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains
-      X-Content-Type-Options:
-      - nosniff
-      x-ms-request-id:
-      - d1d33bee-160a-4b6c-8751-dd097d435f00
-    status:
-      code: 200
-      message: OK
-- request:
-    body: grant_type=client_credentials&resource=https%3A%2F%2Fgraph.microsoft.com
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '170'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - python-requests/2.21.0
-    method: POST
-    uri: https://login.microsoftonline.com/943a86e8-cb8c-4098-9f0a-46768ed486dd/oauth2/token
-  response:
-    body:
-      string: '{"token_type":"Bearer","expires_in":"3599","ext_expires_in":"3599","expires_on":"1561660661","not_before":"1561656761","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYamtpNEUwdks3SVhTSWxTRXpmMzhBWGJNeVF4MXdBcjVPWl85VXQ5emRIQ2VWX2pxYXNFdTJzZUZmcVVJOXhoVU1OY2VkTkVCT0Ewd01QcUk5TURpWGlBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYxNjU2NzYxLCJuYmYiOjE1NjE2NTY3NjEsImV4cCI6MTU2MTY2MDY2MSwiYWlvIjoiNDJaZ1lEaGtjY0lwZmp2bjZ1WEhMeG82ZUZxc0J3QT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoiQWszWE1MempQRWEwN0FXSmRpeG1BQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.HiDVskgOtXubXSbz9JehcdgsmdiwRx7ge1DF7VKKqOUBJ6GUPdu4lb4ZyFGJRaWe7ojtJK-MSFPw--TVye0V3WpyALpjF-PurmYtqUMQfautYpSGyLKxmvn0_pFzWw2QTMdYI2fIlAMro52TmJzGORV-c0C9jb-ZHoZol8_NaaKr3ZgvIp2aZIzW8JQBgmsORrEZfKHEtcqC5I95WEqtlSyBjX71P_Pvej_1JfMv6BCFpK-R-bS6zar-tXh09Q4uUI3ZeJvO-vCwimD8PiG707Vqhzp-GoymWkahkXv-3M8jwxr5cxsyQrgjGqWoo8IDZ-GhS9A609yWQ77qBnJN3Q"}'
-    headers:
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '1755'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Thu, 27 Jun 2019 17:37:40 GMT
-      Expires:
-      - '-1'
-      P3P:
-      - CP="DSP CUR OTPi IND OTRi ONL FIN"
-      Pragma:
-      - no-cache
-      Set-Cookie:
-      - fpc=AuNcPgE644JArXvlE7Of329snEofAQAAAOT1ptQOAAAA; expires=Sat, 27-Jul-2019
-        17:37:41 GMT; path=/; secure; HttpOnly
-      - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
-      - stsservicecookie=ests; path=/; secure; HttpOnly
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains
-      X-Content-Type-Options:
-      - nosniff
-      x-ms-request-id:
-      - 30d74d02-e3bc-463c-b4ec-0589762c6600
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.21.0
-    method: GET
-    uri: https://graph.microsoft.com/v1.0/users/e02822f9-c473-4c77-9343-1c8e6c062f5e
-  response:
-    body:
-      string: !!binary |
-        H4sIAAAAAAAEAO29B2AcSZYlJi9tynt/SvVK1+B0oQiAYBMk2JBAEOzBiM3mkuwdaUcjKasqgcpl
-        VmVdZhZAzO2dvPfee++999577733ujudTif33/8/XGZkAWz2zkrayZ4hgKrIHz9+fB8/In7xR79n
-        NcvabDytlm3+rv3o0Ufztl01j+7evaiz1Xy8KKZ11VTnLbVY3L3cHe/c/d0WeZvhpR9fN3nd3P3d
-        8mVbtNcfjT6arJtimTfNy3lFPz569L3vjz6aFc2qzK5fZIucgJ802SRLn+b4evTRRXGZL/1v6LOf
-        riZvirakj5brshx9tMiK0v5eTYoyZ+jmo+r8vJjmz6tp1hbV0ny6qvPzvK7z2fNsebHOLmzzZl0v
-        pT+DA8bwsi6W02KVlYrLFLiMZ2jxey6relZWF8UUBKD2xYwa5Dt7B3t75w+3p/sP7m3vTx882H54
-        b//e9u70IP90uvPp3vn9/KNf8v8AQ5X4S10BAAA=
-    headers:
-      Cache-Control:
-      - private
-      Content-Encoding:
-      - gzip
-      Content-Type:
-      - application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
-      Date:
-      - Thu, 27 Jun 2019 17:37:41 GMT
-      Duration:
-      - '47.6247'
-      OData-Version:
-      - '4.0'
-      Strict-Transport-Security:
-      - max-age=31536000
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      client-request-id:
-      - 45c205ca-1904-4dbf-9b07-daf2155721a5
-      request-id:
-      - 45c205ca-1904-4dbf-9b07-daf2155721a5
-      x-ms-ags-diagnostic:
-      - '{"ServerInfo":{"DataCenter":"North Europe","Slice":"SliceC","Ring":"2","ScaleUnit":"000","RoleInstance":"AGSFE_IN_8","ADSiteName":"NEU"}}'
+      - '{"ServerInfo":{"DataCenter":"North Europe","Slice":"SliceC","Ring":"3","ScaleUnit":"003","RoleInstance":"AGSFE_IN_53","ADSiteName":"NEU"}}'
     status:
       code: 200
       message: OK
