@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
 DJANGOUSERMAP = {'_pk': ['username'],
                  'username': 'userPrincipalName',
                  'email': 'mail',
+                 # 'email': 'userPrincipalName',
                  'azure_id': 'id',
                  'job_title': 'jobTitle',
                  'display_name': 'displayName',
@@ -73,7 +74,7 @@ def default_group(**kwargs):
             user.is_staff = True
             user.is_superuser = True
             user.save()
-        else:
+        elif hasattr(constance, 'DEFAULT_GROUP'):
             g = Group.objects.filter(name=constance.DEFAULT_GROUP).first()
             if g:
                 user.groups.add(g)
@@ -295,7 +296,6 @@ class Synchronizer:
         url = "%s/%s" % (self._baseurl, azure_id or user.azure_id)
         user_info = self.get_page(url, single=True)
         pk, values = self.get_record(user_info)
-        print('pk, values', pk, values)
         user, __ = self.user_model.objects.update_or_create(**pk,
                                                             defaults=values)
         return user

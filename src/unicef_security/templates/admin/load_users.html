@@ -11,7 +11,7 @@
 {% block content %}
 <h1>Import Users</h1>
 <h3>Type a list of email or partial usernames to be synchronized with Azure AD</h3>
-<form method="post" id="load_users" novalidate>
+<form method="POST" id="load_users" novalidate>
     {% csrf_token %}
     {{form}}
     <div><input type="submit" value="Import"></div>

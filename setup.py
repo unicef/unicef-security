@@ -47,7 +47,7 @@ setup(
         'Intended Audience :: Developers'],
     install_requires = [
         'admin-extra-urls',
-        'celery'
+        'celery',
         'cryptography',
         'django',
         'django-constance',
@@ -69,6 +69,7 @@ setup(
             'pytest-django',
             'pytest-echo',
             'pytest-pythonpath',
+            'pytest-redis',
             'requests-mock',
             'vcrpy',
         ],
