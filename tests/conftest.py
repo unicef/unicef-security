@@ -1,11 +1,11 @@
 import os
 from pathlib import Path
 
+from django.conf import settings
+from django.contrib.auth.models import Group
 from vcr import VCR
 
-from django.contrib.auth.models import Group
 import pytest
-from django.conf import settings
 
 
 @pytest.fixture(scope="module")
@@ -33,12 +33,11 @@ def _check_environ(request):
 
 def _getvcr(request, env):
     if env in os.environ:
-        params = {'record_mode': 'all'}
-        # params = {'record_mode': 'new_episodes'}
+        # params = {'record_mode': 'all'}
+        params = {'record_mode': 'new_episodes'}
     else:
         params = {'record_mode': 'none'}
     path = str(Path(request.fspath).parent / 'cassettes' / str(request.function.__name__))
-    # print('conftest->params, path', params, path)
     return VCR(cassette_library_dir=path,
                filter_headers=['authorization', 'token'],
                filter_post_data_parameters=['client_id', 'client_secret'],
@@ -57,8 +56,10 @@ def graph_vcr(request):
 
 
 @pytest.fixture(scope='function')
-# def azure_user(django_user_model, client):
-def azure_user(django_user_model, django_app, client):
+def azure_user(django_user_model, django_app):
+    '''
+    The tests won't work without a valid Azure user
+    '''
     if 'TEST_GRAPH_USER_EMAIL' in os.environ and 'TEST_GRAPH_USER_AZURE_ID' in os.environ:
         user, _status = django_user_model.objects.get_or_create(
             username=os.environ.get('TEST_GRAPH_USER_EMAIL'),
@@ -66,12 +67,5 @@ def azure_user(django_user_model, django_app, client):
             is_superuser=True,
             is_staff=True,
         )
-        # group = Group(name='Test Group')
-        # group.save()
-        # user.groups.add(group)
-
-        # print('Group.objects.all()', Group.objects.all())
-        # client.force_login(user)
-        # django_app.set_user(user)
         return user
     return None

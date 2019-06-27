@@ -1,7 +1,7 @@
 import json
-import mock
 import uuid
 
+import mock
 # from django.conf import settings
 # from django.contrib.messages import get_messages
 from django.contrib import messages as message_backend
@@ -26,14 +26,14 @@ def test_admin_reverse(django_app, admin_user):
     url = reverse(f"admin:unicef_security_user_changelist")
     assert admin.admin_reverse(User) == url
 
-
+# @pytest.mark.skip('')
 def test_region_admin_sync(django_app, admin_user, vision_vcr):
     url = reverse(f"admin:unicef_security_region_changelist")
     res = django_app.get(url, user=admin_user)
     with vision_vcr.use_cassette('load_region.yaml'):
         res.click('Sync')
 
-
+# @pytest.mark.skip('')
 def test_business_area_admin_sync(django_app, admin_user, vision_vcr):
     url = reverse(f"admin:unicef_security_businessarea_changelist")
     res = django_app.get(url, user=admin_user)
@@ -45,8 +45,7 @@ def test_business_area_admin_sync(django_app, admin_user, vision_vcr):
     messages = _parse_messages(django_app.cookies['messages'])
     assert messages[0].level == message_backend.ERROR
 
-
-# @pytest.mark.skip(reason="")
+# @pytest.mark.skip('')
 @pytest.mark.django_db
 def test_user_admin_sync_user_fail(django_app, admin_user, azure_user, client, graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
@@ -56,7 +55,7 @@ def test_user_admin_sync_user_fail(django_app, admin_user, azure_user, client, g
         messages = _parse_messages(django_app.cookies['messages'])
         assert messages[0].message == 'Cannot sync user without azure_id'
 
-
+# @pytest.mark.skip('')
 def test_user_admin_sync_user(django_app, azure_user, graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
         url = reverse(f"admin:unicef_security_user_change", args=[azure_user.id])
@@ -65,41 +64,55 @@ def test_user_admin_sync_user(django_app, azure_user, graph_vcr):
         messages = _parse_messages(django_app.cookies['messages'])
         assert messages[0].message == 'User synchronized'
 
-
+# @pytest.mark.skip('')
 @pytest.mark.django_db
 def test_user_admin_link_user_err(django_app, monkeypatch, azure_user, graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
         url = reverse(f"admin:unicef_security_user_link_user_data", args=[azure_user.id])
         res = django_app.get(url, user=azure_user)
-        form = res.forms[0]
-        assert form.action == '' and form.method == 'POST'
-        mock_err = mock.Mock(side_effect=Exception('testing link fail'))
+        form = res.forms['link_user']
+        assert form.method == 'POST'
+
+        mock_err = mock.Mock(side_effect=Exception('testing link failure'))
         monkeypatch.setattr('unicef_security.admin.Synchronizer.search_users', mock_err)
         formres = form.submit()
         messages = _parse_messages(django_app.cookies['messages'])
         assert messages[0].level == message_backend.ERROR
         assert messages[0].message == 'testing link failure'
 
-
-# @pytest.mark.skip(reason="")
+# @pytest.mark.skip('')
 @pytest.mark.django_db
 def test_user_admin_link_user(django_app, azure_user, graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
         url = reverse(f"admin:unicef_security_user_link_user_data", args=[azure_user.id])
         res = django_app.get(url, user=azure_user)
-        form = res.forms[0]
-        assert form.action == '' 
+        form = res.forms['link_user']
         assert form.method == 'POST'
 
         formres = form.submit()
         assert formres.context['message'] == 'Select one entry to link'
-        
+
         form.set('selection', azure_user.azure_id)
         formres = form.submit()
-        
+
         # if 'messages' in django_app.cookies:
         messages = _parse_messages(django_app.cookies['messages'])
         assert messages[0].message == 'User linked'
+
+
+@pytest.mark.django_db
+def test_user_admin_load_users(django_app, azure_user, graph_vcr):
+    with graph_vcr.use_cassette('test_user_data.yml'):
+        url = reverse(f"admin:unicef_security_user_load")
+        res = django_app.get(url, user=azure_user)
+        form = res.forms['load_users']
+        assert form.method == 'POST'
+
+        formres = form.submit()
+        # not sure what to check here
+
+        form.set('emails', azure_user.username)
+        formres = form.submit()
 
 
 def _parse_messages(messages_str):
