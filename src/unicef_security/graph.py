@@ -14,8 +14,6 @@ from social_core.backends.azuread_tenant import AzureADTenantOAuth2
 from social_core.exceptions import AuthTokenError
 from social_django.models import UserSocialAuth
 
-from unicef_security.config import GRAPH_CLIENT_ID, GRAPH_CLIENT_SECRET
-
 from . import config
 
 AZURE_GRAPH_API_TOKEN_CACHE_KEY = 'azure_graph_api_token_cache_key'
@@ -175,9 +173,8 @@ NotSet = object()
 
 class Synchronizer:
     def __init__(self, user_model=None, mapping=None, echo=None, id=None, secret=None):
-        self.id = id or GRAPH_CLIENT_ID
-        self.secret = secret or GRAPH_CLIENT_SECRET
-
+        self.id = id or config.GRAPH_CLIENT_ID
+        self.secret = secret or config.GRAPH_CLIENT_SECRET
         self.user_model = user_model or get_user_model()
         self.field_map = dict(mapping or DJANGOUSERMAP)
         self.user_pk_fields = self.field_map.pop('_pk')
@@ -190,8 +187,8 @@ class Synchronizer:
         self.echo = echo or (lambda l: True)
 
     def get_token(self):
-        if not self.id and self.secret:
-            raise ValueError("Configure AZURE_CLIENT_ID and/or AZURE_CLIENT_SECRET")
+        # if not (self.id and self.secret):
+        #     raise ValueError("Configure GRAPH_CLIENT_ID and/or GRAPH_CLIENT_SECRET")
         post_dict = {'grant_type': 'client_credentials',
                      'client_id': self.id,
                      'client_secret': self.secret,
@@ -298,6 +295,7 @@ class Synchronizer:
         url = "%s/%s" % (self._baseurl, azure_id or user.azure_id)
         user_info = self.get_page(url, single=True)
         pk, values = self.get_record(user_info)
+        print('pk, values', pk, values)
         user, __ = self.user_model.objects.update_or_create(**pk,
                                                             defaults=values)
         return user
