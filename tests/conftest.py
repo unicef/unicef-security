@@ -1,4 +1,5 @@
 import os
+import uuid
 from pathlib import Path
 
 from vcr import VCR
@@ -58,12 +59,10 @@ def azure_user(django_user_model, django_app):
     '''
     The tests won't work without a valid Azure user
     '''
-    if 'TEST_GRAPH_USER_EMAIL' in os.environ and 'TEST_GRAPH_USER_AZURE_ID' in os.environ:
-        user, _status = django_user_model.objects.get_or_create(
-            username=os.environ.get('TEST_GRAPH_USER_EMAIL'),
-            azure_id=os.environ.get('TEST_GRAPH_USER_AZURE_ID'),
-            is_superuser=True,
-            is_staff=True,
-        )
-        return user
-    return None
+    user, _status = django_user_model.objects.get_or_create(
+        username=os.environ.get('TEST_GRAPH_USER_EMAIL', 'test@example.com'),
+        azure_id=os.environ.get('TEST_GRAPH_USER_AZURE_ID', uuid.uuid4()),
+        is_superuser=True,
+        is_staff=True,
+    )
+    return user
