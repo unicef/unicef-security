@@ -3,6 +3,7 @@ import json
 import mock
 from django.contrib import messages as message_backend
 from django.contrib.messages.storage import cookie
+from django.test.utils import override_settings
 from django.urls import reverse
 
 import pytest
@@ -95,6 +96,7 @@ def test_user_admin_link_user(django_app, azure_user, graph_vcr):
 
 
 @pytest.mark.django_db
+@override_settings(ADMINS=[('admin', 'admin@example.com')])
 def test_user_admin_load_users(django_app, azure_user, graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
         url = reverse(f"admin:unicef_security_user_load")
@@ -105,7 +107,7 @@ def test_user_admin_load_users(django_app, azure_user, graph_vcr):
         formres = form.submit()
         # not sure what to check here
 
-        form.set('emails', azure_user.username)
+        form.set('emails', 'admin@example.com')
         formres = form.submit()
         # TODO: check the messages in the HTML, maybe with pyquery
         assert formres
