@@ -23,8 +23,8 @@ logger = logging.getLogger(__name__)
 
 DJANGOUSERMAP = {'_pk': ['username'],
                  'username': 'userPrincipalName',
-                 # 'email': 'mail',
-                 'email': 'userPrincipalName',
+                 'email': 'mail',
+                 # 'email': 'userPrincipalName',
                  'azure_id': 'id',
                  'job_title': 'jobTitle',
                  'display_name': 'displayName',
