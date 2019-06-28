@@ -145,4 +145,59 @@ interactions:
     status:
       code: 200
       message: OK
+- request:
+    body: grant_type=client_credentials&resource=https%3A%2F%2Fgraph.microsoft.com
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '170'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - python-requests/2.21.0
+    method: POST
+    uri: https://login.microsoftonline.com/unicef.org/oauth2/token
+  response:
+    body:
+      string: '{"error":"unauthorized_client","error_description":"AADSTS700016: Application
+        with identifier ''3805a6e3-07a8-4c13-8908-7ad3dc581f77'' was not found in
+        the directory ''unicef.org''. This can happen if the application has not been
+        installed by the administrator of the tenant or consented to by any user in
+        the tenant. You may have sent your authentication request to the wrong tenant.\r\nTrace
+        ID: 79982231-9cb1-4f82-8aab-46e4f0680e00\r\nCorrelation ID: 7474de5b-b73e-4ef6-a999-d73de6249837\r\nTimestamp:
+        2019-06-28 08:25:04Z","error_codes":[700016],"timestamp":"2019-06-28 08:25:04Z","trace_id":"79982231-9cb1-4f82-8aab-46e4f0680e00","correlation_id":"7474de5b-b73e-4ef6-a999-d73de6249837","error_uri":"https://login.microsoftonline.com/error?code=700016"}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store
+      Content-Length:
+      - '753'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Jun 2019 08:25:03 GMT
+      Expires:
+      - '-1'
+      P3P:
+      - CP="DSP CUR OTPi IND OTRi ONL FIN"
+      Pragma:
+      - no-cache
+      Set-Cookie:
+      - fpc=AgnbGsRBEsJOk1UHs2C7ectGXrY5AQAAAN_Fp9QOAAAA; expires=Sun, 28-Jul-2019
+        08:25:04 GMT; path=/; secure; HttpOnly
+      - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
+      - stsservicecookie=ests; path=/; secure; HttpOnly
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      x-ms-request-id:
+      - 79982231-9cb1-4f82-8aab-46e4f0680e00
+    status:
+      code: 400
+      message: Bad Request
 version: 1

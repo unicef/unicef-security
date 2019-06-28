@@ -1,8 +1,6 @@
 import os
 from pathlib import Path
 
-from django.conf import settings
-from django.contrib.auth.models import Group
 from vcr import VCR
 
 import pytest

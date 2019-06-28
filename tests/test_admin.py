@@ -1,18 +1,13 @@
 import json
-import uuid
 
 import mock
-# from django.conf import settings
-# from django.contrib.messages import get_messages
 from django.contrib import messages as message_backend
 from django.contrib.messages.storage import cookie
-# from django.contrib.messages.storage.fallback import FallbackStorage
 from django.urls import reverse
 
 import pytest
 
 from unicef_security import admin
-# from unicef_security.graph import Synchronizer
 from unicef_security.models import User
 
 
@@ -26,45 +21,45 @@ def test_admin_reverse(django_app, admin_user):
     url = reverse(f"admin:unicef_security_user_changelist")
     assert admin.admin_reverse(User) == url
 
-# @pytest.mark.skip('')
+
 def test_region_admin_sync(django_app, admin_user, vision_vcr):
     url = reverse(f"admin:unicef_security_region_changelist")
     res = django_app.get(url, user=admin_user)
     with vision_vcr.use_cassette('load_region.yaml'):
         res.click('Sync')
 
-# @pytest.mark.skip('')
+
 def test_business_area_admin_sync(django_app, admin_user, vision_vcr):
     url = reverse(f"admin:unicef_security_businessarea_changelist")
     res = django_app.get(url, user=admin_user)
     with vision_vcr.use_cassette('business_area.yaml'):
         res.click('Sync')
 
-    # test sync failure. we should have an ERROR level message in the messages backend
+    # we should have an ERROR level message in the messages backend
     res.click('Sync')
     messages = _parse_messages(django_app.cookies['messages'])
     assert messages[0].level == message_backend.ERROR
 
-# @pytest.mark.skip('')
+
 @pytest.mark.django_db
 def test_user_admin_sync_user_fail(django_app, admin_user, azure_user, client, graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
         url = reverse(f"admin:unicef_security_user_change", args=[admin_user.id])
         res = django_app.get(url, user=admin_user)
-        response = res.click('Sync')
+        res.click('Sync')
         messages = _parse_messages(django_app.cookies['messages'])
         assert messages[0].message == 'Cannot sync user without azure_id'
 
-# @pytest.mark.skip('')
+
 def test_user_admin_sync_user(django_app, azure_user, graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
         url = reverse(f"admin:unicef_security_user_change", args=[azure_user.id])
         res = django_app.get(url, user=azure_user)
-        response = res.click('Sync')
+        res.click('Sync')
         messages = _parse_messages(django_app.cookies['messages'])
         assert messages[0].message == 'User synchronized'
 
-# @pytest.mark.skip('')
+
 @pytest.mark.django_db
 def test_user_admin_link_user_err(django_app, monkeypatch, azure_user, graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
@@ -75,12 +70,12 @@ def test_user_admin_link_user_err(django_app, monkeypatch, azure_user, graph_vcr
 
         mock_err = mock.Mock(side_effect=Exception('testing link failure'))
         monkeypatch.setattr('unicef_security.admin.Synchronizer.search_users', mock_err)
-        formres = form.submit()
+        form.submit()
         messages = _parse_messages(django_app.cookies['messages'])
         assert messages[0].level == message_backend.ERROR
         assert messages[0].message == 'testing link failure'
 
-# @pytest.mark.skip('')
+
 @pytest.mark.django_db
 def test_user_admin_link_user(django_app, azure_user, graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
@@ -93,9 +88,8 @@ def test_user_admin_link_user(django_app, azure_user, graph_vcr):
         assert formres.context['message'] == 'Select one entry to link'
 
         form.set('selection', azure_user.azure_id)
-        formres = form.submit()
+        form.submit()
 
-        # if 'messages' in django_app.cookies:
         messages = _parse_messages(django_app.cookies['messages'])
         assert messages[0].message == 'User linked'
 
@@ -113,6 +107,8 @@ def test_user_admin_load_users(django_app, azure_user, graph_vcr):
 
         form.set('emails', azure_user.username)
         formres = form.submit()
+        # TODO: check the messages in the HTML, maybe with pyquery
+        assert formres
 
 
 def _parse_messages(messages_str):
