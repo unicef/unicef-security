@@ -74,7 +74,7 @@ def default_group(**kwargs):
             user.is_staff = True
             user.is_superuser = True
             user.save()
-        else:
+        elif hasattr(constance, 'DEFAULT_GROUP'):
             g = Group.objects.filter(name=constance.DEFAULT_GROUP).first()
             if g:
                 user.groups.add(g)
