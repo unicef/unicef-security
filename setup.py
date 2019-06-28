@@ -47,7 +47,7 @@ setup(
         'Intended Audience :: Developers'],
     install_requires = [
         'admin-extra-urls',
-        'celery'
+        'celery',
         'cryptography',
         'django',
         'django-constance',
