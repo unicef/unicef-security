@@ -1,14 +1,15 @@
 import json
 
+import constance
 import mock
 from django.contrib import messages as message_backend
+from django.contrib.auth.models import Group
 from django.contrib.messages.storage import cookie
-from django.test.utils import override_settings
 from django.urls import reverse
 
 import pytest
 
-from unicef_security import admin
+from unicef_security import admin, graph
 from unicef_security.models import User
 
 
@@ -96,8 +97,7 @@ def test_user_admin_link_user(django_app, azure_user, graph_vcr):
 
 
 @pytest.mark.django_db
-@override_settings(ADMINS=[('admin', 'admin@example.com')])
-def test_user_admin_load_users(django_app, azure_user, graph_vcr):
+def test_user_admin_load_admin_users(django_app, azure_user, graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
         url = reverse(f"admin:unicef_security_user_load")
         res = django_app.get(url, user=azure_user)
@@ -107,8 +107,33 @@ def test_user_admin_load_users(django_app, azure_user, graph_vcr):
         # not sure what to check here.. run it for coverage
         formres = form.submit()
 
-        # form.set('emails', 'admin@example.com')
         form.set('emails', 'csa')
+        graph.ADMIN_EMAILS = [
+            'csaba.denes@nordlogic.com',
+            'csaba.denes_gmail.com#EXT#@nordlogic.onmicrosoft.com'
+        ]
+        formres = form.submit()
+
+        # https://pypi.org/project/pyquery/
+        syncresult = formres.pyquery(".messagelist .info").text()
+        expected_syncres = (1, 1, 0)  # this depends on the results returned by Azure.
+        assert syncresult == "%s users have been created,%s updated.%s invalid entries found." % expected_syncres
+
+
+@pytest.mark.django_db
+def test_user_admin_load_users(django_app, azure_user, graph_vcr):
+    with graph_vcr.use_cassette('test_user_data.yml'):
+        '''
+        test the `load_users` flow without setting admin emails
+        '''
+
+        Group.objects.create(name=constance.config.DEFAULT_GROUP)
+
+        url = reverse(f"admin:unicef_security_user_load")
+        res = django_app.get(url, user=azure_user)
+        form = res.forms['load_users']
+        form.set('emails', 'csa')
+        graph.ADMIN_EMAILS = []
         formres = form.submit()
         # https://pypi.org/project/pyquery/
         syncresult = formres.pyquery(".messagelist .info").text()

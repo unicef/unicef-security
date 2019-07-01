@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'unicef_security',
     'admin_extra_urls',
+    'constance',
     'demo'
 ]
 
@@ -89,3 +90,7 @@ VISION_URL = 'https://api.example.com'
 VISION_LOGGER_MODEL = 'vision.VisionLog'
 
 AUTH_USER_MODEL = 'unicef_security.User'
+
+CONSTANCE_CONFIG = {
+    'DEFAULT_GROUP': ('', 'test_grp'),
+}

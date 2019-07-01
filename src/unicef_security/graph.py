@@ -75,7 +75,7 @@ def default_group(**kwargs):
             user.is_staff = True
             user.is_superuser = True
             user.save()
-        elif hasattr(constance, 'DEFAULT_GROUP'):
+        else:
             g = Group.objects.filter(name=constance.DEFAULT_GROUP).first()
             if g:
                 user.groups.add(g)
@@ -323,6 +323,7 @@ class Synchronizer:
                     results.log(user, created)
                 else:
                     results.log(user_info)
+                # it seems this condition allows two extra records over `max_records`
                 if max_records and i > max_records:
                     break
         except Exception as e:

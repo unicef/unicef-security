@@ -149,6 +149,46 @@ interactions:
       code: 200
       message: OK
 - request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://graph.microsoft.com/v1.0/users?%24filter=startswith%28mail%2C%27csab%27%29
+  response:
+    body:
+      string: "{\r\n  \"error\": {\r\n    \"code\": \"InvalidAuthenticationToken\"\
+        ,\r\n    \"message\": \"Access token has expired.\",\r\n    \"innerError\"\
+        : {\r\n      \"request-id\": \"d580bebd-6aaa-4be0-9331-65ecd4c435c2\",\r\n\
+        \      \"date\": \"2019-07-01T13:34:20\"\r\n    }\r\n  }\r\n}"
+    headers:
+      Content-Length:
+      - '237'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 01 Jul 2019 13:34:20 GMT
+      Strict-Transport-Security:
+      - max-age=31536000
+      WWW-Authenticate:
+      - Bearer realm="", authorization_uri="https://login.microsoftonline.com/common/oauth2/authorize",
+        client_id="00000003-0000-0000-c000-000000000000"
+      client-request-id:
+      - d580bebd-6aaa-4be0-9331-65ecd4c435c2
+      request-id:
+      - d580bebd-6aaa-4be0-9331-65ecd4c435c2
+      x-ms-ags-diagnostic:
+      - '{"ServerInfo":{"DataCenter":"North Europe","Slice":"SliceC","Ring":"2","ScaleUnit":"000","RoleInstance":"AGSFE_IN_9","ADSiteName":"NEU"}}'
+    status:
+      code: 401
+      message: Unauthorized
+- request:
     body: grant_type=client_credentials&resource=https%3A%2F%2Fgraph.microsoft.com
     headers:
       Accept:

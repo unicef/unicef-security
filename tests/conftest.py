@@ -34,6 +34,7 @@ def _getvcr(request, env):
     if env in os.environ:
         params = {'record_mode': 'all'}
         # params = {'record_mode': 'new_episodes'}
+        # params = {'record_mode': 'none'}
     else:
         params = {'record_mode': 'none'}
     path = str(Path(request.fspath).parent / 'cassettes' / str(request.function.__name__))
