@@ -109,7 +109,7 @@ interactions:
       User-Agent:
       - python-requests/2.22.0
     method: GET
-    uri: https://graph.microsoft.com/v1.0/users?%24filter=startswith%28mail%2C%27csa%27%29+or+startswith%28userPrincipalName%2C%27csa%27%29+
+    uri: https://graph.microsoft.com/v1.0/users?%24filter=startswith%28mail%2C%27csa%27%29
   response:
     body:
       string: !!binary |
