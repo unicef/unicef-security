@@ -104,13 +104,16 @@ def test_user_admin_load_users(django_app, azure_user, graph_vcr):
         form = res.forms['load_users']
         assert form.method == 'POST'
 
+        # not sure what to check here.. run it for coverage
         formres = form.submit()
-        # not sure what to check here
 
-        form.set('emails', 'admin@example.com')
+        # form.set('emails', 'admin@example.com')
+        form.set('emails', 'csa')
         formres = form.submit()
-        # TODO: check the messages in the HTML, maybe with pyquery
-        assert formres
+        # https://pypi.org/project/pyquery/
+        syncresult = formres.pyquery(".messagelist .info").text()
+        expected_syncres = (1, 1, 0)  # this depends on the results returned by Azure.
+        assert syncresult == "%s users have been created,%s updated.%s invalid entries found." % expected_syncres
 
 
 def _parse_messages(messages_str):
