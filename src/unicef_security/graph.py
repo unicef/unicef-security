@@ -23,8 +23,9 @@ logger = logging.getLogger(__name__)
 
 DJANGOUSERMAP = {'_pk': ['username'],
                  'username': 'userPrincipalName',
-                 'email': 'mail',
-                 # 'email': 'userPrincipalName',
+                 # Looks like sometimes email is kept in `userPrincipalName` and `mail` is empty
+                 # 'email': 'mail',
+                 'email': 'userPrincipalName',
                  'azure_id': 'id',
                  'job_title': 'jobTitle',
                  'display_name': 'displayName',
@@ -275,7 +276,6 @@ class Synchronizer:
             filters.append("surname eq '%s'" % record.last_name)
         if record.first_name:
             filters.append("givenName eq '%s'" % record.first_name)
-
         page = self.get_page(url + " or ".join(filters), single=True)
         return page['value']
 

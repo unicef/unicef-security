@@ -13,12 +13,12 @@ interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - python-requests/2.21.0
+      - python-requests/2.22.0
     method: POST
     uri: https://login.microsoftonline.com/943a86e8-cb8c-4098-9f0a-46768ed486dd/oauth2/token
   response:
     body:
-      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1561669173","not_before":"1561665273","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYWGE3N29iWExBLWtnQ1psbkw3aloyQUJWOHZPRmNReVdUeDg5Wmg4Zk9rQmFMWlF5S254akUyT01pY2lWQmZBOG9WdkNTNXhUT0tCZmh0aWxia0pfNHlBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYxNjY1MjczLCJuYmYiOjE1NjE2NjUyNzMsImV4cCI6MTU2MTY2OTE3MywiYWlvIjoiNDJaZ1lLandiam95cFdTUnVVaHppVTdkV1dzQkFBPT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoib0FWUzNmRVJMRWFkSV82Ni02cGhBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.i0FQYOvrt4CnG4sAiHRcOpeM2BjDVjpO6F9YmwYnq05U5bpN_R0LgGyd3dGDqJg9t9AC_cb4p7VxVq5FHNF8BkF189kIFrDWkW1oliEF9QWYrN8cH1bUg1syokqSv_Pjxoeg00daoxDBnglz_02jBc2ruGMEjkUtzGrC09dnioSTqaO5AbYcr3BbD3PhOJvGQbNNHxKs5tHqUC3V7NSnNRP9Mvaea3lwIqFaGKfRtYQnVbPnHunD1IWOGsP63aYkOzWGRaSWQ3vI2Q6MetcWLi9TiVHWJ59wJOeFDx-7_912mvzEd4B1QaqTnSm4oVi53vxmF_bBeKiffdMMQQtqUg"}'
+      string: '{"token_type":"Bearer","expires_in":"3600","ext_expires_in":"3600","expires_on":"1561986158","not_before":"1561982258","resource":"https://graph.microsoft.com","access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEQ29NcGpKWHJ4VHE5Vkc5dGUtN0ZYdElXVFF6Zkc4cG1ackJ4Nmh2Y0paeGswNm9OLV9lWTdCcS1Da3ZfTFgzdWdEQ25EWms3dlB6SnVUSzhOR1ZpdkhQX3dRV1p4N2l3akYtY1A1cm1zbXlBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIiwia2lkIjoiQ3RmUUM4TGUtOE5zQzdvQzJ6UWtacGNyZk9jIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwiaWF0IjoxNTYxOTgyMjU4LCJuYmYiOjE1NjE5ODIyNTgsImV4cCI6MTU2MTk4NjE1OCwiYWlvIjoiNDJaZ1lKZzNUMnZTcENQM3VyOEdmL0ZVRU5vdEJRQT0iLCJhcHBfZGlzcGxheW5hbWUiOiJjc2FiYV90ZXN0IiwiYXBwaWQiOiIzODA1YTZlMy0wN2E4LTRjMTMtODkwOC03YWQzZGM1ODFmNzciLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NDNhODZlOC1jYjhjLTQwOTgtOWYwYS00Njc2OGVkNDg2ZGQvIiwib2lkIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwicm9sZXMiOlsiQ2FsZW5kYXJzLlJlYWQiLCJQZW9wbGUuUmVhZC5BbGwiLCJTaXRlcy5SZWFkLkFsbCIsIkRpcmVjdG9yeS5SZWFkLkFsbCIsIlVzZXIuUmVhZC5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIkNvbnRhY3RzLlJlYWQiXSwic3ViIjoiNjNkNGY2ZjYtY2NlYi00MWU2LTgwNTAtMzNiNTZmNjJjZmRjIiwidGlkIjoiOTQzYTg2ZTgtY2I4Yy00MDk4LTlmMGEtNDY3NjhlZDQ4NmRkIiwidXRpIjoidGFVekhwWjlya09EWWc1eThPb2ZBQSIsInZlciI6IjEuMCIsInhtc190Y2R0IjoxNTAxODMzMTAzfQ.jbhb4xYa_Mbh8D2Rw45TMPyjvnefFOc78lCLrOyFP726YKELvd_4Wk0dfj1VhiKnTYikpgM5TlX1Mxp944wc1tpLj34uhEzgF15W-okk9guPNdBW4RWvKWLveOaGsBgwDh7PULulffwoK3RSxGJGQMgKyArBYPD5lLLQUkj4ObPRMP_5qbYqYSFJ9ZQL9a8DAh7Wxme_nseozsczXv6UGsRP1vAJRrg60s8dcVBp4zTRFimflLn6fKWbV2sO0OId34SdWpMeK26Fk4H8LPG1GPzwog-I4zgMsbOAItisalDB2IB2Jz_tylvYOPSbl1o6MiWnwHVzdZeDbPTtW6anPQ"}'
     headers:
       Cache-Control:
       - no-cache, no-store
@@ -27,7 +27,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 27 Jun 2019 19:59:33 GMT
+      - Mon, 01 Jul 2019 12:02:38 GMT
       Expires:
       - '-1'
       P3P:
@@ -35,8 +35,8 @@ interactions:
       Pragma:
       - no-cache
       Set-Cookie:
-      - fpc=Aj02YqvI2QxAgUe5EAOz23ZsnEofAQAAACQXp9QOAAAA; expires=Sat, 27-Jul-2019
-        19:59:33 GMT; path=/; secure; HttpOnly
+      - fpc=AsI7x2DopsdGkYvgixgGg3tsnEofAQAAAF7tq9QOAAAA; expires=Wed, 31-Jul-2019
+        12:02:38 GMT; path=/; secure; HttpOnly
       - x-ms-gateway-slice=prod; path=/; secure; HttpOnly
       - stsservicecookie=ests; path=/; secure; HttpOnly
       Strict-Transport-Security:
@@ -44,7 +44,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       x-ms-request-id:
-      - dd5205a0-11f1-462c-9d23-febafbaa6100
+      - 1e33a5b5-7d96-43ae-8362-0e72f0ea1f00
     status:
       code: 200
       message: OK

@@ -64,6 +64,7 @@ setup(
             'ipdb',
             'isort',
             'mock',
+            'pyquery',
             'pytest',
             'pytest-cov',
             'pytest-django',
