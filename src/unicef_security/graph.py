@@ -35,7 +35,7 @@ DJANGOUSERMAP = {'_pk': ['username'],
 ADMIN_EMAILS = [i[1] for i in settings.ADMINS]
 
 
-class AzureADTenantOAuth2Ext(AzureADTenantOAuth2):
+class AzureADTenantOAuth2Ext(AzureADTenantOAuth2):  # pragma: no cover
     def user_data(self, access_token, *args, **kwargs):
         response = kwargs.get('response')
         id_token = response.get('id_token')
@@ -81,7 +81,7 @@ def default_group(**kwargs):
                 user.groups.add(g)
 
 
-def get_unicef_user(backend, details, response, *args, **kwargs):
+def get_unicef_user(backend, details, response, *args, **kwargs):   # pragma: no cover
     from .models import User
     if details.get('email'):
         filters = {'email': details['email']}

@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'unicef_security',
     'admin_extra_urls',
     'constance',
+    'constance.backends.database',
     'demo'
 ]
 
@@ -84,7 +85,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-
 MEDIA_ROOT = '/tmp/'
 VISION_URL = 'https://api.example.com'
 VISION_LOGGER_MODEL = 'vision.VisionLog'
@@ -94,3 +94,5 @@ AUTH_USER_MODEL = 'unicef_security.User'
 CONSTANCE_CONFIG = {
     'DEFAULT_GROUP': ('', 'test_grp'),
 }
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'

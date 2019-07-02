@@ -3,7 +3,6 @@ import json
 import constance
 import mock
 from django.contrib import messages as message_backend
-from django.contrib.auth.models import Group
 from django.contrib.messages.storage import cookie
 from django.urls import reverse
 
@@ -121,13 +120,14 @@ def test_user_admin_load_admin_users(django_app, azure_user, graph_vcr):
 
 
 @pytest.mark.django_db
-def test_user_admin_load_users(django_app, azure_user, graph_vcr):
+def test_user_admin_load_users(django_app, azure_user, graph_vcr, group):
     with graph_vcr.use_cassette('test_user_data.yml'):
         '''
         test the `load_users` flow without setting admin emails
         '''
 
-        Group.objects.create(name=constance.config.DEFAULT_GROUP)
+        # create grp
+        group(name=constance.config.DEFAULT_GROUP)
 
         url = reverse(f"admin:unicef_security_user_load")
         res = django_app.get(url, user=azure_user)

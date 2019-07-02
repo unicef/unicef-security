@@ -41,16 +41,18 @@ def test_get_unicef_user(graph_vcr):
     pass
 
 
-@pytest.mark.skip("TODO: fix")
 @pytest.mark.django_db
 def test_search_users(graph_vcr):
     with graph_vcr.use_cassette('test_user_data.yml'):
+        class Record:
+            pass
+
+        record = Record()
+        record.email = 'csaba.denes@nordlogic.com'
+        record.first_name = 'csaba'
+        record.last_name = 'denes'
+
         s = Synchronizer()
-        record = {
-            'email': 'csaba.denes@nordlogic.com',
-            'last_name': 'csaba',
-            'first_name': 'denes',
-        }
         res = s.search_users(record)
         assert res
 

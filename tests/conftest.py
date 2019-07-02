@@ -1,16 +1,9 @@
 import os
-# import uuid
 from pathlib import Path
 
 from vcr import VCR
 
 import pytest
-
-
-@pytest.fixture(scope="module")
-def user():
-    from demo.factories import UserFactory
-    return UserFactory()
 
 
 @pytest.fixture(scope='session')
@@ -34,7 +27,6 @@ def _getvcr(request, env):
     if env in os.environ:
         params = {'record_mode': 'all'}
         # params = {'record_mode': 'new_episodes'}
-        # params = {'record_mode': 'none'}
     else:
         params = {'record_mode': 'none'}
     path = str(Path(request.fspath).parent / 'cassettes' / str(request.function.__name__))
@@ -53,6 +45,18 @@ def vision_vcr(request):
 @pytest.fixture(scope='function')
 def graph_vcr(request):
     return _getvcr(request, 'GRAPH_CLIENT_ID')
+
+
+@pytest.fixture(scope="function")
+def user():
+    from demo.factories import UserFactory
+    return UserFactory
+
+
+@pytest.fixture(scope="function")
+def group():
+    from demo.factories import GroupFactory
+    return GroupFactory
 
 
 @pytest.fixture(scope='function')

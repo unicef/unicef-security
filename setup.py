@@ -59,6 +59,7 @@ setup(
     extras_require={
         'test': [
             'django-webtest',
+            'django-picklefield',
             'factory-boy',
             'flake8',
             'ipdb',
