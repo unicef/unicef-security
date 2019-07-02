@@ -1,9 +1,10 @@
 
 import mock
+import requests_mock
 
 import pytest
 
-from unicef_security.graph import Synchronizer
+from unicef_security.graph import Synchronizer, SyncResult
 from unicef_security.models import User
 
 
@@ -67,6 +68,30 @@ def test_filter_users_by_email(graph_vcr):
             assert res[0]['mail'] == email or res[0]['userPrincipalName'] == email
 
 
+def test_syncresult(graph_vcr, monkeypatch):
+    class SyncObj:
+        def __init__(self, pk=None):
+            self.pk = pk
+
+    s = SyncResult()
+    s.log(SyncObj(), True)
+    s.log(SyncObj(1), False)
+    s.log('random string')
+    assert str(s) == '<SyncResult: 1 1 1>'
+
+    with pytest.raises(ValueError):
+        s + 'random string'
+
+    s_new = SyncResult()
+    s_new.log(SyncObj(), True)
+    s_new.log(SyncObj(1), False)
+    s_new.log('random string')
+    assert str(s_new) == '<SyncResult: 1 1 1>'
+
+    assert s == s_new
+    assert s != 'random string'
+
+
 @pytest.mark.django_db
 def test_resume(graph_vcr, monkeypatch):
     with graph_vcr.use_cassette('test_user_data.yml'):
@@ -74,6 +99,35 @@ def test_resume(graph_vcr, monkeypatch):
         assert User.objects.count() == 0
         s.resume(max_records=1, delta_link=s.startUrl)
         assert User.objects.count() == 2
+
+
+def test_get_page(graph_vcr, monkeypatch):
+    with graph_vcr.use_cassette('test_user_data.yml'):
+        monkeypatch.setattr('unicef_security.graph.Synchronizer.get_token', mock.Mock(return_value=''))
+        s = Synchronizer()
+        with requests_mock.Mocker() as m:
+            errorRsp = {"error": {"message": "random error"}}
+            m.register_uri('GET', s.startUrl, json=errorRsp, status_code=401)
+
+            with pytest.raises(ConnectionError):
+                s.get_page(s.startUrl)
+
+        with requests_mock.Mocker() as m:
+            m.register_uri('GET', s.startUrl, json={}, status_code=500)
+
+            with pytest.raises(ConnectionError):
+                s.get_page(s.startUrl)
+
+
+@pytest.mark.skip("TODO: figure out how to mock this")
+@pytest.mark.django_db
+def test_iter(graph_vcr, monkeypatch):
+    with graph_vcr.use_cassette('test_user_data.yml'):
+        s = Synchronizer()
+        mock_list = mock.Mock(return_value='')
+        monkeypatch.setattr('unicef_security.graph.Synchronizer.get_page', mock_list)
+        with pytest.raises(AttributeError):
+            s.syncronize()
 
 
 @pytest.mark.django_db
@@ -84,7 +138,7 @@ def test_syncronize_err(graph_vcr, monkeypatch):
         s.syncronize(max_records=1)
         assert User.objects.count() == 2
         mock_err = mock.Mock(side_effect=Exception('Sync error'))
-        monkeypatch.setattr('unicef_security.admin.Synchronizer.get_record', mock_err)
+        monkeypatch.setattr('unicef_security.graph.Synchronizer.get_record', mock_err)
         with pytest.raises(Exception) as e:
             s.syncronize()
             assert e == 'Sync error'

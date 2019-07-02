@@ -151,6 +151,46 @@ interactions:
       code: 200
       message: OK
 - request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://graph.microsoft.com/v1.0/users/csaba.denes@nordlogic.com
+  response:
+    body:
+      string: "{\r\n  \"error\": {\r\n    \"code\": \"InvalidAuthenticationToken\"\
+        ,\r\n    \"message\": \"Access token has expired.\",\r\n    \"innerError\"\
+        : {\r\n      \"request-id\": \"70870d11-a26e-446b-b224-f817e2ac3331\",\r\n\
+        \      \"date\": \"2019-07-01T13:18:47\"\r\n    }\r\n  }\r\n}"
+    headers:
+      Content-Length:
+      - '237'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 01 Jul 2019 13:18:47 GMT
+      Strict-Transport-Security:
+      - max-age=31536000
+      WWW-Authenticate:
+      - Bearer realm="", authorization_uri="https://login.microsoftonline.com/common/oauth2/authorize",
+        client_id="00000003-0000-0000-c000-000000000000"
+      client-request-id:
+      - 70870d11-a26e-446b-b224-f817e2ac3331
+      request-id:
+      - 70870d11-a26e-446b-b224-f817e2ac3331
+      x-ms-ags-diagnostic:
+      - '{"ServerInfo":{"DataCenter":"North Europe","Slice":"SliceC","Ring":"3","ScaleUnit":"002","RoleInstance":"AGSFE_IN_42","ADSiteName":"NEU"}}'
+    status:
+      code: 401
+      message: Unauthorized
+- request:
     body: grant_type=client_credentials&resource=https%3A%2F%2Fgraph.microsoft.com
     headers:
       Accept:

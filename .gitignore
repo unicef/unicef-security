@@ -59,4 +59,3 @@ coverage.xml
 Pipfile
 Pipfile.lock
 celerybeat.pid
-~build/

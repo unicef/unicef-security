@@ -97,6 +97,9 @@ def test_user_admin_link_user(django_app, azure_user, graph_vcr):
 
 @pytest.mark.django_db
 def test_user_admin_load_admin_users(django_app, azure_user, graph_vcr):
+    '''
+    test query users existing in `ADMIN_EMAILS` settings
+    '''
     with graph_vcr.use_cassette('test_user_data.yml'):
         url = reverse(f"admin:unicef_security_user_load")
         res = django_app.get(url, user=azure_user)
@@ -106,6 +109,7 @@ def test_user_admin_load_admin_users(django_app, azure_user, graph_vcr):
         # not sure what to check here.. run it for coverage
         formres = form.submit()
 
+        # the `emails` field should query existing users in Azure AD
         form.set('emails', 'csa')
         graph.ADMIN_EMAILS = [
             'csaba.denes@nordlogic.com',
@@ -132,12 +136,13 @@ def test_user_admin_load_users(django_app, azure_user, graph_vcr, group):
         url = reverse(f"admin:unicef_security_user_load")
         res = django_app.get(url, user=azure_user)
         form = res.forms['load_users']
+        # the `emails` field should query existing users in Azure AD
         form.set('emails', 'csa')
         graph.ADMIN_EMAILS = []
         formres = form.submit()
         # https://pypi.org/project/pyquery/
         syncresult = formres.pyquery(".messagelist .info").text()
-        expected_syncres = (1, 1, 0)  # this depends on the results returned by Azure.
+        expected_syncres = (1, 1, 0)  # this depends on the results existing/returned by Azure.
         assert syncresult == "%s users have been created,%s updated.%s invalid entries found." % expected_syncres
 
 
