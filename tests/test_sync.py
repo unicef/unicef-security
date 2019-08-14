@@ -1,3 +1,7 @@
+import mock
+
+import pytest
+
 from unicef_security.sync import load_business_area, load_region
 
 
@@ -13,3 +17,7 @@ def test_load_region(db, vision_vcr):
         ret = load_region()
         assert len(ret.created) == 8
         assert len(ret.updated) == 0
+
+    with pytest.raises(PermissionError):
+        mock.patch('unicef_security.sync.get_vision_auth', mock.Mock(return_value={}))
+        load_region()
