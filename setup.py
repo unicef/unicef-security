@@ -39,10 +39,8 @@ setup(
     license='Apache 2 License',
     classifiers=[
         'Environment :: Web Environment',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Framework :: Django',
-        'Framework :: Django :: 2.1',
         'Framework :: Django :: 2.2',
         'Intended Audience :: Developers'],
     install_requires = [
