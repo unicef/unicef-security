@@ -11,6 +11,8 @@
 # Sphinx docs:
 build
 
+/~build
+
 # SQLite3 database files:
 *.db
 *.sql
@@ -18,6 +20,7 @@ build
 # Logs:
 *.log
 
+.vscode
 .idea/
 
 static/*
@@ -55,4 +58,4 @@ coverage.xml
 
 Pipfile
 Pipfile.lock
-~build/
+celerybeat.pid

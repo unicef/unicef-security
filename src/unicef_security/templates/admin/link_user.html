@@ -12,7 +12,7 @@
     <h1>Link User with AD</h1>
     <h3>Select AD user to link with</h3>
     {{ message }}
-    <form method="POST">
+    <form method="POST" id="link_user">
         {% csrf_token %}
         <table>
             {% for entry in data %}

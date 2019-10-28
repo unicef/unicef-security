@@ -14,8 +14,6 @@ from social_core.backends.azuread_tenant import AzureADTenantOAuth2
 from social_core.exceptions import AuthTokenError
 from social_django.models import UserSocialAuth
 
-from unicef_security.config import GRAPH_CLIENT_ID, GRAPH_CLIENT_SECRET
-
 from . import config
 
 AZURE_GRAPH_API_TOKEN_CACHE_KEY = 'azure_graph_api_token_cache_key'
@@ -25,7 +23,9 @@ logger = logging.getLogger(__name__)
 
 DJANGOUSERMAP = {'_pk': ['username'],
                  'username': 'userPrincipalName',
-                 'email': 'mail',
+                 # Looks like sometimes email is kept in `userPrincipalName` and `mail` is empty
+                 # 'email': 'mail',
+                 'email': 'userPrincipalName',
                  'azure_id': 'id',
                  'job_title': 'jobTitle',
                  'display_name': 'displayName',
@@ -35,7 +35,7 @@ DJANGOUSERMAP = {'_pk': ['username'],
 ADMIN_EMAILS = [i[1] for i in settings.ADMINS]
 
 
-class AzureADTenantOAuth2Ext(AzureADTenantOAuth2):
+class AzureADTenantOAuth2Ext(AzureADTenantOAuth2):  # pragma: no cover
     def user_data(self, access_token, *args, **kwargs):
         response = kwargs.get('response')
         id_token = response.get('id_token')
@@ -81,7 +81,7 @@ def default_group(**kwargs):
                 user.groups.add(g)
 
 
-def get_unicef_user(backend, details, response, *args, **kwargs):
+def get_unicef_user(backend, details, response, *args, **kwargs):   # pragma: no cover
     from .models import User
     if details.get('email'):
         filters = {'email': details['email']}
@@ -175,9 +175,8 @@ NotSet = object()
 
 class Synchronizer:
     def __init__(self, user_model=None, mapping=None, echo=None, id=None, secret=None):
-        self.id = id or GRAPH_CLIENT_ID
-        self.secret = secret or GRAPH_CLIENT_SECRET
-
+        self.id = id or config.GRAPH_CLIENT_ID
+        self.secret = secret or config.GRAPH_CLIENT_SECRET
         self.user_model = user_model or get_user_model()
         self.field_map = dict(mapping or DJANGOUSERMAP)
         self.user_pk_fields = self.field_map.pop('_pk')
@@ -190,8 +189,8 @@ class Synchronizer:
         self.echo = echo or (lambda l: True)
 
     def get_token(self):
-        if not self.id and self.secret:
-            raise ValueError("Configure AZURE_CLIENT_ID and/or AZURE_CLIENT_SECRET")
+        # if not (self.id and self.secret):
+        #     raise ValueError("Configure GRAPH_CLIENT_ID and/or GRAPH_CLIENT_SECRET")
         post_dict = {'grant_type': 'client_credentials',
                      'client_id': self.id,
                      'client_secret': self.secret,
@@ -277,7 +276,6 @@ class Synchronizer:
             filters.append("surname eq '%s'" % record.last_name)
         if record.first_name:
             filters.append("givenName eq '%s'" % record.first_name)
-
         page = self.get_page(url + " or ".join(filters), single=True)
         return page['value']
 
@@ -325,6 +323,7 @@ class Synchronizer:
                     results.log(user, created)
                 else:
                     results.log(user_info)
+                # it seems this condition allows two extra records over `max_records`
                 if max_records and i > max_records:
                     break
         except Exception as e:

@@ -20,8 +20,10 @@ def get_vision_auth():
 
 def load_region():
     url = "{}GetBusinessAreaList_JSON".format(config.INSIGHT_URL)
-    response = requests.get(url, auth=get_vision_auth()).json()
-    data = json.loads(response['GetBusinessAreaList_JSONResult'])
+    response = requests.get(url, auth=get_vision_auth())
+    if response.status_code in [401, 403]:
+        raise PermissionError('%s - %s: Invalid credentials' % (url, response.status_code))
+    data = json.loads(response.json()['GetBusinessAreaList_JSONResult'])
     results = SyncResult()
     regions = set((e['REGION_CODE'], e['REGION_NAME']) for e in data)
 
