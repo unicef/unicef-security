@@ -34,7 +34,6 @@ setup(
     author='UNICEF',
     author_email='rapidpro@unicef.org',
     description='Provides Basic Unicef User model and integration with Azure',
-    long_description=read('README.rst'),
     platforms=['any'],
     license='Apache 2 License',
     classifiers=[
