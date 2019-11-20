@@ -1,7 +1,4 @@
-import base64
-import json
 import logging
-import os
 
 import requests
 from constance import config as constance
@@ -9,9 +6,6 @@ from crashlog.middleware import process_exception
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from jwt import decode as jwt_decode, DecodeError, ExpiredSignature
-from social_core.backends.azuread_tenant import AzureADTenantOAuth2
-from social_core.exceptions import AuthTokenError
 from social_django.models import UserSocialAuth
 
 from unicef_security.config import GRAPH_CLIENT_ID, GRAPH_CLIENT_SECRET
@@ -33,38 +27,6 @@ DJANGOUSERMAP = {'_pk': ['username'],
                  'last_name': 'surname'}
 
 ADMIN_EMAILS = [i[1] for i in settings.ADMINS]
-
-
-class AzureADTenantOAuth2Ext(AzureADTenantOAuth2):
-    def user_data(self, access_token, *args, **kwargs):
-        response = kwargs.get('response')
-        id_token = response.get('id_token')
-
-        # decode the JWT header as JSON dict
-        jwt_header = json.loads(
-            base64.b64decode(id_token.split('.', 1)[0]).decode()
-        )
-
-        # get key id and algorithm
-        key_id = jwt_header['kid']
-        algorithm = jwt_header['alg']
-        verify = os.environ.get('OAUTH2_VERIFY', False)
-        key = ''
-        try:
-            # retrieve certificate for key_id
-            if verify:
-                certificate = self.get_certificate(key_id)
-                key = certificate.public_key()
-
-            return jwt_decode(
-                id_token,
-                verify=verify,
-                key=key,
-                algorithms=algorithm,
-                audience=self.setting('KEY')
-            )
-        except (DecodeError, ExpiredSignature) as error:
-            raise AuthTokenError(self, error)
 
 
 def default_group(**kwargs):
