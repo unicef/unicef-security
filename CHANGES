@@ -1,9 +1,10 @@
-Release 0.2 (in development)
+Release 0.2
 -----------
-* Add support to python 3.8
-* Remove support to python 3.6
-
+* add support to python 3.8
+* remove support to python 3.6
+* added UnicefAzureADBBCOAuth2
+*
 
 Release 0.1
 -----------
-* Initial release
+* initial release
