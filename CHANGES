@@ -1,9 +1,14 @@
+Release 0.3
+-----------
+* adapt to new insight api
+
+
 Release 0.2
 -----------
 * add support to python 3.8
 * remove support to python 3.6
 * added UnicefAzureADBBCOAuth2
-*
+
 
 Release 0.1
 -----------
