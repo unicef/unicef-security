@@ -21,12 +21,6 @@ with open(init, 'rb') as f:
     NAME = str(ast.literal_eval(_name_re.search(content).group(1)))
 
 
-def read(*files):
-    content = ''
-    for f in files:
-        content += codecs.open(os.path.join(HERE, f), 'r').read()
-    return content
-
 setup(
     name=NAME,
     version=VERSION,
@@ -34,12 +28,12 @@ setup(
     author='UNICEF',
     author_email='rapidpro@unicef.org',
     description='Provides Basic Unicef User model and integration with Azure',
-    long_description=read('README.rst'),
     platforms=['any'],
     license='Apache 2 License',
     classifiers=[
         'Environment :: Web Environment',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Framework :: Django',
         'Framework :: Django :: 2.2',
         'Intended Audience :: Developers'],

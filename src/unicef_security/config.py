@@ -5,7 +5,7 @@ VISION_PASSWORD = os.environ.get('VISION_PASSWORD', '')
 AZURE_CLIENT_ID = os.environ.get('AZURE_CLIENT_ID', '')
 AZURE_CLIENT_SECRET = os.environ.get('AZURE_CLIENT_SECRET', '')
 
-INSIGHT_URL = 'https://devapis.unicef.org/BIService/BIWebService.svc/'
+INSIGHT_URL = os.environ.get('INSIGHT_URL', 'https://devapis.unicef.org/BIService/BIWebService.svc/')
 
 GRAPH_CLIENT_ID = os.environ.get('GRAPH_CLIENT_ID', AZURE_CLIENT_ID)
 GRAPH_CLIENT_SECRET = os.environ.get('GRAPH_CLIENT_SECRET', AZURE_CLIENT_SECRET)
