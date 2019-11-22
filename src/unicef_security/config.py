@@ -1,11 +1,10 @@
 import os
 
-VISION_USER = os.environ.get('VISION_USER', '')
-VISION_PASSWORD = os.environ.get('VISION_PASSWORD', '')
 AZURE_CLIENT_ID = os.environ.get('AZURE_CLIENT_ID', '')
 AZURE_CLIENT_SECRET = os.environ.get('AZURE_CLIENT_SECRET', '')
 
-INSIGHT_URL = os.environ.get('INSIGHT_URL', 'https://devapis.unicef.org/BIService/BIWebService.svc/')
+INSIGHT_URL = os.environ.get('INSIGHT_URL', 'https://unibiapitest.azure-api.net/biapi/v1/')
+INSIGHT_SUB_KEY = os.environ.get('INSIGHT_URL', 'https://unibiapitest.azure-api.net/biapi/v1/')
 
 GRAPH_CLIENT_ID = os.environ.get('GRAPH_CLIENT_ID', AZURE_CLIENT_ID)
 GRAPH_CLIENT_SECRET = os.environ.get('GRAPH_CLIENT_SECRET', AZURE_CLIENT_SECRET)

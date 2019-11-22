@@ -3,7 +3,6 @@ import logging
 
 import requests
 from django_countries import countries
-from requests.auth import HTTPBasicAuth
 
 from . import config
 from .graph import SyncResult
@@ -14,14 +13,10 @@ logger = logging.getLogger(__name__)
 c = dict(countries)
 
 
-def get_vision_auth():
-    return HTTPBasicAuth(config.VISION_USER, config.VISION_PASSWORD)
-
-
 def load_region():
-    url = "{}GetBusinessAreaList_JSON".format(config.INSIGHT_URL)
-    response = requests.get(url, auth=get_vision_auth()).json()
-    data = json.loads(response['GetBusinessAreaList_JSONResult'])
+    url = "{}businessareas".format(config.INSIGHT_URL)
+    response = requests.get(url, headers={'Ocp-Apim-Subscription-Key': config.INSIGHT_SUB_KEY}).json()
+    data = response['ROWSET']['ROW']
     results = SyncResult()
     regions = set((e['REGION_CODE'], e['REGION_NAME']) for e in data)
 
@@ -36,13 +31,13 @@ def load_region():
 
 
 def load_business_area():
-    url = "{}GetBusinessAreaList_JSON".format(config.INSIGHT_URL)
-    response = requests.get(url, auth=get_vision_auth()).json()
-    data = json.loads(response['GetBusinessAreaList_JSONResult'])
+    url = "{}businessareas".format(config.INSIGHT_URL)
+    response = requests.get(url, headers={'Ocp-Apim-Subscription-Key': config.INSIGHT_SUB_KEY}).json()
+    data = response['ROWSET']['ROW']
     results = SyncResult()
     for entry in data:
+        print(entry.keys())
         defaults = {'name': entry['BUSINESS_AREA_NAME'],
-                    'long_name': entry['BUSINESS_AREA_LONG_NAME'],
                     'country': countries.by_name(entry['BUSINESS_AREA_NAME']),
                     'region': Region.objects.get_or_create(code=entry['REGION_CODE'],
                                                            defaults={
