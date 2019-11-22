@@ -85,7 +85,6 @@ STATIC_URL = '/static/'
 
 
 MEDIA_ROOT = '/tmp/'
-VISION_URL = 'https://api.example.com'
 VISION_LOGGER_MODEL = 'vision.VisionLog'
 
 AUTH_USER_MODEL = 'unicef_security.User'
