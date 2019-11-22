@@ -35,7 +35,6 @@ def load_business_area():
     data = response['ROWSET']['ROW']
     results = SyncResult()
     for entry in data:
-        print(entry.keys())
         defaults = {'name': entry['BUSINESS_AREA_NAME'],
                     'country': countries.by_name(entry['BUSINESS_AREA_NAME']),
                     'region': Region.objects.get_or_create(code=entry['REGION_CODE'],
