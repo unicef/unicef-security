@@ -14,8 +14,10 @@ c = dict(countries)
 
 def load_region():
     url = "{}businessareas".format(config.INSIGHT_URL)
-    response = requests.get(url, headers={'Ocp-Apim-Subscription-Key': config.INSIGHT_SUB_KEY}).json()
-    data = response['ROWSET']['ROW']
+    response = requests.get(url, headers={'Ocp-Apim-Subscription-Key': config.INSIGHT_SUB_KEY})
+    if response.status_code in [401, 403]:
+        raise PermissionError('%s - %s: Invalid credentials' % (url, response.status_code))
+    data = response.json()['ROWSET']['ROW']
     results = SyncResult()
     regions = set((e['REGION_CODE'], e['REGION_NAME']) for e in data)
 
@@ -31,8 +33,10 @@ def load_region():
 
 def load_business_area():
     url = "{}businessareas".format(config.INSIGHT_URL)
-    response = requests.get(url, headers={'Ocp-Apim-Subscription-Key': config.INSIGHT_SUB_KEY}).json()
-    data = response['ROWSET']['ROW']
+    response = requests.get(url, headers={'Ocp-Apim-Subscription-Key': config.INSIGHT_SUB_KEY})
+    if response.status_code in [401, 403]:
+        raise PermissionError('%s - %s: Invalid credentials' % (url, response.status_code))
+    data = response.json()['ROWSET']['ROW']
     results = SyncResult()
     for entry in data:
         defaults = {'name': entry['BUSINESS_AREA_NAME'],

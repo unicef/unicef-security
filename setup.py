@@ -1,13 +1,9 @@
 #!/usr/bin/env python
 import ast
-import codecs
 import os
 import re
-import sys
 
 from setuptools import find_packages, setup
-from setuptools.command.install import install
-from setuptools.command.test import test as TestCommand
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 init = os.path.join(HERE, "src", "unicef_security", "__init__.py")
@@ -46,6 +42,7 @@ setup(
         'django-constance',
         'django-countries',
         'django-crashlog',
+        'django-picklefield',
         'requests',
         'social-auth-app-django',
     ],
@@ -61,6 +58,8 @@ setup(
             'pytest-django',
             'pytest-echo',
             'pytest-pythonpath',
+            'pytest-redis',
+            'requests-mock',
             'vcrpy',
         ],
     },
