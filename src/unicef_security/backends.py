@@ -42,7 +42,7 @@ class AzureADTenantOAuth2Ext(AzureADTenantOAuth2):
             raise AuthTokenError(self, error)
 
 
-class UnicefAzureADBBCOAuth2(AzureADB2COAuth2):
+class UnicefAzureADB2COAuth2(AzureADB2COAuth2):
     """Unicef Azure ADB2C Custom Backend"""
 
     name = 'unicef-azuread-b2c-oauth2'
