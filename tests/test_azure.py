@@ -1,9 +1,10 @@
 import os
 from pathlib import Path
 
+from tests.fixtures import VCR
+
 import pytest
 
-from tests.fixtures import VCR
 from unicef_security.graph import Synchronizer
 
 
