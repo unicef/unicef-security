@@ -3,6 +3,7 @@ Release 0.4 (in development)
 * added support to django 3.0
 * removed support to django 2.1
 * added health check middleware
+* added UnicefSocialAuthExceptionMiddleware
 * added pipeline
 
 
