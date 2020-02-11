@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerEr
 from social_core.exceptions import AuthCanceled, AuthMissingParameter
 from social_django.middleware import SocialAuthExceptionMiddleware
 
-from unicef_security.backends import UnicefAzureADB2COAuth2
+from unicef_security.backends import UNICEFAzureADB2COAuth2
 
 logger = logging.getLogger("healthz")
 
@@ -62,7 +62,7 @@ class HealthCheckMiddleware:
         return HttpResponse("OK")
 
 
-class UnicefSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
+class UNICEFSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
     """Middleware to ignore Forgot Password Exceptions"""
 
     def process_exception(self, request, exception):
@@ -81,7 +81,7 @@ class UnicefSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
         error_description = request.GET.get('error_description', None)
         if error == "access_denied" and error_description is not None:
             if 'AADB2C90118' in error_description:
-                auth_class = UnicefAzureADB2COAuth2()
+                auth_class = UNICEFAzureADB2COAuth2()
                 redirect_home = auth_class.get_redirect_uri()
                 redirect_url = 'https://login.microsoftonline.com/' + \
                                settings.TENANT_ID + \
