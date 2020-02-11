@@ -10,7 +10,7 @@ from social_core.backends.azuread_tenant import AzureADTenantOAuth2
 from social_core.exceptions import AuthTokenError
 
 
-class AzureADTenantOAuth2Ext(AzureADTenantOAuth2):
+class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
     def user_data(self, access_token, *args, **kwargs):
         response = kwargs.get('response')
         id_token = response.get('id_token')
@@ -42,8 +42,8 @@ class AzureADTenantOAuth2Ext(AzureADTenantOAuth2):
             raise AuthTokenError(self, error)
 
 
-class UnicefAzureADB2COAuth2(AzureADB2COAuth2):
-    """Unicef Azure ADB2C Custom Backend"""
+class UNICEFAzureADB2COAuth2(AzureADB2COAuth2):
+    """UNICEF Azure ADB2C Custom Backend"""
 
     name = 'unicef-azuread-b2c-oauth2'
 

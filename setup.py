@@ -23,7 +23,7 @@ setup(
     url='https://github.com/unicef/unicef-security',
     author='UNICEF',
     author_email='rapidpro@unicef.org',
-    description='Provides Basic Unicef User model and integration with Azure',
+    description='Provides Basic UNICEF User model and integration with Azure',
     platforms=['any'],
     license='Apache 2 License',
     classifiers=[
