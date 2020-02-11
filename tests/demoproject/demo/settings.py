@@ -1,8 +1,3 @@
-"""
-Django settings for demo project.
-
-"""
-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -29,6 +24,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'unicef_security',
     'admin_extra_urls',
+    'constance',
+    'constance.backends.database',
+    'social_django',
     'demo'
 ]
 
@@ -79,12 +77,17 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
+HOST = 'http://localhost'
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-
 
 MEDIA_ROOT = '/tmp/'
 VISION_LOGGER_MODEL = 'vision.VisionLog'
 
 AUTH_USER_MODEL = 'unicef_security.User'
+
+CONSTANCE_CONFIG = {
+    'DEFAULT_GROUP': ('', 'test_grp'),
+}
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'

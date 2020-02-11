@@ -1,13 +1,9 @@
 #!/usr/bin/env python
 import ast
-import codecs
 import os
 import re
-import sys
 
 from setuptools import find_packages, setup
-from setuptools.command.install import install
-from setuptools.command.test import test as TestCommand
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 init = os.path.join(HERE, "src", "unicef_security", "__init__.py")
@@ -27,7 +23,7 @@ setup(
     url='https://github.com/unicef/unicef-security',
     author='UNICEF',
     author_email='rapidpro@unicef.org',
-    description='Provides Basic Unicef User model and integration with Azure',
+    description='Provides Basic UNICEF User model and integration with Azure',
     platforms=['any'],
     license='Apache 2 License',
     classifiers=[
@@ -36,6 +32,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Framework :: Django',
         'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.0',
         'Intended Audience :: Developers'],
     install_requires = [
         'admin-extra-urls',
@@ -45,6 +42,7 @@ setup(
         'django-constance',
         'django-countries',
         'django-crashlog',
+        'django-picklefield',
         'requests',
         'social-auth-app-django',
     ],
@@ -53,6 +51,7 @@ setup(
             'django-webtest',
             'factory-boy',
             'flake8',
+            'httpretty',
             'isort',
             'mock',
             'pytest',
@@ -60,6 +59,9 @@ setup(
             'pytest-django',
             'pytest-echo',
             'pytest-pythonpath',
+            'pytest-redis',
+            'requests-mock',
+            'unittest2',
             'vcrpy',
         ],
     },
