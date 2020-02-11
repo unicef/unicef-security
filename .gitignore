@@ -42,7 +42,7 @@ config.json
 
 .env
 .envrc
-
+.venv/
 # Sphinx documentation
 docs/_build/
 
