@@ -46,6 +46,7 @@ class UNICEFAzureADB2COAuth2(AzureADB2COAuth2):
     """UNICEF Azure ADB2C Custom Backend"""
 
     name = 'unicef-azuread-b2c-oauth2'
+    BASE_URL = 'https://unicefpartners.b2clogin.com/{tenant_id}'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
