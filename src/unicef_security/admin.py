@@ -1,6 +1,5 @@
 import logging
 
-from admin_extra_urls.extras import action, ExtraUrlMixin, link
 from django import forms
 from django.contrib import admin, messages
 from django.contrib.admin import ModelAdmin, widgets
@@ -10,6 +9,9 @@ from django.forms import Form
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+from admin_extra_urls.api import action, link
+from admin_extra_urls.mixins import ExtraUrlMixin
 
 from .graph import default_group, Synchronizer, SyncResult
 from .models import BusinessArea, Region, User

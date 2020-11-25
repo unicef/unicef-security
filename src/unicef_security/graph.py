@@ -1,11 +1,12 @@
 import logging
 
-import requests
-from constance import config as constance
-from crashlog.middleware import process_exception
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+
+import requests
+from constance import config as constance
+from crashlog.middleware import process_exception
 from social_django.models import UserSocialAuth
 
 from unicef_security.config import GRAPH_CLIENT_ID, GRAPH_CLIENT_SECRET

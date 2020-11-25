@@ -2,6 +2,7 @@ import logging
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
+
 from social_core.exceptions import AuthCanceled, AuthMissingParameter
 from social_django.middleware import SocialAuthExceptionMiddleware
 
