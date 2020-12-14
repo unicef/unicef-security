@@ -4,6 +4,7 @@ import os
 
 from django.conf import settings
 from django.urls import reverse
+
 from jwt import decode as jwt_decode, DecodeError, ExpiredSignature
 from social_core.backends.azuread_b2c import AzureADB2COAuth2
 from social_core.backends.azuread_tenant import AzureADTenantOAuth2
