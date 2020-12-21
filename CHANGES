@@ -1,4 +1,4 @@
-Release 0.6 (in development)
+Release 0.6
 -----------------------------
 * added UNICEFUserFilter admin filter
 * added create_unicef_user pipeline step
