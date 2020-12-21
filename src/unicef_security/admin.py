@@ -2,7 +2,7 @@ import logging
 
 from django import forms
 from django.contrib import admin, messages
-from django.contrib.admin import ModelAdmin, widgets
+from django.contrib.admin import ModelAdmin, SimpleListFilter, widgets
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.forms import Form
@@ -13,6 +13,7 @@ from django.utils.translation import gettext_lazy as _
 from admin_extra_urls.api import action, link
 from admin_extra_urls.mixins import ExtraUrlMixin
 
+from .config import UNICEF_EMAIL
 from .graph import default_group, Synchronizer, SyncResult
 from .models import BusinessArea, Region, User
 from .sync import load_business_area, load_region
@@ -56,11 +57,29 @@ class FF(Form):
     selection = forms.CharField()
 
 
+class UNICEFUserFilter(SimpleListFilter):
+    title = 'UNICEF user filter'
+    parameter_name = 'email'
+
+    def lookups(self, request, model_admin):
+        return [
+            ('unicef', 'UNICEF'),
+            ('external', 'External'),
+        ]
+
+    def queryset(self, request, queryset):
+        if self.value() == 'unicef':
+            return queryset.distinct().filter(email__endswith=UNICEF_EMAIL)
+        elif self.value() == 'external':
+            return queryset.distinct().exclude(email__endswith=UNICEF_EMAIL)
+        return queryset.distinct()
+
+
 @admin.register(User)
 class UserAdmin2(ExtraUrlMixin, UserAdmin):
     list_display = ['username', 'display_name', 'email', 'is_staff',
                     'is_active', 'is_superuser', 'is_linked', 'last_login']
-    list_filter = ['is_superuser', 'is_staff', 'is_active']
+    list_filter = ['is_superuser', 'is_staff', 'is_active', UNICEFUserFilter]
     search_fields = ['username', 'display_name']
     fieldsets = (
         (None, {'fields': (('username', 'azure_id'), 'password')}),
