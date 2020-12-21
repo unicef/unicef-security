@@ -40,6 +40,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'unicef_security.backends.UNICEFAzureADB2COAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 ROOT_URLCONF = 'demo.urls'
 
 TEMPLATES = [

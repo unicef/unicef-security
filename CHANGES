@@ -1,3 +1,9 @@
+Release 0.6
+-----------------------------
+* added UNICEFUserFilter admin filter
+* added create_unicef_user pipeline step
+
+
 Release 0.5
 -----------------------------
 * added support to django 3.1
