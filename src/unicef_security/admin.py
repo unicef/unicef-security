@@ -10,7 +10,7 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from admin_extra_urls.api import action, link
+from admin_extra_urls.api import button
 from admin_extra_urls.mixins import ExtraUrlMixin
 
 from .config import UNICEF_EMAIL
@@ -29,7 +29,7 @@ def admin_reverse(model, page="changelist"):
 class RegionAdmin(ExtraUrlMixin, ModelAdmin):
     list_display = ['code', 'name']
 
-    @link()
+    @button()
     def sync(self, request):
         load_region()
 
@@ -40,7 +40,7 @@ class BusinessAreaAdmin(ExtraUrlMixin, ModelAdmin):
     list_filter = ['region', 'country']
     search_fields = ('name',)
 
-    @link()
+    @button()
     def sync(self, request):
         try:
             load_business_area()
@@ -104,7 +104,7 @@ class UserAdmin2(ExtraUrlMixin, UserAdmin):
 
     is_linked.boolean = True
 
-    @action(label='Sync')
+    @button(label='Sync')
     def sync_user(self, request, pk):
         obj = self.get_object(request, pk)
         try:
@@ -115,7 +115,7 @@ class UserAdmin2(ExtraUrlMixin, UserAdmin):
 
         self.message_user(request, "User synchronized")
 
-    @action(label='Link user')
+    @button(label='Link user')
     def link_user_data(self, request, pk):
         opts = self.model._meta
         ctx = {
@@ -147,7 +147,7 @@ class UserAdmin2(ExtraUrlMixin, UserAdmin):
         except Exception as e:
             self.message_user(request, str(e), messages.ERROR)
 
-    @link()
+    @button()
     def load(self, request):
         opts = self.model._meta
         ctx = {
@@ -197,7 +197,7 @@ class RoleForm(forms.Form):
 #     def has_add_permission(self, request):
 #         return False
 #
-#     @link()
+#     @button()
 #     def add_grants(self, request):
 #         opts = self.model._meta
 #         ctx = {
