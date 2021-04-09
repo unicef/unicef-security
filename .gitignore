@@ -15,6 +15,7 @@ build
 # SQLite3 database files:
 *.db
 *.sql
+*.sqlite3
 
 # Logs:
 *.log

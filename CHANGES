@@ -1,6 +1,8 @@
 Release 0.7
 -----------------------------
+* added support to django 3.2
 * updated to newest admin-extra-urls
+* removed support to python 3.7
 
 
 Release 0.6

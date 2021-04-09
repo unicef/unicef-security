@@ -28,13 +28,13 @@ setup(
     license='Apache 2 License',
     classifiers=[
         'Environment :: Web Environment',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Framework :: Django',
         'Framework :: Django :: 2.2',
         'Framework :: Django :: 3.0',
         'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
         'Intended Audience :: Developers'
     ],
     install_requires=[
@@ -48,6 +48,7 @@ setup(
         'django-picklefield',
         'requests',
         'social-auth-app-django',
+        'PyJWT<2.0'
     ],
     extras_require={
         'test': [
