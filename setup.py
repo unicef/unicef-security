@@ -48,7 +48,7 @@ setup(
         'django-picklefield',
         'requests',
         'social-auth-app-django',
-        'PyJWT<2.0'
+        'PyJWT'
     ],
     extras_require={
         'test': [
