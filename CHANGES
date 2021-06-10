@@ -1,6 +1,7 @@
 Release 0.8
 -----------------------------
 * added support to jwt>2.0
+* fixed templates
 
 
 Release 0.7
