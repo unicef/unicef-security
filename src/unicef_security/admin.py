@@ -69,10 +69,10 @@ class UNICEFUserFilter(SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value() == 'unicef':
-            return queryset.distinct().filter(email__endswith=UNICEF_EMAIL)
+            return queryset.filter(email__endswith=UNICEF_EMAIL)
         elif self.value() == 'external':
-            return queryset.distinct().exclude(email__endswith=UNICEF_EMAIL)
-        return queryset.distinct()
+            return queryset.exclude(email__endswith=UNICEF_EMAIL)
+        return queryset
 
 
 @admin.register(User)
