@@ -47,15 +47,17 @@ class BusinessArea(AbstractBusinessArea, TimeStampedModel):
         swappable = 'BUSINESSAREA_MODEL'
 
 
-class User(AbstractUser, TimeStampedModel):
+class ExtendedAbstractUser(AbstractUser, TimeStampedModel):
     # business_area = models.ForeignKey(settings.BUSINESSAREA_MODEL,
     #                                   null=True, blank=True,
     #                                   on_delete=models.CASCADE)
     azure_id = models.UUIDField(blank=True, unique=True, null=True)
     job_title = models.CharField(max_length=100, null=True, blank=True)
     display_name = models.CharField(max_length=100, null=True, blank=True)
+    email = models.EmailField(_('email address'), unique=True)
 
     class Meta:
+        abstract = True
         app_label = 'unicef_security'
 
     @cached_property
@@ -66,10 +68,15 @@ class User(AbstractUser, TimeStampedModel):
             return f"{self.first_name} {self.last_name}:"
         elif self.first_name:
             return self.first_name
-        else:
-            return self.username
+        return self.username
 
     def save(self, *args, **kwargs):
         if not self.display_name:
             self.display_name = self.label
         super().save(*args, **kwargs)
+
+
+class User(ExtendedAbstractUser):
+    class Meta:
+        swappable = 'AUTH_USER_MODEL'
+        app_label = 'unicef_security'

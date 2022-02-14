@@ -3,6 +3,7 @@ import logging
 from django import forms
 from django.contrib import admin, messages
 from django.contrib.admin import ModelAdmin, SimpleListFilter, widgets
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.forms import Form
@@ -15,10 +16,12 @@ from admin_extra_urls.mixins import ExtraUrlMixin
 
 from .config import UNICEF_EMAIL
 from .graph import default_group, Synchronizer, SyncResult
-from .models import BusinessArea, Region, User
+from .models import BusinessArea, Region
 from .sync import load_business_area, load_region
 
 logger = logging.getLogger(__name__)
+
+User = get_user_model()
 
 
 def admin_reverse(model, page="changelist"):
