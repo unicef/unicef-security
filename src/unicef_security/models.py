@@ -8,12 +8,15 @@ from django_countries.fields import CountryField
 app_label = 'unicef_security'
 
 
-class TimeStampedModel:
-    last_modify_date = models.DateTimeField(editable=False, blank=True, auto_now_add=True,
-                                            auto_now=True)
+class TimeStampedModel(models.Model):
+    last_modify_date = models.DateTimeField(editable=False, blank=True, auto_now=True)
+
+    class Meta:
+        app_label = 'unicef_security'
+        abstract = True
 
 
-class Region(models.Model, TimeStampedModel):
+class Region(TimeStampedModel):
     code = models.CharField(_('code'), max_length=10, unique=True)
     name = models.CharField(_('name'), max_length=50, unique=True)
 
@@ -24,7 +27,7 @@ class Region(models.Model, TimeStampedModel):
         return f"{self.name}"
 
 
-class AbstractBusinessArea(models.Model, TimeStampedModel):
+class AbstractBusinessArea(models.Model):
     code = models.CharField(_('code'), max_length=10, unique=True)
     name = models.CharField(_('name'), max_length=50, unique=True)
     long_name = models.CharField(_('long name'), max_length=150)

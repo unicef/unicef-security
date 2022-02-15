@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
             options={
                 'swappable': 'BUSINESSAREA_MODEL',
             },
-            bases=(models.Model, unicef_security.models.TimeStampedModel),
+            bases=(models.Model, ),
         ),
         migrations.CreateModel(
             name='User',
@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
             ],
-            bases=(models.Model, unicef_security.models.TimeStampedModel),
+            bases=(models.Model,),
             managers=[
                 ('objects', django.contrib.auth.models.UserManager()),
             ],
@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
                 ('code', models.CharField(max_length=10, unique=True, verbose_name='code')),
                 ('name', models.CharField(max_length=50, unique=True, verbose_name='name')),
             ],
-            bases=(models.Model, unicef_security.models.TimeStampedModel),
+            bases=(models.Model,),
         ),
         migrations.AddField(
             model_name='businessarea',
