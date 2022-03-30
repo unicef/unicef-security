@@ -23,10 +23,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'unicef_security',
-    'admin_extra_urls',
+    'admin_extra_buttons',
     'constance',
     'constance.backends.database',
-    'social_django',
     'demo'
 ]
 
@@ -41,7 +40,6 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'unicef_security.backends.UNICEFAzureADB2COAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -87,8 +85,6 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = '/tmp/'
 VISION_LOGGER_MODEL = 'vision.VisionLog'
-
-AUTH_USER_MODEL = 'unicef_security.User'
 
 CONSTANCE_CONFIG = {
     'DEFAULT_GROUP': ('', 'test_grp'),

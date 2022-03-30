@@ -1,6 +1,7 @@
-Release 0.9 (in development)
+Release 1.0 (in development)
 -----------------------------
 * added support to django 4.0
+* removed azure and social integrations
 
 
 Release 0.8

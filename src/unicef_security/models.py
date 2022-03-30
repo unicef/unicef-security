@@ -1,6 +1,4 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from django_countries.fields import CountryField
@@ -45,31 +43,3 @@ class BusinessArea(AbstractBusinessArea, TimeStampedModel):
     class Meta:
         app_label = 'unicef_security'
         swappable = 'BUSINESSAREA_MODEL'
-
-
-class User(AbstractUser, TimeStampedModel):
-    # business_area = models.ForeignKey(settings.BUSINESSAREA_MODEL,
-    #                                   null=True, blank=True,
-    #                                   on_delete=models.CASCADE)
-    azure_id = models.UUIDField(blank=True, unique=True, null=True)
-    job_title = models.CharField(max_length=100, null=True, blank=True)
-    display_name = models.CharField(max_length=100, null=True, blank=True)
-
-    class Meta:
-        app_label = 'unicef_security'
-
-    @cached_property
-    def label(self):
-        if self.display_name:
-            return self.display_name
-        elif self.first_name and self.last_name:
-            return f"{self.first_name} {self.last_name}:"
-        elif self.first_name:
-            return self.first_name
-        else:
-            return self.username
-
-    def save(self, *args, **kwargs):
-        if not self.display_name:
-            self.display_name = self.label
-        super().save(*args, **kwargs)

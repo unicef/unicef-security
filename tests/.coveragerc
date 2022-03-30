@@ -4,7 +4,7 @@ source = unicef_security
 omit = *migrations*
 
 [report]
-fail_under = 20
+fail_under = 80
 ignore_errors = True
 exclude_lines =
    pragma: no cover

@@ -38,14 +38,11 @@ setup(
         'celery',
         'cryptography',
         'django',
-        'django-admin-extra-urls',
+        'django-admin-extra-buttons',
         'django-constance',
         'django-countries',
-        'django-crashlog',
         'django-picklefield',
         'requests',
-        'social-auth-app-django',
-        'PyJWT'
     ],
     extras_require={
         'test': [
