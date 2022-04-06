@@ -1,4 +1,6 @@
-from social_core.pipeline import social_auth
+from django.http import HttpResponseBadRequest
+
+from social_core.pipeline import social_auth, user as social_core_user
 from social_core.pipeline.user import USER_FIELDS
 
 from .config import UNICEF_EMAIL
@@ -6,6 +8,11 @@ from .config import UNICEF_EMAIL
 
 def social_details(backend, details, response, *args, **kwargs):
     r = social_auth.social_details(backend, details, response, *args, **kwargs)
+    user = kwargs.get('user', None)
+    if user:
+        # here we are preventing messing up between current us and social user
+        return HttpResponseBadRequest("Unauthorized: current user is already authenticated")
+
     r['details']['idp'] = response.get('idp')
     if not r['details'].get('email'):
         if not response.get('email'):
@@ -14,7 +21,7 @@ def social_details(backend, details, response, *args, **kwargs):
             r['details']['email'] = response.get('email')
     email = r['details'].get('email')
     if isinstance(email, str):
-        r['details']['email'] = email.lower()
+        r['details']['email'] = email.lower().strip()
     return r
 
 
@@ -36,3 +43,19 @@ def create_unicef_user(strategy, details, backend, user=None, *args, **kwargs):
         'is_new': True,
         'user': strategy.create_user(**fields)
     }
+
+
+def user_details(strategy, details, backend, user=None, *args, **kwargs):
+    """ This is where we update the user see what the property to map by is here updates_available = False """
+
+    if user:
+        # user_groups = [group.name for group in user.groups.all()]
+        # business_area_code = details.get("business_area_code", 'defaultBA1235')
+        # Update username with email and unusable password
+        user.username = user.email
+        user.first_name = details['first_name']
+        user.last_name = details['last_name']
+        user.set_unusable_password()
+        user.save()
+
+    return social_core_user.user_details(strategy, details, backend, user, *args, **kwargs)
