@@ -28,14 +28,20 @@ class UNICEFSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
             if 'AADB2C90118' in error_description:
                 auth_class = UNICEFAzureADB2COAuth2()
                 redirect_home = auth_class.get_redirect_uri()
-                redirect_url = 'https://login.microsoftonline.com/' + \
-                               settings.TENANT_ID + \
-                               "/oauth2/v2.0/authorize?p=" + \
-                               settings.SOCIAL_PASSWORD_RESET_POLICY + \
-                               "&client_id=" + settings.KEY + \
-                               "&nonce=defaultNonce&redirect_uri=" + redirect_home + \
-                               "&scope=openid+email&response_type=code"
+                redirect_url = ''.join([
+                    auth_class.base_url,
+                    "/oauth2/v2.0/",
+                    f"authorize?p={settings.SOCIAL_PASSWORD_RESET_POLICY}",
+                    f"&client_id={settings.KEY}",
+                    f"&nonce=defaultNonce&redirect_uri={redirect_home}",
+                    "&scope=openid+email&response_type=code"
+                ])
                 return redirect_url
 
         # TODO: In case of password reset the state can't be verified figure out a way to log the user in after reset
-        return settings.LOGIN_URL
+        if error is None:
+            return settings.LOGIN_URL
+
+        strategy = getattr(request, 'social_strategy', None)
+        redirect_url = strategy.setting('LOGIN_ERROR_URL') + "?msgc=loginerror"
+        return redirect_url

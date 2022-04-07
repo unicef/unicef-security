@@ -16,7 +16,7 @@ def backend(strategy):
 
 
 @pytest.fixture()
-def response():
+def response(auth_user):
     return {
         'id_token': 'token',
         'token_type': 'Bearer',
@@ -37,15 +37,15 @@ def response():
         'family_name': 'Family',
         'name': 'Given Family',
         'idp': 'UNICEF Azure AD',
-        'email': 'test_undeliverable@unicef.org'
+        'email': auth_user.email
     }
 
 
 @pytest.fixture()
-def details(email='test_undeliverable@unicef.org'):
+def details(auth_user):
     return {
         'username': 'Given Family',
-        'email': email,
+        'email': auth_user.email,
         'fullname': 'Given Family',
         'first_name': 'Given',
         'last_name': 'Family',
@@ -53,16 +53,18 @@ def details(email='test_undeliverable@unicef.org'):
     }
 
 
-def test_social_details(backend, details, response):
+@pytest.mark.django_db
+def test_social_details(auth_user, backend, details, response):
     return_dict = social_details(backend, details, response)
     assert 'idp' in return_dict['details']
-    assert return_dict['details']['email'] == 'test_undeliverable@unicef.org'
+    assert return_dict['details']['email'] == auth_user.email
 
 
-def test_get_username(strategy, backend, details):
-    result_dict = get_username(strategy, details, backend)
+@pytest.mark.django_db
+def test_get_username(strategy, backend, details, auth_user):
+    result_dict = get_username(strategy, details, backend, user=auth_user)
     assert 'username' in result_dict
-    assert result_dict['username'] == 'test_undeliverable@unicef.org'
+    assert result_dict['username'] == auth_user.email
 
 
 @pytest.mark.django_db
@@ -72,12 +74,14 @@ def test_create_unicef_user_ok(strategy, details, backend):
     assert result_dict['user']
 
 
+@pytest.mark.django_db
 def test_create_unicef_user_ko(strategy, details, backend):
     details['email'] = 'test_undeliverable@example.com'
     result_dict = create_unicef_user(strategy, details, backend)
     assert not result_dict
 
 
+@pytest.mark.django_db
 def test_create_unicef_user_existing(strategy, details, backend):
     result_dict = create_unicef_user(strategy, details, backend, 1)
     assert 'is_new' in result_dict
