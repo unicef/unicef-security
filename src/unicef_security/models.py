@@ -1,9 +1,6 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser as DjangoAbstractUser
 from django.db import models
 from django.utils.functional import cached_property
-from django.utils.translation import gettext as _
-
-from django_countries.fields import CountryField
 
 app_label = 'unicef_security'
 
@@ -13,49 +10,13 @@ class TimeStampedModel:
                                             auto_now=True)
 
 
-class Region(models.Model, TimeStampedModel):
-    code = models.CharField(_('code'), max_length=10, unique=True)
-    name = models.CharField(_('name'), max_length=50, unique=True)
-
-    class Meta:
-        app_label = 'unicef_security'
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-class AbstractBusinessArea(models.Model, TimeStampedModel):
-    code = models.CharField(_('code'), max_length=10, unique=True)
-    name = models.CharField(_('name'), max_length=50, unique=True)
-    long_name = models.CharField(_('long name'), max_length=150)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
-    country = CountryField()
-
-    class Meta:
-        app_label = 'unicef_security'
-        abstract = True
-        verbose_name = _('Business Area')
-        verbose_name_plural = _('Business Areas')
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-class BusinessArea(AbstractBusinessArea, TimeStampedModel):
-    class Meta:
-        app_label = 'unicef_security'
-        swappable = 'BUSINESSAREA_MODEL'
-
-
-class User(AbstractUser, TimeStampedModel):
-    # business_area = models.ForeignKey(settings.BUSINESSAREA_MODEL,
-    #                                   null=True, blank=True,
-    #                                   on_delete=models.CASCADE)
+class AbstractUser(DjangoAbstractUser):
     azure_id = models.UUIDField(blank=True, unique=True, null=True)
     job_title = models.CharField(max_length=100, null=True, blank=True)
     display_name = models.CharField(max_length=100, null=True, blank=True)
 
-    class Meta:
+    class Meta(DjangoAbstractUser.Meta):
+        abstract = True
         app_label = 'unicef_security'
 
     @cached_property
@@ -73,3 +34,10 @@ class User(AbstractUser, TimeStampedModel):
         if not self.display_name:
             self.display_name = self.label
         super().save(*args, **kwargs)
+
+
+class User(AbstractUser):
+
+    class Meta(AbstractUser.Meta):
+        app_label = 'unicef_security'
+        swappable = 'AUTH_USER_MODEL'

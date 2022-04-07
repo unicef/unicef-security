@@ -23,11 +23,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'unicef_security',
-    'admin_extra_urls',
+    'admin_extra_buttons',
     'constance',
     'constance.backends.database',
     'social_django',
-    'demo'
+    'demo',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +79,6 @@ DATABASES = {
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 HOST = 'http://localhost'
@@ -89,7 +88,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = '/tmp/'
 VISION_LOGGER_MODEL = 'vision.VisionLog'
 
-AUTH_USER_MODEL = 'unicef_security.User'
+AUTH_USER_MODEL = 'demo.User'
 
 CONSTANCE_CONFIG = {
     'DEFAULT_GROUP': ('', 'test_grp'),

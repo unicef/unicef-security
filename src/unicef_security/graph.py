@@ -6,7 +6,6 @@ from django.contrib.auth.models import Group
 
 import requests
 from constance import config as constance
-from crashlog.middleware import process_exception
 from social_django.models import UserSocialAuth
 
 from unicef_security.config import GRAPH_CLIENT_ID, GRAPH_CLIENT_SECRET
@@ -45,7 +44,7 @@ def default_group(**kwargs):
 
 
 def get_unicef_user(backend, details, response, *args, **kwargs):
-    from .models import User
+    User = get_user_model()
     if details.get('email'):
         filters = {'email': details['email']}
     elif details.get('unique_name'):
@@ -69,8 +68,8 @@ def get_unicef_user(backend, details, response, *args, **kwargs):
             for k, v in data.items():
                 details[k] = v
 
-        except Exception as e:
-            process_exception(e)
+        except BaseException as e:
+            logger.error(e)
 
         user, created = User.objects.get_or_create(
             username=details['unique_name'],
@@ -162,7 +161,7 @@ class Synchronizer:
         response = requests.post(config.AZURE_TOKEN_URL, post_dict)
         if response.status_code != 200:  # pragma: no cover
             logger.error(f"Unable to fetch token from Azure. {response.status_code} {response.content}")
-            raise Exception(f'Error during token retrieval: {response.status_code} {response.content}')
+            raise BaseException(f'Error during token retrieval: {response.status_code} {response.content}')
         jresponse = response.json()
         token = jresponse['access_token']
         return token
@@ -217,7 +216,7 @@ class Synchronizer:
                 pages += 1
             except KeyboardInterrupt:
                 break
-            except Exception as e:
+            except BaseException as e:
                 logger.exception(e)
                 break
 
@@ -290,9 +289,8 @@ class Synchronizer:
                     results.log(user_info)
                 if max_records and i > max_records:
                     break
-        except Exception as e:
+        except BaseException as e:
             logger.exception(e)
-            process_exception(e)
             raise
         logger.debug(f"End Azure user synchronization: {results}")
         return results
