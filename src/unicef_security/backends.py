@@ -41,7 +41,11 @@ class UNICEFAzureADB2COAuth2(AzureADB2COAuth2):
     """UNICEF Azure ADB2C Custom Backend"""
 
     name = 'unicef-azuread-b2c-oauth2'
-    BASE_URL = 'https://{tenant_id}.b2clogin.com/{tenant_id}'
+    BASE_URL = 'https://{tenant_name}.b2clogin.com/{tenant_id}'
+
+    @property
+    def base_url(self):
+        return self.BASE_URL.format(tenant_name=self.tenant_name, tenant_id=self.tenant_id)
 
     @property
     def tenant_name(self):
