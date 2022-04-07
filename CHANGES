@@ -1,3 +1,8 @@
+Release 1.0.1
+-----------------------------
+* fixed backend
+
+
 Release 1.0
 -----------------------------
 * added support to django 4.0
