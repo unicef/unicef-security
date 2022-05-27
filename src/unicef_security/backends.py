@@ -10,6 +10,7 @@ from social_core.exceptions import AuthTokenError
 
 
 class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
+    name = 'unicef-azuread-tenant-oauth2'
 
     def user_data(self, access_token, *args, **kwargs):
         response = kwargs.get('response')
@@ -49,7 +50,7 @@ class UNICEFAzureADB2COAuth2(AzureADB2COAuth2):
 
     @property
     def tenant_name(self):
-        return self.setting('TENANT_NAME', 'common')
+        return self.setting('TENANT_NAME', 'unicef')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

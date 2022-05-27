@@ -1,5 +1,16 @@
 from django.conf import settings
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
+
+from unicef_security.config import UNICEF_EMAIL
+
+
+class UnauthorizedView(TemplateView):
+    template_name = 'unauthorized.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['unicef_user'] = self.request.user.is_authenticated and self.request.user.email.endswith(UNICEF_EMAIL)
+        return context
 
 
 class UNICEFLogoutView(RedirectView):

@@ -1,4 +1,8 @@
-from django.http import HttpResponseBadRequest
+from urllib.parse import quote
+
+from django.contrib.auth import get_user_model
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from social_core.pipeline import social_auth, user as social_core_user
 from social_core.pipeline.user import USER_FIELDS
@@ -11,7 +15,8 @@ def social_details(backend, details, response, *args, **kwargs):
     user = kwargs.get('user', None)
     if user:
         # here we are preventing messing up between current us and social user
-        return HttpResponseBadRequest("Unauthorized: current user is already authenticated")
+        unauthorized = reverse('unauthorized')
+        return HttpResponseRedirect(f"{unauthorized}?eu={user.email}&msgc=alreadyauthenticated")
 
     r['details']['idp'] = response.get('idp')
     if not r['details'].get('email'):
@@ -26,6 +31,16 @@ def social_details(backend, details, response, *args, **kwargs):
 
 
 def get_username(strategy, details, backend, user=None, *args, **kwargs):
+    username = details.get('email')
+
+    try:
+        get_user_model().objects.get(username=username)
+
+    except get_user_model().DoesNotExist:
+        email = quote(username)
+        unauthorized = reverse('unauthorized')
+        return HttpResponseRedirect(f"{unauthorized}?eu={email}&msgc=nouser")
+
     return {'username': details.get('email')}
 
 
@@ -36,8 +51,15 @@ def create_unicef_user(strategy, details, backend, user=None, *args, **kwargs):
 
     fields = dict((name, kwargs.get(name, details.get(name)))
                   for name in backend.setting('USER_FIELDS', USER_FIELDS))
+
     if not (fields and details.get('email', '').endswith(UNICEF_EMAIL)):
         return
+
+    response = kwargs.get('response')
+    if response:
+        email = response.get('email') or response.get("signInNames.emailAddress")
+        if not email.endswith(UNICEF_EMAIL):
+            return
 
     return {
         'is_new': True,
