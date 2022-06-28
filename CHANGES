@@ -1,3 +1,8 @@
+Release 1.2
+-----------------------------
+* fix logout url
+
+
 Release 1.1
 -----------------------------
 * OauthExt: update backend name

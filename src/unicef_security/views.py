@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.views.generic import RedirectView, TemplateView
 
+from unicef_security import config
 from unicef_security.config import UNICEF_EMAIL
 
 
@@ -15,5 +16,10 @@ class UnauthorizedView(TemplateView):
 
 class UNICEFLogoutView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
-        return f'https://{settings.TENANT_B2C_URL}/{settings.TENANT_ID}/{settings.POLICY}/oauth2/v2.0/' \
+
+        base_url = config.AZURE_LOGOUT_BASE_URL
+        tenant_id = config.AZURE_TENANT_ID
+        policy = config.AZURE_POLICY
+
+        return f'https://{base_url}/{tenant_id}/{policy}/oauth2/v2.0/' \
                f'logout?post_logout_redirect_uri={settings.HOST}{settings.LOGOUT_URL}'
