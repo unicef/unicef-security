@@ -15,7 +15,7 @@ def social_details(backend, details, response, *args, **kwargs):
     user = kwargs.get('user', None)
     if user:
         # here we are preventing messing up between current us and social user
-        unauthorized = reverse('unauthorized')
+        unauthorized = reverse('unicef_security:unauthorized')
         return HttpResponseRedirect(f"{unauthorized}?eu={user.email}&msgc=alreadyauthenticated")
 
     r['details']['idp'] = response.get('idp')
@@ -38,7 +38,7 @@ def get_username(strategy, details, backend, user=None, *args, **kwargs):
 
     except get_user_model().DoesNotExist:
         email = quote(username)
-        unauthorized = reverse('unauthorized')
+        unauthorized = reverse('unicef_security:unauthorized')
         return HttpResponseRedirect(f"{unauthorized}?eu={email}&msgc=nouser")
 
     return {'username': details.get('email')}
