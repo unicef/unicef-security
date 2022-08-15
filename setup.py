@@ -32,6 +32,7 @@ setup(
         'Framework :: Django',
         'Framework :: Django :: 3.2',
         'Framework :: Django :: 4.0',
+        'Framework :: Django :: 4.1',
         'Intended Audience :: Developers'
     ],
     install_requires=[
@@ -58,7 +59,6 @@ setup(
             'pytest-cov',
             'pytest-django',
             'pytest-echo',
-            'pytest-pythonpath',
             'pytest-redis',
             'requests-mock',
             'unittest2',
