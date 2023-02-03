@@ -1,3 +1,11 @@
+Release 1.3
+-----------------------------
+* added support to django 4.1
+* simplified UNICEFAzureADB2COAuth2
+* tweaked UNICEFLogoutView
+* tweaked UNICEFSocialAuthExceptionMiddleware
+
+
 Release 1.2.1
 -----------------------------
 * fix reverse url

@@ -6,6 +6,8 @@ from social_django.middleware import SocialAuthExceptionMiddleware
 
 from unicef_security.backends import UNICEFAzureADB2COAuth2
 
+from . import config
+
 
 class UNICEFSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
     """Middleware to ignore Forgot Password Exceptions"""
@@ -17,6 +19,7 @@ class UNICEFSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
             raise exception
 
     def get_redirect_uri(self, request, exception):
+        strategy = getattr(request, 'social_strategy', None)
         error = request.GET.get('error', None)
 
         # This is what we should expect:
@@ -28,11 +31,12 @@ class UNICEFSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
             if 'AADB2C90118' in error_description:
                 auth_class = UNICEFAzureADB2COAuth2()
                 redirect_home = auth_class.get_redirect_uri()
+                reset_policy = config.AZURE_RESET_POLICY
                 redirect_url = ''.join([
                     auth_class.base_url,
                     "/oauth2/v2.0/",
-                    f"authorize?p={settings.SOCIAL_PASSWORD_RESET_POLICY}",
-                    f"&client_id={settings.KEY}",
+                    f"authorize?p={reset_policy}",
+                    f"&client_id={strategy.setting('KEY')}",
                     f"&nonce=defaultNonce&redirect_uri={redirect_home}",
                     "&scope=openid+email&response_type=code"
                 ])

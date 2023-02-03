@@ -149,7 +149,7 @@ class Synchronizer:
         self.access_token = self.get_token()
         self.next_link = None
         self._delta_link = ''
-        self.echo = echo or (lambda l: True)
+        self.echo = echo or (lambda lmn: True)
 
     def get_token(self):
         if not self.id and self.secret:
