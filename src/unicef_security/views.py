@@ -19,7 +19,7 @@ class UNICEFLogoutView(RedirectView):
 
         base_url = config.AZURE_LOGOUT_BASE_URL
         tenant_id = config.AZURE_TENANT_ID
-        policy = config.AZURE_POLICY
+        host = self.request.get_host()
 
-        return f'https://{base_url}/{tenant_id}/{policy}/oauth2/v2.0/' \
-               f'logout?post_logout_redirect_uri={settings.HOST}{settings.LOGOUT_URL}'
+        return f'https://{base_url}/{tenant_id}/oauth2/v2.0/' \
+               f'logout?post_logout_redirect_uri={host}/{settings.LOGOUT_URL}'
