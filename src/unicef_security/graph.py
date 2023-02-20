@@ -38,9 +38,10 @@ def default_group(**kwargs):
             user.is_superuser = True
             user.save()
         else:
-            g = Group.objects.filter(name=constance.DEFAULT_GROUP).first()
-            if g:
-                user.groups.add(g)
+            if group_name := getattr(constance, 'DEFAULT_GROUP'):
+                group = Group.objects.filter(name=group_name).first()
+                if group:
+                    user.groups.add(group)
 
 
 def get_unicef_user(backend, details, response, *args, **kwargs):
@@ -228,7 +229,7 @@ class Synchronizer:
 
     def fetch_users(self, filter, callback=None):
         self.startUrl = "%s?$filter=%s" % (self._baseurl, filter)
-        return self.syncronize(callback=callback)
+        return self.synchronize(callback=callback)
 
     def search_users(self, record):
         url = "%s?$filter=" % self._baseurl
@@ -267,12 +268,12 @@ class Synchronizer:
     def resume(self, *, delta_link=None, max_records=None):
         if delta_link:
             self.startUrl = delta_link
-        return self.syncronize(max_records)
+        return self.synchronize(max_records)
 
     def is_valid(self, user_info):
         return user_info.get('email')
 
-    def syncronize(self, max_records=None, callback=None):
+    def synchronize(self, max_records=None, callback=None):
         logger.debug("Start Azure user synchronization")
         results = SyncResult()
         try:
