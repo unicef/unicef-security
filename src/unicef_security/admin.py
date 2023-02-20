@@ -17,6 +17,10 @@ from .models import User
 logger = logging.getLogger(__name__)
 
 
+def is_superuser(request, *args, **kwargs):
+    return request.user.is_superuser
+
+
 class LoadUsersForm(forms.Form):
     emails = forms.CharField(widget=forms.Textarea)
 
@@ -72,14 +76,14 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     def sync_user(self, request, pk):
         obj = self.get_object(request, pk)
         try:
-            syncronizer = Synchronizer()
-            syncronizer.sync_user(obj)
+            synchronizer = Synchronizer()
+            synchronizer.sync_user(obj)
         except BaseException as e:
             self.message_user(request, str(e), messages.ERROR)
 
         self.message_user(request, "User synchronized")
 
-    @button(label='Link user')
+    @button(label='Link user', permissions=is_superuser)
     def link_user_data(self, request, pk):
         opts = self.model._meta
         ctx = {
@@ -93,18 +97,18 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
             'has_change_permission': True,
         }
         obj = self.get_object(request, pk)
-        syncronizer = Synchronizer()
+        synchronizer = Synchronizer()
         try:
             if request.method == 'POST':
                 if request.POST.get('selection'):
-                    data = syncronizer.get_user(request.POST.get('selection'))
-                    syncronizer.sync_user(obj, data['id'])
+                    data = synchronizer.get_user(request.POST.get('selection'))
+                    synchronizer.sync_user(obj, data['id'])
                     self.message_user(request, "User linked")
                     return None
                 else:
                     ctx['message'] = 'Select one entry to link'
 
-            data = syncronizer.search_users(obj)
+            data = synchronizer.search_users(obj)
             ctx['data'] = data
             return TemplateResponse(request, 'admin/link_user.html', ctx)
 
@@ -142,3 +146,14 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
             form = LoadUsersForm()
         ctx['form'] = form
         return TemplateResponse(request, 'admin/load_users.html', ctx)
+
+    @button(permissions=is_superuser)
+    def ad(self, request, pk):
+        obj = self.get_object(request, pk)
+        try:
+            synchronizer = Synchronizer()
+            context = synchronizer.get_user(obj.username)
+        except BaseException as e:
+            self.message_user(request, str(e), messages.ERROR)
+
+        return TemplateResponse(request, 'admin/ad.html', {'ctx': context, 'opts': self.model._meta})
