@@ -71,13 +71,13 @@
                 {% if request.GET.msgc == 'loginerror' %}
                     There was an error trying to log you in, please try again <a href="/login/" style="color:white">here</a>
                 {% elif request.GET.msgc == 'alreadyauthenticated' %}
-                    You cannot login at the same time with multiple accounts, please <a href="{% url 'unicef-logout' %}" style="color:white"> Logout </a> and then login again.
+                    You cannot login at the same time with multiple accounts, please <a href="{% url 'security:unicef-logout' %}" style="color:white"> Logout </a> and then login again.
                 {% else %}
                     Error during login, please contact the administrator.
                 {% endif %}
                 {% if user %}
                     <br><br>
-                    <a href="{% url 'unicef-logout' %}" style="color:white"> Logout </a>
+                    <a href="{% url 'security:unicef-logout' %}" style="color:white"> Logout </a>
                 {% endif %}
             </p>
         {% endblock errors %}
