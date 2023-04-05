@@ -17,96 +17,130 @@ from .models import User
 logger = logging.getLogger(__name__)
 
 
+def is_superuser(request, *args, **kwargs):
+    return request.user.is_superuser
+
+
 class LoadUsersForm(forms.Form):
     emails = forms.CharField(widget=forms.Textarea)
 
 
 class UNICEFUserFilter(SimpleListFilter):
-    title = 'UNICEF user filter'
-    parameter_name = 'email'
+    title = "UNICEF user filter"
+    parameter_name = "email"
 
     def lookups(self, request, model_admin):
         return [
-            ('unicef', 'UNICEF'),
-            ('external', 'External'),
+            ("unicef", "UNICEF"),
+            ("external", "External"),
         ]
 
     def queryset(self, request, queryset):
-        if self.value() == 'unicef':
+        if self.value() == "unicef":
             return queryset.filter(email__endswith=UNICEF_EMAIL)
-        elif self.value() == 'external':
+        elif self.value() == "external":
             return queryset.exclude(email__endswith=UNICEF_EMAIL)
         return queryset
 
 
 @admin.register(User)
 class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
-    list_display = ['username', 'display_name', 'email', 'is_staff',
-                    'is_active', 'is_superuser', 'is_linked', 'last_login']
-    list_filter = ['is_superuser', 'is_staff', 'is_active', UNICEFUserFilter]
-    search_fields = ['username', 'display_name']
+    list_display = [
+        "username",
+        "display_name",
+        "email",
+        "is_staff",
+        "is_active",
+        "is_superuser",
+        "is_linked",
+        "last_login",
+    ]
+    list_filter = ["is_superuser", "is_staff", "is_active", UNICEFUserFilter]
+    search_fields = ["username", "display_name"]
     fieldsets = (
-        (None, {'fields': (('username', 'azure_id'), 'password')}),
-        (_('Personal info'), {'fields': (('first_name', 'last_name',),
-                                         ('email', 'display_name'),
-                                         ('job_title',),
-                                         )}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
-                                       'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (None, {"fields": (("username", "azure_id"), "password")}),
+        (
+            _("Personal info"),
+            {
+                "fields": (
+                    (
+                        "first_name",
+                        "last_name",
+                    ),
+                    ("email", "display_name"),
+                    ("job_title",),
+                )
+            },
+        ),
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                )
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2'),
-        }),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("username", "password1", "password2"),
+            },
+        ),
     )
-    readonly_fields = ('azure_id', 'job_title', 'display_name')
+    readonly_fields = ("azure_id", "job_title", "display_name")
 
     def is_linked(self, obj):
         return bool(obj.azure_id)
 
     is_linked.boolean = True
 
-    @button(label='Sync')
+    @button(label="Sync")
     def sync_user(self, request, pk):
         obj = self.get_object(request, pk)
         try:
-            syncronizer = Synchronizer()
-            syncronizer.sync_user(obj)
+            synchronizer = Synchronizer()
+            synchronizer.sync_user(obj)
         except BaseException as e:
             self.message_user(request, str(e), messages.ERROR)
 
         self.message_user(request, "User synchronized")
 
-    @button(label='Link user')
+    @button(label="Link user", permissions=is_superuser)
     def link_user_data(self, request, pk):
         opts = self.model._meta
         ctx = {
-            'opts': opts,
-            'app_label': 'security',
-            'change': True,
-            'is_popup': False,
-            'save_as': False,
-            'has_delete_permission': False,
-            'has_add_permission': False,
-            'has_change_permission': True,
+            "opts": opts,
+            "app_label": "security",
+            "change": True,
+            "is_popup": False,
+            "save_as": False,
+            "has_delete_permission": False,
+            "has_add_permission": False,
+            "has_change_permission": True,
         }
         obj = self.get_object(request, pk)
-        syncronizer = Synchronizer()
+        synchronizer = Synchronizer()
         try:
-            if request.method == 'POST':
-                if request.POST.get('selection'):
-                    data = syncronizer.get_user(request.POST.get('selection'))
-                    syncronizer.sync_user(obj, data['id'])
+            if request.method == "POST":
+                if request.POST.get("selection"):
+                    data = synchronizer.get_user(request.POST.get("selection"))
+                    synchronizer.sync_user(obj, data["id"])
                     self.message_user(request, "User linked")
                     return None
                 else:
-                    ctx['message'] = 'Select one entry to link'
+                    ctx["message"] = "Select one entry to link"
 
-            data = syncronizer.search_users(obj)
-            ctx['data'] = data
-            return TemplateResponse(request, 'admin/link_user.html', ctx)
+            data = synchronizer.search_users(obj)
+            ctx["data"] = data
+            return TemplateResponse(request, "admin/link_user.html", ctx)
 
         except BaseException as e:
             self.message_user(request, str(e), messages.ERROR)
@@ -115,30 +149,46 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     def load(self, request):
         opts = self.model._meta
         ctx = {
-            'opts': opts,
-            'app_label': 'security',
-            'change': True,
-            'is_popup': False,
-            'save_as': False,
-            'has_delete_permission': False,
-            'has_add_permission': False,
-            'has_change_permission': True,
+            "opts": opts,
+            "app_label": "security",
+            "change": True,
+            "is_popup": False,
+            "save_as": False,
+            "has_delete_permission": False,
+            "has_add_permission": False,
+            "has_change_permission": True,
         }
-        if request.method == 'POST':
+        if request.method == "POST":
             form = LoadUsersForm(request.POST)
             if form.is_valid():
                 synchronizer = Synchronizer()
-                emails = form.cleaned_data['emails'].split()
+                emails = form.cleaned_data["emails"].split()
                 total_results = SyncResult()
                 for email in emails:
-                    result = synchronizer.fetch_users("startswith(mail,'%s')" % email,
-                                                      callback=default_group)
+                    result = synchronizer.fetch_users(
+                        "startswith(mail,'%s')" % email, callback=default_group
+                    )
                     total_results += result
-                self.message_user(request,
-                                  f"{len(total_results.created)} users have been created, "
-                                  f"{len(total_results.updated)} updated. "
-                                  f"{len(total_results.skipped)} invalid entries found.")
+                self.message_user(
+                    request,
+                    f"{len(total_results.created)} users have been created, "
+                    f"{len(total_results.updated)} updated. "
+                    f"{len(total_results.skipped)} invalid entries found.",
+                )
         else:
             form = LoadUsersForm()
-        ctx['form'] = form
-        return TemplateResponse(request, 'admin/load_users.html', ctx)
+        ctx["form"] = form
+        return TemplateResponse(request, "admin/load_users.html", ctx)
+
+    @button(permissions=is_superuser)
+    def ad(self, request, pk):
+        obj = self.get_object(request, pk)
+        try:
+            synchronizer = Synchronizer()
+            context = synchronizer.get_user(obj.username)
+        except BaseException as e:
+            self.message_user(request, str(e), messages.ERROR)
+
+        return TemplateResponse(
+            request, "admin/ad.html", {"ctx": context, "opts": self.model._meta}
+        )
