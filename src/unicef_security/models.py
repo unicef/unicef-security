@@ -2,12 +2,13 @@ from django.contrib.auth.models import AbstractUser as DjangoAbstractUser
 from django.db import models
 from django.utils.functional import cached_property
 
-app_label = 'unicef_security'
+app_label = "unicef_security"
 
 
 class TimeStampedModel:
-    last_modify_date = models.DateTimeField(editable=False, blank=True, auto_now_add=True,
-                                            auto_now=True)
+    last_modify_date = models.DateTimeField(
+        editable=False, blank=True, auto_now_add=True, auto_now=True
+    )
 
 
 class AbstractUser(DjangoAbstractUser):
@@ -17,7 +18,7 @@ class AbstractUser(DjangoAbstractUser):
 
     class Meta(DjangoAbstractUser.Meta):
         abstract = True
-        app_label = 'unicef_security'
+        app_label = "unicef_security"
 
     @cached_property
     def label(self):
@@ -37,7 +38,6 @@ class AbstractUser(DjangoAbstractUser):
 
 
 class User(AbstractUser):
-
     class Meta(AbstractUser.Meta):
-        app_label = 'unicef_security'
-        swappable = 'AUTH_USER_MODEL'
+        app_label = "unicef_security"
+        swappable = "AUTH_USER_MODEL"

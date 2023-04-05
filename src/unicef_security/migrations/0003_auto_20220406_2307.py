@@ -4,20 +4,19 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('unicef_security', '0002_auto_20201028_0154'),
+        ("unicef_security", "0002_auto_20201028_0154"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='user',
-            options={'verbose_name': 'user', 'verbose_name_plural': 'users'},
+            name="user",
+            options={"verbose_name": "user", "verbose_name_plural": "users"},
         ),
         migrations.DeleteModel(
-            name='BusinessArea',
+            name="BusinessArea",
         ),
         migrations.DeleteModel(
-            name='Region',
+            name="Region",
         ),
     ]
