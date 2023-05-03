@@ -26,5 +26,5 @@ class UNICEFLogoutView(RedirectView):
 
         return (
             f"https://{base_url}/{tenant_id}/oauth2/v2.0/"
-            f"logout?post_logout_redirect_uri={host}/{settings.LOGOUT_URL}"
+            f"logout?post_logout_redirect_uri={host}{settings.LOGOUT_URL}"
         )
