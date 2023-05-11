@@ -166,7 +166,9 @@ class Synchronizer:
             "client_secret": self.secret,
             "resource": config.AZURE_GRAPH_API_BASE_URL,
         }
-        response = requests.post(config.AZURE_TOKEN_URL, post_dict)
+        response = requests.post(
+            f"{config.AZURE_URL}/unicef.org/oauth2/token", post_dict
+        )
         if response.status_code != 200:  # pragma: no cover
             logger.error(
                 f"Unable to fetch token from Azure. {response.status_code} {response.content}"

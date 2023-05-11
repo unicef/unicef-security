@@ -12,15 +12,11 @@ AZURE_SSL = True
 AZURE_URL_EXPIRATION_SECS = 10800
 AZURE_ACCESS_POLICY_EXPIRY = 10800  # length of time before signature expires in seconds
 AZURE_ACCESS_POLICY_PERMISSION = "r"
-AZURE_TOKEN_URL = "https://login.microsoftonline.com/unicef.org/oauth2/token"
+AZURE_URL = "https://login.microsoftonline.com"
 AZURE_GRAPH_API_BASE_URL = "https://graph.microsoft.com"
 AZURE_GRAPH_API_VERSION = os.environ.get("AZURE_GRAPH_API_VERSION", "v1.0")  # beta
 AZURE_GRAPH_API_PAGE_SIZE = 300
 
-AZURE_LOGOUT_BASE_URL = get_setting(
-    ["SOCIAL_AUTH_TENANT_B2C_URL", "TENANT_B2C_URL", "AZURE_LOGOUT_BASE_URL"],
-    default="login.microsoftonline.com",
-)
 AZURE_POLICY = get_setting(["SOCIAL_AUTH_POLICY", "TENANT_POLICY"])
 AZURE_TENANT_ID = get_setting(["SOCIAL_AUTH_TENANT_ID", "TENANT_ID"])
 AZURE_RESET_POLICY = get_setting(

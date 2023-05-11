@@ -1,6 +1,11 @@
 import os
 
-from jwt import decode as jwt_decode, DecodeError, ExpiredSignatureError, get_unverified_header
+from jwt import (
+    decode as jwt_decode,
+    DecodeError,
+    ExpiredSignatureError,
+    get_unverified_header,
+)
 from social_core.backends.azuread_b2c import AzureADB2COAuth2
 from social_core.backends.azuread_tenant import AzureADTenantOAuth2
 from social_core.exceptions import AuthTokenError
