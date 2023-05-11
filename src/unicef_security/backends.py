@@ -1,11 +1,6 @@
 import os
 
-from jwt import (
-    decode as jwt_decode,
-    DecodeError,
-    ExpiredSignatureError,
-    get_unverified_header,
-)
+from jwt import decode, DecodeError, ExpiredSignatureError, get_unverified_header
 from social_core.backends.azuread_b2c import AzureADB2COAuth2
 from social_core.backends.azuread_tenant import AzureADTenantOAuth2
 from social_core.exceptions import AuthTokenError
@@ -29,7 +24,7 @@ class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
                 key = certificate.public_key()
 
             options = {"verify_signature": verify}
-            return jwt_decode(
+            return decode(
                 id_token,
                 key=key,
                 algorithms=["RS256"],
