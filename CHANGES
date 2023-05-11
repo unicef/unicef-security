@@ -1,3 +1,8 @@
+Release 1.4.1
+-----------------------------
+* fixed logout url
+
+
 Release 1.4
 -----------------------------
 * added support to django 4.2
