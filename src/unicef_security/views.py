@@ -21,9 +21,9 @@ class UnauthorizedView(TemplateView):
 class UNICEFLogoutView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         base_url = config.AZURE_URL
-        tenant_id = config.AZURE_TENANT_ID
+        tenant = config.AZURE_TENANT_NAME
         redirect_url = (
             f"{self.request.scheme}://{self.request.get_host()}{settings.LOGOUT_URL}"
         )
 
-        return f"{base_url}/{tenant_id}/oauth2/v2.0/logout?post_logout_redirect_uri={redirect_url}"
+        return f"{base_url}/{tenant}/oauth2/v2.0/logout?post_logout_redirect_uri={redirect_url}"
