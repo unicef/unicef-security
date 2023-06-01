@@ -62,7 +62,7 @@ def create_unicef_user(strategy, details, backend, user=None, *args, **kwargs):
     response = kwargs.get("response")
     if response:
         email = response.get("email") or response.get("signInNames.emailAddress")
-        if not email.endswith(UNICEF_EMAIL):
+        if email and not email.endswith(UNICEF_EMAIL):
             return
 
     return {"is_new": True, "user": strategy.create_user(**fields)}
