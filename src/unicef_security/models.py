@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser as DjangoAbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.functional import cached_property
 
@@ -11,12 +11,12 @@ class TimeStampedModel:
     )
 
 
-class AbstractUser(DjangoAbstractUser):
+class SecurityMixin(models.Model):
     azure_id = models.UUIDField(blank=True, unique=True, null=True)
     job_title = models.CharField(max_length=100, null=True, blank=True)
     display_name = models.CharField(max_length=100, null=True, blank=True)
 
-    class Meta(DjangoAbstractUser.Meta):
+    class Meta(AbstractUser.Meta):
         abstract = True
         app_label = "unicef_security"
 
@@ -35,9 +35,3 @@ class AbstractUser(DjangoAbstractUser):
         if not self.display_name:
             self.display_name = self.label
         super().save(*args, **kwargs)
-
-
-class User(AbstractUser):
-    class Meta(AbstractUser.Meta):
-        app_label = "unicef_security"
-        swappable = "AUTH_USER_MODEL"

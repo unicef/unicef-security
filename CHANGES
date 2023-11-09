@@ -1,3 +1,8 @@
+Release 1.5
+-----------------------------
+* replace swappable model with mixin
+
+
 Release 1.4.4
 -----------------------------
 * fix create unicef user - new claim

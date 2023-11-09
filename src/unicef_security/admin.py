@@ -1,7 +1,7 @@
 import logging
 
 from django import forms
-from django.contrib import admin, messages
+from django.contrib import messages
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.admin import UserAdmin
 from django.template.response import TemplateResponse
@@ -12,7 +12,6 @@ from admin_extra_buttons.mixins import ExtraButtonsMixin
 
 from .config import UNICEF_EMAIL
 from .graph import default_group, Synchronizer, SyncResult
-from .models import User
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +42,6 @@ class UNICEFUserFilter(SimpleListFilter):
         return queryset
 
 
-@admin.register(User)
 class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     list_display = [
         "username",
