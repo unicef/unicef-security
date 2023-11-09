@@ -1,3 +1,8 @@
+Release 1.5.1
+-----------------------------
+* remove old login button
+
+
 Release 1.5
 -----------------------------
 * replace swappable model with mixin
