@@ -1,6 +1,8 @@
-from unicef_security.models import AbstractUser
+from django.contrib.auth.models import AbstractUser
+
+from unicef_security.models import SecurityMixin
 
 
-class User(AbstractUser):
+class User(SecurityMixin, AbstractUser):
     class Meta(AbstractUser.Meta):
         app_label = "demo"

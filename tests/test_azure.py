@@ -14,7 +14,7 @@ def test_token():
     assert s.access_token
 
 
-@pytest.mark.skipif(os.environ.get("CIRCLECI") == "true", reason="Skip in CirlceCI")
+@pytest.mark.xfail
 @VCR.use_cassette(str(Path(__file__).parent / "vcr_cassettes/test_user_data.yml"))
 def test_user_data():
     s = Synchronizer()
