@@ -1,3 +1,9 @@
+Release 1.6 (in development)
+-----------
+* added support to Django 5.0
+* added support to python 3.11, 3.12
+
+
 Release 1.5.1
 -----------------------------
 * remove old login button
