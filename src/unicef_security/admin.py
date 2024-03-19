@@ -1,9 +1,11 @@
 import logging
+from typing import Any, Optional
 
 from django import forms
 from django.contrib import messages
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.admin import UserAdmin
+from django.http import HttpRequest
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
 
@@ -58,6 +60,18 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     fieldsets = (
         (None, {"fields": (("username", "azure_id"), "password")}),
         (
+            _("Preferences"),
+            {
+                "fields": (
+                    (
+                        "language",
+                        "timezone",
+                    ),
+                    ("date_format", "time_format"),
+                )
+            },
+        ),
+        (
             _("Personal info"),
             {
                 "fields": (
@@ -67,18 +81,6 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
                     ),
                     ("email", "display_name"),
                     ("job_title",),
-                )
-            },
-        ),
-        (
-            _("Permissions"),
-            {
-                "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
                 )
             },
         ),
@@ -94,6 +96,13 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
         ),
     )
     readonly_fields = ("azure_id", "job_title", "display_name")
+
+    def get_fieldsets(self, request: HttpRequest, obj: Optional[Any] = None) -> Any:
+        if not obj:
+            return self.add_fieldsets
+        if not request.user.is_superuser:
+            return super().get_fieldsets(request, obj)
+        return UserAdminPlus.fieldsets
 
     def is_linked(self, obj):
         return bool(obj.azure_id)

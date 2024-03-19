@@ -7,4 +7,7 @@ register = Library()
 
 @register.simple_tag()
 def ad_backend():
-    return reverse('social:begin', args=[getattr(settings, "SOCIAL_AUTH_BACKEND_NAME", "azuread-tenant-oauth2")])
+    return reverse(
+        "social:begin",
+        args=[getattr(settings, "SOCIAL_AUTH_BACKEND_NAME", "azuread-tenant-oauth2")],
+    )
