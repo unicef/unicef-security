@@ -2,6 +2,7 @@ Release 1.6 (in development)
 -----------
 * added support to Django 5.0
 * added support to python 3.11, 3.12
+* addd flag to disable admin login without SSO
 
 
 Release 1.5.1
