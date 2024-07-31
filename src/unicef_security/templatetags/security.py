@@ -11,3 +11,8 @@ def ad_backend():
         "social:begin",
         args=[getattr(settings, "SOCIAL_AUTH_BACKEND_NAME", "azuread-tenant-oauth2")],
     )
+
+
+@register.simple_tag
+def settings_value(name):
+    return getattr(settings, name, "")

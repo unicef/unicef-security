@@ -2,6 +2,10 @@
 {% load security %}
 
 {% block content %}
-    {{ block.super }}
+    {% settings_value "LOGIN_ENABLED" as login_enabled %}
+    {% settings_value "DEBUG" as debug %}
+    {% if debug or login_enabled %}
+        {{ block.super }}
+    {% endif %}
     <a class="button" href="{% ad_backend %}">Login with Azure</a>
 {% endblock %}

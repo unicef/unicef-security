@@ -55,9 +55,6 @@ test = [
 [project.urls]
 Homepage = "https://github.com/unicef/unicef-security"
 
-[tool.hatch.version]
-path = "src/unicef_security/__init__.py"
-
 [tool.hatch.build.targets.sdist]
 include = [
     "/src",
