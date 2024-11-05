@@ -1,10 +1,6 @@
-#[build-system]
-#requires = ["hatchling"]
-#build-backend = "hatchling.build"
-
 [project]
 name = "unicef-security"
-dynamic = ["version"]
+version = "1.6.1"
 description = "Provides Basic UNICEF User model and integration with Azure"
 readme = "README.rst"
 license = {text = "Apache-2.0 OR MIT"}
@@ -59,9 +55,6 @@ Homepage = "https://github.com/unicef/unicef-security"
 include = [
     "/src",
 ]
-
-#[build.targets.sdist]
-#include = ["pyproject.toml"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["/src/unicef_security"]
