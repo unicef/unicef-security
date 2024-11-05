@@ -4,7 +4,7 @@ build-backend = "pdm.backend"
 
 [project]
 name = "unicef-security"
-version = "1.6.2"
+version = "1.6.3"
 description = "Provides Basic UNICEF User model and integration with Azure"
 readme = "README.rst"
 license = {text = "Apache-2.0 OR MIT"}
