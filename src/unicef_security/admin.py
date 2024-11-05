@@ -57,20 +57,8 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     ]
     list_filter = ["is_superuser", "is_staff", "is_active", UNICEFUserFilter]
     search_fields = ["username", "display_name"]
-    fieldsets = (
+    base_fieldsets = (
         (None, {"fields": (("username", "azure_id"), "password")}),
-        (
-            _("Preferences"),
-            {
-                "fields": (
-                    (
-                        "language",
-                        "timezone",
-                    ),
-                    ("date_format", "time_format"),
-                )
-            },
-        ),
         (
             _("Personal info"),
             {
@@ -102,7 +90,7 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
             return self.add_fieldsets
         if not request.user.is_superuser:
             return super().get_fieldsets(request, obj)
-        return UserAdminPlus.fieldsets
+        return self.base_fieldsets
 
     def is_linked(self, obj):
         return bool(obj.azure_id)
@@ -190,6 +178,7 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     @button(permissions=is_superuser)
     def ad(self, request, pk):
         obj = self.get_object(request, pk)
+        context = dict()
         try:
             synchronizer = Synchronizer()
             context = synchronizer.get_user(obj.username)

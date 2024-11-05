@@ -1,3 +1,7 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
 [project]
 name = "unicef-security"
 version = "1.6.1"
@@ -28,7 +32,8 @@ dependencies = [
     "PyJWT",
     "requests",
     "social-auth-app-django",
-    "setuptools"
+    "setuptools",
+    "wheel"
 ]
 
 [project.optional-dependencies]
@@ -58,3 +63,6 @@ include = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["/src/unicef_security"]
+
+[tool.pdm]
+version = { source = "file", path = "src/unicef_security/__init__.py" }
