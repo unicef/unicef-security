@@ -57,7 +57,7 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     ]
     list_filter = ["is_superuser", "is_staff", "is_active", UNICEFUserFilter]
     search_fields = ["username", "display_name"]
-    base_fieldsets = (
+    fieldsets = (
         (None, {"fields": (("username", "azure_id"), "password")}),
         (
             _("Personal info"),
@@ -69,6 +69,7 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
                     ),
                     ("email", "display_name"),
                     ("job_title",),
+                    ("is_active",),
                 )
             },
         ),
@@ -88,9 +89,12 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     def get_fieldsets(self, request: HttpRequest, obj: Optional[Any] = None) -> Any:
         if not obj:
             return self.add_fieldsets
-        if not request.user.is_superuser:
-            return super().get_fieldsets(request, obj)
-        return self.base_fieldsets
+        fieldsets = super().get_fieldsets(request, obj)
+        if request.user.is_superuser:
+            fieldsets = fieldsets + (
+                (_("Admin"), {"fields": ("is_staff", "is_superuser")}),
+            )
+        return fieldsets
 
     def is_linked(self, obj):
         return bool(obj.azure_id)
