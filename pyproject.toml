@@ -17,6 +17,7 @@ classifiers = [
     "Framework :: Django :: 3.2",
     "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -36,8 +37,8 @@ dependencies = [
     "wheel"
 ]
 
-[project.optional-dependencies]
-test = [
+[tool.uv]
+dev-dependencies = [
     "django-webtest",
     "factory-boy",
     "flake8",
@@ -55,14 +56,3 @@ test = [
 
 [project.urls]
 Homepage = "https://github.com/unicef/unicef-security"
-
-[tool.hatch.build.targets.sdist]
-include = [
-    "/src",
-]
-
-[tool.hatch.build.targets.wheel]
-packages = ["/src/unicef_security"]
-
-[tool.pdm]
-version = { source = "file", path = "src/unicef_security/__init__.py" }
