@@ -1,10 +1,9 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect
 
+from social_core.backends.azuread_b2c import AzureADB2COAuth2
 from social_core.exceptions import AuthCanceled, AuthMissingParameter
 from social_django.middleware import SocialAuthExceptionMiddleware
-
-from unicef_security.backends import UNICEFAzureADB2COAuth2
 
 from . import config
 
@@ -29,7 +28,7 @@ class UNICEFSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
         error_description = request.GET.get("error_description", None)
         if error == "access_denied" and error_description is not None:
             if "AADB2C90118" in error_description:
-                auth_class = UNICEFAzureADB2COAuth2()
+                auth_class = AzureADB2COAuth2()
                 redirect_home = auth_class.get_redirect_uri()
                 reset_policy = config.AZURE_RESET_POLICY
                 redirect_url = "".join(

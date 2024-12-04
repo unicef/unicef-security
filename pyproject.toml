@@ -1,7 +1,3 @@
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
-
 [project]
 name = "unicef-security"
 version = "1.6.3"
@@ -39,6 +35,7 @@ dependencies = [
 
 [tool.uv]
 dev-dependencies = [
+    "django_regex",
     "django-webtest",
     "factory-boy",
     "flake8",
@@ -49,7 +46,10 @@ dev-dependencies = [
     "pytest-cov",
     "pytest-django",
     "pytest-echo",
+    "pytest-factoryboy",
     "requests-mock",
+    "responses",
+    "tox",
     "unittest2",
     "vcrpy",
 ]

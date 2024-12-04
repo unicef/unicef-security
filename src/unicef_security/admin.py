@@ -69,8 +69,17 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
                     ),
                     ("email", "display_name"),
                     ("job_title",),
-                    ("is_active",),
                 )
+            },
+        ),
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "groups",
+                    "user_permissions",
+                ),
             },
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),

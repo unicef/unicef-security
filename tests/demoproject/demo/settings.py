@@ -41,7 +41,7 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    "unicef_security.backends.UNICEFAzureADB2COAuth2",
+    "social_core.backends.azuread_b2c.AzureADB2COAuth2",
     "django.contrib.auth.backends.ModelBackend",
 )
 
@@ -86,7 +86,6 @@ HOST = "http://localhost"
 STATIC_URL = "/static/"
 
 MEDIA_ROOT = "/tmp/"
-VISION_LOGGER_MODEL = "vision.VisionLog"
 
 AUTH_USER_MODEL = "demo.User"
 
