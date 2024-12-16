@@ -1,10 +1,6 @@
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
-
 [project]
 name = "unicef-security"
-version = "1.6.3"
+version = "1.6.4"
 description = "Provides Basic UNICEF User model and integration with Azure"
 readme = "README.rst"
 license = {text = "Apache-2.0 OR MIT"}
@@ -17,6 +13,7 @@ classifiers = [
     "Framework :: Django :: 3.2",
     "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -36,8 +33,9 @@ dependencies = [
     "wheel"
 ]
 
-[project.optional-dependencies]
-test = [
+[tool.uv]
+dev-dependencies = [
+    "django_regex",
     "django-webtest",
     "factory-boy",
     "flake8",
@@ -48,21 +46,13 @@ test = [
     "pytest-cov",
     "pytest-django",
     "pytest-echo",
+    "pytest-factoryboy",
     "requests-mock",
+    "responses",
+    "tox",
     "unittest2",
     "vcrpy",
 ]
 
 [project.urls]
 Homepage = "https://github.com/unicef/unicef-security"
-
-[tool.hatch.build.targets.sdist]
-include = [
-    "/src",
-]
-
-[tool.hatch.build.targets.wheel]
-packages = ["/src/unicef_security"]
-
-[tool.pdm]
-version = { source = "file", path = "src/unicef_security/__init__.py" }

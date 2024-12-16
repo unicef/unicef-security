@@ -107,3 +107,9 @@ Develop
 ~~~~~~~
 
 .. image:: https://travis-matrix-badges.herokuapp.com/repos/unicef/unicef-security/branches/develop
+
+
+Build
+~~~~~
+
+.. uv build

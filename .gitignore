@@ -44,7 +44,6 @@ config.json
 .env
 .envrc
 .venv/
-.pdm-python
 # Sphinx documentation
 docs/_build/
 
