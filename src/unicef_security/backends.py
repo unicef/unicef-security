@@ -1,7 +1,6 @@
 import os
 
 from jwt import decode, DecodeError, ExpiredSignatureError, get_unverified_header
-from social_core.backends.azuread_b2c import AzureADB2COAuth2
 from social_core.backends.azuread_tenant import AzureADTenantOAuth2
 from social_core.exceptions import AuthTokenError
 
@@ -33,9 +32,3 @@ class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
             )
         except (DecodeError, ExpiredSignatureError) as error:
             raise AuthTokenError(self, error)
-
-
-class UNICEFAzureADB2COAuth2(AzureADB2COAuth2):
-    """UNICEF Azure ADB2C Custom Backend"""
-
-    name = "unicef-azuread-b2c-oauth2"

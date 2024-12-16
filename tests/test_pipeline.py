@@ -12,9 +12,7 @@ def strategy():
 
 @pytest.fixture()
 def backend(strategy):
-    return load_backend(
-        strategy=strategy, name="unicef-azuread-b2c-oauth2", redirect_uri="/"
-    )
+    return load_backend(strategy=strategy, name="azuread-b2c-oauth2", redirect_uri="/")
 
 
 @pytest.fixture()
