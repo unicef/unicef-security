@@ -94,3 +94,5 @@ CONSTANCE_CONFIG = {
 }
 
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
+
+LOGOUT_URL = "/"

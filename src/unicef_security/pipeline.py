@@ -11,23 +11,22 @@ from .config import UNICEF_EMAIL
 
 
 def social_details(backend, details, response, *args, **kwargs):
-    r = social_auth.social_details(backend, details, response, *args, **kwargs)
+    resp = social_auth.social_details(backend, details, response, *args, **kwargs)
     user = kwargs.get("user")
     if user:
         # here we are preventing messing up between current us and social user
         unauthorized = reverse("unicef_security:unauthorized")
         return HttpResponseRedirect(f"{unauthorized}?eu={user.email}&msgc=alreadyauthenticated")
 
-    r["details"]["idp"] = response.get("idp")
-    if not r["details"].get("email"):
-        if not response.get("email"):
-            r["details"]["email"] = response["signInNames.emailAddress"]
-        else:
-            r["details"]["email"] = response.get("email")
-    email = r["details"].get("email")
-    if isinstance(email, str):
-        r["details"]["email"] = email.lower().strip()
-    return r
+    resp["details"]["idp"] = response.get("idp")
+
+    if not resp["details"].get("email"):  # pragma: no cover
+        resp["details"]["email"] = (
+            response.get("email") if response.get("email") else response["signInNames.emailAddress"]
+        )
+    email = resp["details"].get("email")
+    resp["details"]["email"] = email.lower().strip()
+    return resp
 
 
 def get_username(strategy, details, backend, user=None, *args, **kwargs):

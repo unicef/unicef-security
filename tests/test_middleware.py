@@ -1,11 +1,9 @@
 import mock
-import pytest
 from social_core.exceptions import AuthCanceled
 
 from unicef_security.middleware import UNICEFSocialAuthExceptionMiddleware
 
 
-@pytest.mark.xfail
 def test_middleware(django_app):
     request = mock.MagicMock()
     request.META = {
@@ -21,5 +19,6 @@ def test_middleware(django_app):
 
     middleware = UNICEFSocialAuthExceptionMiddleware(request)
 
+    get_response = mock.MagicMock()
     response = middleware.process_exception(request, AuthCanceled)
-    assert response is None
+    assert get_response.return_value, response

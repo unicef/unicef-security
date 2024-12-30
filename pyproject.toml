@@ -31,7 +31,8 @@ dependencies = [
     "requests",
     "social-auth-app-django",
     "setuptools",
-    "wheel"
+    "wheel",
+    "pre-commit>=4.0.1",
 ]
 
 [tool.uv]
