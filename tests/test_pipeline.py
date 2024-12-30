@@ -5,17 +5,17 @@ import pytest
 from unicef_security.pipeline import create_unicef_user, get_username, social_details
 
 
-@pytest.fixture()
+@pytest.fixture
 def strategy():
     return load_strategy()
 
 
-@pytest.fixture()
+@pytest.fixture
 def backend(strategy):
     return load_backend(strategy=strategy, name="azuread-b2c-oauth2", redirect_uri="/")
 
 
-@pytest.fixture()
+@pytest.fixture
 def response(auth_user):
     return {
         "id_token": "token",
@@ -42,7 +42,7 @@ def response(auth_user):
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def details(auth_user):
     return {
         "username": "Given Family",

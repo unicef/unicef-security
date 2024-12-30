@@ -12,7 +12,7 @@ from unicef_security.config import GRAPH_CLIENT_ID, GRAPH_CLIENT_SECRET
 
 from . import config
 
-AZURE_GRAPH_API_TOKEN_CACHE_KEY = "azure_graph_api_token_cache_key"
+AZURE_GRAPH_API_TOKEN_CACHE_KEY = "azure_graph_api_token_cache_key"  # noqa
 AZURE_GRAPH_DELTA_LINK_KEY = "azure_graph_delta_link_key"
 
 logger = logging.getLogger(__name__)
@@ -33,21 +33,20 @@ ADMIN_EMAILS = [i[1] for i in settings.ADMINS]
 
 def default_group(**kwargs):
     is_new = kwargs.get("is_new", False)
-    user = kwargs.get("user", None)
+    user = kwargs.get("user")
     if is_new:
         if user.email in ADMIN_EMAILS:
             user.is_staff = True
             user.is_superuser = True
             user.save()
-        else:
-            if group_name := getattr(constance, "DEFAULT_GROUP"):
-                group = Group.objects.filter(name=group_name).first()
-                if group:
-                    user.groups.add(group)
+        elif group_name := constance.get("DEFAULT_GROUP"):
+            group = Group.objects.filter(name=group_name).first()
+            if group:
+                user.groups.add(group)
 
 
 def get_unicef_user(backend, details, response, *args, **kwargs):
-    User = get_user_model()
+    User = get_user_model()  # noqa
     if details.get("email"):
         filters = {"email": details["email"]}
     elif details.get("unique_name"):
@@ -71,7 +70,7 @@ def get_unicef_user(backend, details, response, *args, **kwargs):
             for k, v in data.items():
                 details[k] = v
 
-        except BaseException as e:
+        except (ValueError, KeyError) as e:
             logger.error(e)
 
         user, created = User.objects.get_or_create(
@@ -85,17 +84,16 @@ def get_unicef_user(backend, details, response, *args, **kwargs):
                 "azure_id": details.get("id"),
             },
         )
-        social, __ = UserSocialAuth.objects.get_or_create(
-            user=user, provider=backend.name, uid=user.username
-        )
+        social, __ = UserSocialAuth.objects.get_or_create(user=user, provider=backend.name, uid=user.username)
         user.social_user = social
     return {"user": user, "social": social, "uid": details.get("id"), "is_new": created}
 
 
 class SyncResult:
     def __init__(self, keep_records=False):
-        """
-        :param keep_records: if True keep track of record istances
+        """Class to synchronize against external providers.
+
+        :param keep_records: if True keep track of record instances
         """
         self.created = []
         self.updated = []
@@ -119,21 +117,14 @@ class SyncResult:
             ret.updated.extend(other.updated)
             ret.skipped.extend(other.skipped)
             return ret
-        else:
-            raise ValueError("Cannot add %s to SyncResult object" % type(other))
+        raise ValueError("Cannot add %s to SyncResult object" % type(other))
 
     def __repr__(self):
-        return (
-            f"<SyncResult: {len(self.created)} {len(self.updated)} {len(self.skipped)}>"
-        )
+        return f"<SyncResult: {len(self.created)} {len(self.updated)} {len(self.skipped)}>"
 
     def __eq__(self, other):
         if isinstance(other, SyncResult):
-            return (
-                self.created == other.created
-                and self.updated == other.updated
-                and self.skipped == other.skipped
-            )
+            return self.created == other.created and self.updated == other.updated and self.skipped == other.skipped
         return False
 
 
@@ -141,16 +132,14 @@ NotSet = object()
 
 
 class Synchronizer:
-    def __init__(self, user_model=None, mapping=None, echo=None, id=None, secret=None):
-        self.id = id or GRAPH_CLIENT_ID
+    def __init__(self, user_model=None, mapping=None, echo=None, identifier=None, secret=None):
+        self.id = identifier or GRAPH_CLIENT_ID
         self.secret = secret or GRAPH_CLIENT_SECRET
 
         self.user_model = user_model or get_user_model()
         self.field_map = dict(mapping or DJANGOUSERMAP)
         self.user_pk_fields = self.field_map.pop("_pk")
-        self._baseurl = "{}/{}/users".format(
-            config.AZURE_GRAPH_API_BASE_URL, config.AZURE_GRAPH_API_VERSION
-        )
+        self._baseurl = f"{config.AZURE_GRAPH_API_BASE_URL}/{config.AZURE_GRAPH_API_VERSION}/users"
         self.startUrl = "%s/delta" % self._baseurl
         self.access_token = self.get_token()
         self.next_link = None
@@ -166,19 +155,12 @@ class Synchronizer:
             "client_secret": self.secret,
             "resource": config.AZURE_GRAPH_API_BASE_URL,
         }
-        response = requests.post(
-            f"{config.AZURE_URL}/unicef.org/oauth2/token", post_dict
-        )
+        response = requests.post(f"{config.AZURE_URL}/unicef.org/oauth2/token", post_dict, timeout=60)
         if response.status_code != 200:  # pragma: no cover
-            logger.error(
-                f"Unable to fetch token from Azure. {response.status_code} {response.content}"
-            )
-            raise BaseException(
-                f"Error during token retrieval: {response.status_code} {response.content}"
-            )
+            logger.error(f"Unable to fetch token from Azure. {response.status_code} {response.content}")
+            raise BaseException(f"Error during token retrieval: {response.status_code} {response.content}")
         jresponse = response.json()
-        token = jresponse["access_token"]
-        return token
+        return jresponse["access_token"]
 
     @property
     def delta_link(self):
@@ -190,22 +172,18 @@ class Synchronizer:
 
     def get_page(self, url, single=False):
         while True:
-            headers = {"Authorization": "Bearer {}".format(self.get_token())}
+            headers = {"Authorization": f"Bearer {self.get_token()}"}
             try:
-                response = requests.get(url, headers=headers)
+                response = requests.get(url, headers=headers, timeout=60)
                 if response.status_code == 401:
                     data = response.json()
                     if data["error"]["message"] == "Access token has expired.":
                         continue
-                    else:
-                        raise ConnectionError(
-                            f"400: Error processing the response {response.content}"
-                        )
+                    raise ConnectionError(f"400: Error processing the response {response.content}")
 
-                elif response.status_code != 200:
+                if response.status_code != 200:
                     raise ConnectionError(
-                        f"Code {response.status_code}. "
-                        f"Error processing the response {response.content}"
+                        f"Code {response.status_code}. " f"Error processing the response {response.content}"
                     )
                 break
             except ConnectionError as e:
@@ -239,15 +217,12 @@ class Synchronizer:
                 break
 
     def get_record(self, user_info: dict) -> (dict, dict):
-        data = {
-            fieldname: user_info.get(mapped_name, "")
-            for fieldname, mapped_name in self.field_map.items()
-        }
+        data = {fieldname: user_info.get(mapped_name, "") for fieldname, mapped_name in self.field_map.items()}
         pk = {fieldname: data.pop(fieldname) for fieldname in self.user_pk_fields}
         return pk, data
 
-    def fetch_users(self, filter, callback=None):
-        self.startUrl = "%s?$filter=%s" % (self._baseurl, filter)
+    def fetch_users(self, filter_params, callback=None):
+        self.startUrl = "%s?$filter=%s" % (self._baseurl, filter_params)
         return self.synchronize(callback=callback)
 
     def search_users(self, record):
@@ -264,15 +239,17 @@ class Synchronizer:
         return page["value"]
 
     def filter_users_by_email(self, email):
-        """https://graph.microsoft.com/v1.0/users?$filter=mail eq 'sapostolico@unicef.org'"""
+        """Filter users by email.
+
+        https://graph.microsoft.com/v1.0/users?$filter=mail eq 'sapostolico@unicef.org'
+        """
         url = "%s?$filter=mail eq '%s'" % (self._baseurl, email)
         page = self.get_page(url, single=True)
         return page["value"]
 
     def get_user(self, username):
         url = "%s/%s" % (self._baseurl, username)
-        user_info = self.get_page(url, single=True)
-        return user_info
+        return self.get_page(url, single=True)
 
     def sync_user(self, user, azure_id=None):
         if not (azure_id or user.azure_id):
@@ -298,9 +275,7 @@ class Synchronizer:
             for i, user_info in enumerate(iter(self)):
                 pk, values = self.get_record(user_info)
                 if self.is_valid(values):
-                    user, created = self.user_model.objects.update_or_create(
-                        **pk, defaults=values
-                    )
+                    user, created = self.user_model.objects.update_or_create(**pk, defaults=values)
                     if callback:
                         callback(user=user, is_new=created)
                     self.echo([user, created])
