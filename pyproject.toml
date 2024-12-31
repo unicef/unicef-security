@@ -30,9 +30,6 @@ dependencies = [
     "PyJWT",
     "requests",
     "social-auth-app-django",
-    "setuptools",
-    "wheel",
-    "pre-commit>=4.0.1",
 ]
 
 [tool.uv]
@@ -49,6 +46,7 @@ dev-dependencies = [
     "pytest-django",
     "pytest-echo",
     "pytest-factoryboy",
+    "pre-commit",
     "requests-mock",
     "responses",
     "tox",
