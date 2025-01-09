@@ -90,9 +90,11 @@ MEDIA_ROOT = "/tmp/"
 AUTH_USER_MODEL = "demo.User"
 
 CONSTANCE_CONFIG = {
-    "DEFAULT_GROUP": ("", "test_grp"),
+    "DEFAULT_GROUP": ("test_grp", "Test Group"),
 }
 
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 
 LOGOUT_URL = "/"
+
+ADMINS = (("Me", "ddinicola@unicef.org"),)

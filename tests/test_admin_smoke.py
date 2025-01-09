@@ -11,7 +11,7 @@ from django_regex.utils import RegexList as _RegexList
 import pytest
 from unittest.mock import Mock
 
-from .factories import SuperUserFactory
+from mock import patch
 
 if TYPE_CHECKING:
     from django.db.models.options import Options
@@ -112,15 +112,6 @@ def record(db, request):
     return instance
 
 
-@pytest.fixture
-def app(django_app_factory, mocked_responses):
-    django_app = django_app_factory(csrf_checks=False)
-    admin_user = SuperUserFactory(username="superuser")
-    django_app.set_user(admin_user)
-    django_app._user = admin_user
-    return django_app
-
-
 def test_admin_index(app):
     url = reverse("admin:index")
 
@@ -144,7 +135,7 @@ def test_admin_changelist(app, modeladmin, record):
 def show_error(res):
     errors = []
     for k, v in dict(res.context["adminform"].form.errors).items():
-        errors.append(f'{k}: {"".join(v)}')
+        errors.append(f"{k}: {''.join(v)}")
     return (f"Form submitting failed: {res.status_code}: {errors}",)
 
 
@@ -185,8 +176,11 @@ def test_admin_delete(app, modeladmin, record, monkeypatch):
         pytest.skip("No 'delete' permission")
 
 
-@pytest.mark.skip_buttons("demo.UserPlus:link_user_data", "demo.UserPlus:sync_user", "demo.UserPlus:ad")
-def test_admin_buttons(app, modeladmin, button_handler, record, monkeypatch):
+@patch("unicef_security.admin.Synchronizer.get_token")
+@patch("unicef_security.admin.Synchronizer.get_user")
+@patch("unicef_security.admin.Synchronizer.sync_user")
+@patch("unicef_security.admin.Synchronizer.search_users")
+def test_admin_buttons(patch1, patch2, patch3, patch4, app, modeladmin, button_handler, record, monkeypatch):
     from admin_extra_buttons.handlers import LinkHandler
 
     if isinstance(button_handler, ChoiceHandler):

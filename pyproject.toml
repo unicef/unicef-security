@@ -12,7 +12,6 @@ classifiers = [
     "Framework :: Django",
     "Framework :: Django :: 3.2",
     "Framework :: Django :: 4.2",
-    "Framework :: Django :: 5.0",
     "Framework :: Django :: 5.1",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3.11",
@@ -56,3 +55,13 @@ dev-dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/unicef/unicef-security"
+
+
+[uv]
+package = true
+
+[tool.nitpick]
+    style = [
+        "github://unicef/hope-code-conventions@main/django/django.toml"
+    ]
+    cache = "1 day"
