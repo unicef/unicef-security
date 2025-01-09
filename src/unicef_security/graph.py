@@ -39,7 +39,7 @@ def default_group(**kwargs):
             user.is_staff = True
             user.is_superuser = True
             user.save()
-        elif group_name := constance.get("DEFAULT_GROUP"):
+        elif group_name := constance.DEFAULT_GROUP:
             group = Group.objects.filter(name=group_name).first()
             if group:
                 user.groups.add(group)
@@ -70,7 +70,7 @@ def get_unicef_user(backend, details, response, *args, **kwargs):
             for k, v in data.items():
                 details[k] = v
 
-        except (ValueError, KeyError) as e:
+        except (ValueError, KeyError) as e:  # pragma: no cover
             logger.error(e)
 
         user, created = User.objects.get_or_create(
@@ -84,7 +84,7 @@ def get_unicef_user(backend, details, response, *args, **kwargs):
                 "azure_id": details.get("id"),
             },
         )
-        social, __ = UserSocialAuth.objects.get_or_create(user=user, provider=backend.name, uid=user.username)
+        social, _ = UserSocialAuth.objects.get_or_create(user=user, provider=backend.name, uid=user.username)
         user.social_user = social
     return {"user": user, "social": social, "uid": details.get("id"), "is_new": created}
 
@@ -113,9 +113,9 @@ class SyncResult:
     def __add__(self, other):
         if isinstance(other, SyncResult):
             ret = SyncResult()
-            ret.created.extend(other.created)
-            ret.updated.extend(other.updated)
-            ret.skipped.extend(other.skipped)
+            ret.created = self.created + other.created
+            ret.updated = self.updated + other.updated
+            ret.skipped = self.skipped + other.skipped
             return ret
         raise ValueError("Cannot add %s to SyncResult object" % type(other))
 
@@ -147,7 +147,7 @@ class Synchronizer:
         self.echo = echo or (lambda lmn: True)
 
     def get_token(self):
-        if not self.id and self.secret:
+        if not self.id and self.secret:  # pragma: no cover
             raise ValueError("Configure AZURE_CLIENT_ID and/or AZURE_CLIENT_SECRET")
         post_dict = {
             "grant_type": "client_credentials",
@@ -175,18 +175,18 @@ class Synchronizer:
             headers = {"Authorization": f"Bearer {self.get_token()}"}
             try:
                 response = requests.get(url, headers=headers, timeout=60)
-                if response.status_code == 401:
+                if response.status_code == 401:  # pragma: no cover
                     data = response.json()
                     if data["error"]["message"] == "Access token has expired.":
                         continue
                     raise ConnectionError(f"400: Error processing the response {response.content}")
 
-                if response.status_code != 200:
+                if response.status_code != 200:  # pragma: no cover
                     raise ConnectionError(
-                        f"Code {response.status_code}. " f"Error processing the response {response.content}"
+                        f"Code {response.status_code}. Error processing the response {response.content}"
                     )
                 break
-            except ConnectionError as e:
+            except ConnectionError as e:  # pragma: no cover
                 logger.exception(e)
                 raise
 
@@ -210,9 +210,7 @@ class Synchronizer:
                 values = self.get_page(self.next_link)
                 logger.debug(f"fetched page {pages}")
                 pages += 1
-            except KeyboardInterrupt:
-                break
-            except BaseException as e:
+            except GeneratorExit as e:
                 logger.exception(e)
                 break
 
@@ -221,19 +219,23 @@ class Synchronizer:
         pk = {fieldname: data.pop(fieldname) for fieldname in self.user_pk_fields}
         return pk, data
 
-    def fetch_users(self, filter_params, callback=None):
+    def fetch_users(self, filter_params, max_records=None, callback=None):
         self.startUrl = "%s?$filter=%s" % (self._baseurl, filter_params)
-        return self.synchronize(callback=callback)
+        return self.synchronize(max_records=max_records, callback=callback)
 
     def search_users(self, record):
         url = "%s?$filter=" % self._baseurl
         filters = []
-        if record.email:
-            filters.append("mail eq '%s'" % record.email)
-        if record.last_name:
-            filters.append("surname eq '%s'" % record.last_name)
-        if record.first_name:
-            filters.append("givenName eq '%s'" % record.first_name)
+        field_map = {
+            "email": "mail eq '{value}'",
+            "last_name": "surname eq '{value}'",
+            "first_name": "givenName eq '{value}'",
+        }
+
+        for field, filter_template in field_map.items():
+            value = getattr(record, field, None)
+            if value:
+                filters.append(filter_template.format(value=value))
 
         page = self.get_page(url + " or ".join(filters), single=True)
         return page["value"]
@@ -284,7 +286,7 @@ class Synchronizer:
                     results.log(user_info)
                 if max_records and i > max_records:
                     break
-        except BaseException as e:
+        except BaseException as e:  # pragma: no cover
             logger.exception(e)
             raise
         logger.debug(f"End Azure user synchronization: {results}")

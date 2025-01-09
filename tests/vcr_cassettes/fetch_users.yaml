@@ -1,0 +1,88 @@
+responses:
+- response:
+    auto_calculate_content_length: false
+    body: '{"token_type":"Bearer","expires_in":"3599","ext_expires_in":"3599","expires_on":"1736365532","not_before":"1736361632","resource":"https://graph.microsoft.com","access_token":"***token***"}'
+    content_type: text/plain
+    headers:
+      Cache-Control: no-store, no-cache
+      Content-Security-Policy-Report-Only: 'object-src ''none''; base-uri ''self'';
+        script-src ''self'' ''nonce-YJlG4tdIthNuNSgNDXEEEQ'' ''unsafe-inline'' ''unsafe-eval''
+        https://*.msauth.net https://*.msftauth.net https://*.msftauthimages.net https://*.msauthimages.net
+        https://*.msidentity.com https://*.microsoftonline-p.com https://*.microsoftazuread-sso.com
+        https://*.azureedge.net https://*.outlook.com https://*.office.com https://*.office365.com
+        https://*.microsoft.com https://*.bing.com ''report-sample''; img-src ''self''
+        data: https://*.msauth.net https://*.msftauth.net https://*.msftauthimages.net
+        https://*.msauthimages.net https://*.msidentity.com https://*.microsoftonline-p.com
+        https://*.microsoftazuread-sso.com https://*.azureedge.net https://*.outlook.com
+        https://*.office.com https://*.office365.com https://*.microsoft.com https://*.bing.com
+        ''report-sample''; report-uri https://csp.microsoft.com/report/ESTS-UX-All'
+      Expires: '-1'
+      P3P: CP="DSP CUR OTPi IND OTRi ONL FIN"
+      Pragma: no-cache
+      Set-Cookie: fpc=AloJWhaIiaRLgA-db5Q_iWGhqu4lAQAAAMy-EN8OAAAA; expires=Fri, 07-Feb-2025
+        18:45:32 GMT; path=/; secure; HttpOnly; SameSite=None, x-ms-gateway-slice=estsfd;
+        path=/; secure; samesite=none; httponly, stsservicecookie=estsfd; path=/;
+        secure; samesite=none; httponly
+      Strict-Transport-Security: max-age=31536000; includeSubDomains
+      X-Content-Type-Options: nosniff
+      X-XSS-Protection: '0'
+      x-ms-ests-server: 2.1.19683.3 - EUS ProdSlices
+      x-ms-httpver: '1.1'
+      x-ms-request-id: 6fd9bec0-886e-4b45-a469-b74b6e7e6300
+      x-ms-srs: 1.P
+    method: POST
+    status: 200
+    url: https://login.microsoftonline.com/unicef.org/oauth2/token
+- response:
+    auto_calculate_content_length: false
+    body: '{"token_type":"Bearer","expires_in":"3599","ext_expires_in":"3599","expires_on":"1736365533","not_before":"1736361633","resource":"https://graph.microsoft.com","access_token":"**token***"}'
+    content_type: text/plain
+    headers:
+      Cache-Control: no-store, no-cache
+      Content-Security-Policy-Report-Only: 'object-src ''none''; base-uri ''self'';
+        script-src ''self'' ''nonce-xg9DXECDse-VXuBzHZWbDQ'' ''unsafe-inline'' ''unsafe-eval''
+        https://*.msauth.net https://*.msftauth.net https://*.msftauthimages.net https://*.msauthimages.net
+        https://*.msidentity.com https://*.microsoftonline-p.com https://*.microsoftazuread-sso.com
+        https://*.azureedge.net https://*.outlook.com https://*.office.com https://*.office365.com
+        https://*.microsoft.com https://*.bing.com ''report-sample''; img-src ''self''
+        data: https://*.msauth.net https://*.msftauth.net https://*.msftauthimages.net
+        https://*.msauthimages.net https://*.msidentity.com https://*.microsoftonline-p.com
+        https://*.microsoftazuread-sso.com https://*.azureedge.net https://*.outlook.com
+        https://*.office.com https://*.office365.com https://*.microsoft.com https://*.bing.com
+        ''report-sample''; report-uri https://csp.microsoft.com/report/ESTS-UX-All'
+      Expires: '-1'
+      P3P: CP="DSP CUR OTPi IND OTRi ONL FIN"
+      Pragma: no-cache
+      Set-Cookie: fpc=AufIkPG0pO5Bmbk9ZH1jXvqhqu4lAQAAAM2-EN8OAAAA; expires=Fri, 07-Feb-2025
+        18:45:33 GMT; path=/; secure; HttpOnly; SameSite=None, x-ms-gateway-slice=estsfd;
+        path=/; secure; samesite=none; httponly, stsservicecookie=estsfd; path=/;
+        secure; samesite=none; httponly
+      Strict-Transport-Security: max-age=31536000; includeSubDomains
+      X-Content-Type-Options: nosniff
+      X-XSS-Protection: '0'
+      x-ms-ests-server: 2.1.19683.3 - EUS ProdSlices
+      x-ms-httpver: '1.1'
+      x-ms-request-id: 19f01324-d81a-424b-9b0a-3bf2bdee5c00
+      x-ms-srs: 1.P
+    method: POST
+    status: 200
+    url: https://login.microsoftonline.com/unicef.org/oauth2/token
+- response:
+    auto_calculate_content_length: false
+    body: '{"@odata.context":"https://graph.microsoft.com/v1.0/$metadata#users","value":[{"businessPhones":["+12345"],"displayName":"Domenico
+      Di Nicola","givenName":"Domenico","jobTitle":"Information Comm. Technology Specialist","mail":"ddinicola@unicef.org","mobilePhone":null,"officeLocation":"Valencia","preferredLanguage":null,"surname":"Di
+      Nicola","userPrincipalName":"ddinicola@unicef.org","id":"12345678-aaaa-bbbb-cccc-123456789012"}]}'
+    content_type: text/plain
+    headers:
+      Cache-Control: no-cache
+      OData-Version: '4.0'
+      Strict-Transport-Security: max-age=31536000
+      Transfer-Encoding: chunked
+      Vary: Accept-Encoding
+      client-request-id: 9ae04701-6d46-4ff8-9b8c-f7fadbf363a7
+      request-id: 9ae04701-6d46-4ff8-9b8c-f7fadbf363a7
+      x-ms-ags-diagnostic: '{"ServerInfo":{"DataCenter":"South Central US","Slice":"E","Ring":"5","ScaleUnit":"003","RoleInstance":"SN4PEPF000011C4"}}'
+      x-ms-resource-unit: '2'
+    method: GET
+    status: 200
+    url: https://graph.microsoft.com/v1.0/users?$filter=startswith(mail,'ddinicola')

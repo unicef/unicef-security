@@ -11,3 +11,20 @@ repos:
       - id: ruff-format
         args:
           - --check
+  - repo: https://github.com/adamchainz/djade-pre-commit
+    rev: 1.3.2
+    hooks:
+      - id: djade
+        args:
+          - --target-version
+          - '5.1'
+#  - repo: https://github.com/saxix/pch
+#    rev: v0.1
+#    hooks:
+#      - id: check-missed-migrations
+#        args:
+#          - src
+#        stages:
+#          - pre-commit
+#        additional_dependencies:
+#          - setuptools

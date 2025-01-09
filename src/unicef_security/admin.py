@@ -18,7 +18,7 @@ from .graph import default_group, Synchronizer, SyncResult
 logger = logging.getLogger(__name__)
 
 
-def is_superuser(request, *args, **kwargs):
+def is_superuser(request, *args, **kwargs):  # pragma: no cover
     return request.user.is_superuser
 
 
@@ -31,10 +31,20 @@ class UNICEFUserFilter(SimpleListFilter):
     parameter_name = "email"
 
     def lookups(self, request, model_admin):
-        return [
-            ("unicef", "UNICEF"),
-            ("external", "External"),
-        ]
+        return (
+            (
+                "unicef",
+                _(
+                    "UNICEF",
+                ),
+            ),
+            (
+                "external",
+                _(
+                    "External",
+                ),
+            ),
+        )
 
     def queryset(self, request, queryset):
         if self.value() == "unicef":
@@ -114,7 +124,7 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
         try:
             synchronizer = Synchronizer()
             synchronizer.sync_user(obj)
-        except ValueError as e:
+        except ValueError as e:  # pragma: no cover
             self.message_user(request, str(e), messages.ERROR)
 
         self.message_user(request, "User synchronized")
@@ -147,7 +157,7 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
             ctx["data"] = data
             return TemplateResponse(request, "admin/link_user.html", ctx)
 
-        except ValueError as e:
+        except ValueError as e:  # pragma: no cover
             self.message_user(request, str(e), messages.ERROR)
 
     @button()
@@ -190,7 +200,7 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
         try:
             synchronizer = Synchronizer()
             context = synchronizer.get_user(obj.username)
-        except ValueError as e:
+        except ValueError as e:  # pragma: no cover
             self.message_user(request, str(e), messages.ERROR)
 
         return TemplateResponse(request, "admin/ad.html", {"ctx": context, "opts": self.model._meta})
