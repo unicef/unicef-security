@@ -1,11 +1,13 @@
 UNICEF-Security
 ===============
 
++----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Menu                 | Link                                                                                                                                                      |
-|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Coverage Development | [![codecov](https://codecov.io/gh/unicef/unicef-security/branch/develop/graph/badge.svg?token=sytM1cd8Zj)](https://codecov.io/gh/unicef/unicef-security)  |
-| Coverage Stable      | [![codecov](https://codecov.io/gh/unicef/unicef-security/branch/master/graph/badge.svg?token=sytM1cd8Zj)](https://codecov.io/gh/unicef/unicef-security)   |
-| Issue tracker        | https://github.com/unicef/unicef-security/issues
++----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Coverage Development | [![codecov](https://codecov.io/gh/unicef/unicef-security/branch/develop/graph/badge.svg?token=sytM1cd8Zj)](https://codecov.io/gh/unicef/unicef-security)                                                                                                                                    |
+| Coverage Stable      | [![codecov](https://codecov.io/gh/unicef/unicef-security/branch/master/graph/badge.svg?token=sytM1cd8Zj)](https://codecov.io/gh/unicef/unicef-security)                                                                                                                                    |
+| Issue tracker        | https://github.com/unicef/unicef-security/issues                                                                                                          |
++----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Installation
 ------------

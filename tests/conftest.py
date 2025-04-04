@@ -1,8 +1,26 @@
-import responses
+import sys
+from pathlib import Path
 
 import pytest
+import responses
+import os
 
 from .factories import UserFactory, SuperUserFactory
+
+
+here = Path(__file__).parent
+DEMOAPP_PATH = here / "demoapp"
+sys.path.insert(0, str(here / "../src"))
+sys.path.insert(0, str(DEMOAPP_PATH))
+
+
+def pytest_configure(config):
+    os.environ["DEBUG"] = "False"
+    os.environ.update(DJANGO_SETTINGS_MODULE="demo.settings")
+
+    import django
+
+    django.setup()
 
 
 @pytest.fixture
