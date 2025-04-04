@@ -3,65 +3,66 @@ name = "unicef-security"
 version = "1.8"
 description = "Provides Basic UNICEF User model and integration with Azure"
 readme = "README.rst"
-license = {text = "Apache-2.0 OR MIT"}
+license = { text = "Apache-2.0 OR MIT" }
 authors = [
-    { name = "UNICEF", email = "rapidpro@unicef.org" },
+  { name = "UNICEF", email = "rapidpro@unicef.org" },
 ]
 classifiers = [
-    "Environment :: Web Environment",
-    "Framework :: Django",
-    "Framework :: Django :: 3.2",
-    "Framework :: Django :: 4.2",
-    "Framework :: Django :: 5.1",
-    "Intended Audience :: Developers",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
+  "Environment :: Web Environment",
+  "Framework :: Django",
+  "Framework :: Django :: 3.2",
+  "Framework :: Django :: 4.2",
+  "Framework :: Django :: 5.1",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "celery",
-    "cryptography",
-    "django",
-    "django-admin-extra-buttons",
-    "django-constance",
-    "django-countries",
-    "django-picklefield",
-    "PyJWT",
-    "requests",
-    "social-auth-app-django",
+  "celery",
+  "cryptography",
+  "django",
+  "django-admin-extra-buttons",
+  "django-constance",
+  "django-countries",
+  "django-picklefield",
+  "pyjwt",
+  "requests",
+  "social-auth-app-django",
 ]
+
+urls.Homepage = "https://github.com/unicef/unicef-security"
 
 [tool.uv]
 dev-dependencies = [
-    "django_regex",
-    "django-webtest",
-    "factory-boy",
-    "flake8",
-    "httpretty",
-    "isort",
-    "mock",
-    "pytest",
-    "pytest-cov",
-    "pytest-django",
-    "pytest-echo",
-    "pytest-factoryboy",
-    "pre-commit",
-    "requests-mock",
-    "responses",
-    "tox",
-    "unittest2",
-    "vcrpy",
+  "django_regex",
+  "django-webtest",
+  "factory-boy",
+  "flake8",
+  "httpretty",
+  "mock",
+  "pytest",
+  "pytest-cov",
+  "pytest-django",
+  "pytest-echo",
+  "pytest-factoryboy",
+  "pre-commit",
+  "requests-mock",
+  "responses",
+  "ruff",
+  "tox",
+  "unittest2",
+  "vcrpy",
 ]
-
-[project.urls]
-Homepage = "https://github.com/unicef/unicef-security"
-
 
 [uv]
 package = true
 
 [tool.nitpick]
-    style = [
-        "github://unicef/hope-code-conventions@main/django/django.toml"
-    ]
-    cache = "1 day"
+style = [
+  "github://unicef/hope-code-conventions@main/django/django.toml",
+]
+cache = "1 day"
