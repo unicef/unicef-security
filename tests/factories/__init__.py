@@ -6,11 +6,7 @@ from pytest_factoryboy import register
 
 from factory.django import DjangoModelFactory
 
-from .base import (
-    AutoRegisterModelFactory,
-    factories_registry,
-    TAutoRegisterModelFactory,
-)
+from .base import AutoRegisterModelFactory, factories_registry, TAutoRegisterModelFactory
 from .social import SocialAuthUserFactory  # noqa
 from .user import GroupFactory, SuperUserFactory, UserFactory  # noqa
 

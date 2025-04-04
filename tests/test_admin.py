@@ -1,10 +1,14 @@
 from django.urls import reverse
+
 from mock import patch
+
 import pytest
+
+from unicef_security.admin import UNICEFUserFilter
 
 from demo.admin import UserPlus
 from demo.models import User
-from unicef_security.admin import UNICEFUserFilter
+
 from .factories import UserFactory
 
 

@@ -1,17 +1,15 @@
-from django.contrib.admin.sites import site
-from django.contrib.admin.templatetags.admin_urls import admin_urlname
-
 from typing import TYPE_CHECKING
 
+from django.contrib.admin.sites import site
+from django.contrib.admin.templatetags.admin_urls import admin_urlname
 from django.urls import reverse
 
 from admin_extra_buttons.handlers import ChoiceHandler
 from django_regex.utils import RegexList as _RegexList
+from mock import patch
 
 import pytest
 from unittest.mock import Mock
-
-from mock import patch
 
 if TYPE_CHECKING:
     from django.db.models.options import Options
@@ -189,7 +187,7 @@ def test_admin_buttons(patch1, patch2, patch3, patch4, app, modeladmin, button_h
         btn = button_handler.get_button({"original": record})
         button_handler.func(None, btn)
     else:
-        if len(button_handler.sig.parameters) == 2:
+        if len(button_handler.func_args) == 2:
             url = reverse(f"admin:{button_handler.url_name}")
         else:
             url = reverse(f"admin:{button_handler.url_name}", args=[record.pk])

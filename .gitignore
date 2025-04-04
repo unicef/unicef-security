@@ -58,3 +58,5 @@ coverage.xml
 
 celerybeat.pid
 .cache
+
+src/unicef_security/version.py

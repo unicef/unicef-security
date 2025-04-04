@@ -1,11 +1,14 @@
-from social_django.utils import load_strategy, load_backend
+import responses
+from constance import config as constance
+from social_django.utils import load_backend, load_strategy
+
+import pytest
+
+from unicef_security.graph import default_group, get_unicef_user, Synchronizer, SyncResult
 
 from demo.models import User
+
 from .factories import GroupFactory, UserFactory
-from unicef_security.graph import Synchronizer, get_unicef_user, default_group, SyncResult
-import responses
-import pytest
-from constance import config as constance
 
 
 @pytest.fixture
