@@ -15,7 +15,7 @@ class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
         # get key id and algorithm
         key_id = get_unverified_header(id_token)["kid"]
         key = ""
-        verify = os.environ.get("OAUTH2_VERIFY", False)
+        verify = os.environ.get("OAUTH2_VERIFY", "")
         try:
             # retrieve certificate for key_id
             if verify:  # pragma: no cover
