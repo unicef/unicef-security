@@ -1,11 +1,8 @@
-include README.rst
+include README.md
+include CHANGES
 include LICENSE
 include MANIFEST.in
-include CHANGES
-include Makefile
-include tox.ini
-include setup.py
 
-recursive-include src *
 recursive-include docs *
+recursive-include src/unicef_security *
 recursive-include tests *
