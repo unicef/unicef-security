@@ -47,10 +47,11 @@ class UNICEFUserFilter(SimpleListFilter):
         )
 
     def queryset(self, request, queryset):
-        if self.value() == "unicef":
-            queryset = queryset.filter(email__endswith=UNICEF_EMAIL)
-        elif self.value() == "external":
-            queryset = queryset.exclude(email__endswith=UNICEF_EMAIL)
+        if self.value():
+            if "unicef" in self.value():
+                queryset = queryset.filter(email__endswith=UNICEF_EMAIL)
+            elif "external" in self.value():
+                queryset = queryset.exclude(email__endswith=UNICEF_EMAIL)
         return queryset
 
 
