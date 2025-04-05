@@ -56,6 +56,7 @@ dev-dependencies = [
   "tox",
   "unittest2",
   "vcrpy",
+  "urllib3<2.0",       # https://github.com/python-social-auth/social-core/pull/1063/files
 ]
 
 [uv]
