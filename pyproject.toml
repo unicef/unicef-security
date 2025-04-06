@@ -1,9 +1,15 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = [
+  "hatch-vcs>=0.4",
+  "hatchling>=1.25",
+]
+
 [project]
 name = "unicef-security"
-version = "1.8"
 description = "Provides Basic UNICEF User model and integration with Azure"
-readme = "README.rst"
-license = { text = "Apache-2.0 OR MIT" }
+readme = "README.md"
+license = "Apache-2.0 OR MIT"
 authors = [
   { name = "UNICEF", email = "rapidpro@unicef.org" },
 ]
@@ -21,6 +27,9 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
 ]
+dynamic = [
+  "version",
+]
 dependencies = [
   "celery",
   "cryptography",
@@ -36,28 +45,42 @@ dependencies = [
 
 urls.Homepage = "https://github.com/unicef/unicef-security"
 
-[tool.uv]
-dev-dependencies = [
-  "django_regex",
+[dependency-groups]
+dev = [
+  "django-regex",
   "django-webtest",
   "factory-boy",
   "flake8",
   "httpretty",
+  "isort",
   "mock",
+  "pre-commit",
   "pytest",
   "pytest-cov",
   "pytest-django",
   "pytest-echo",
   "pytest-factoryboy",
-  "pre-commit",
   "requests-mock",
   "responses",
-  "ruff",
   "tox",
   "unittest2",
+  "urllib3<2",         # https://github.com/python-social-auth/social-core/pull/1063/files
   "vcrpy",
-  "urllib3<2.0",       # https://github.com/python-social-auth/social-core/pull/1063/files
 ]
+
+[tool.hatch]
+build.hooks.vcs.version-file = "src/unicef_security/version.py"
+version.source = "vcs"
+raw-options = { root = "../.." }
+
+[tool.hatch.build.targets.sdist]
+ignore-vcs = true
+include = [
+  "src/unicef_security/**/*.*",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = [ "src/unicef_security" ]
 
 [uv]
 package = true
@@ -67,3 +90,6 @@ style = [
   "github://unicef/hope-code-conventions@main/django/django.toml",
 ]
 cache = "1 day"
+
+[tool.uv]
+package = true
