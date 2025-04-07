@@ -18,7 +18,7 @@ classifiers = [
   "Framework :: Django",
   "Framework :: Django :: 3.2",
   "Framework :: Django :: 4.2",
-  "Framework :: Django :: 5.1",
+  "Framework :: Django :: 5.2",
   "Intended Audience :: Developers",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.9",
@@ -82,7 +82,7 @@ include = [
 [tool.hatch.build.targets.wheel]
 packages = [ "src/unicef_security" ]
 
-[uv]
+[tool.uv]
 package = true
 
 [tool.nitpick]
@@ -90,6 +90,3 @@ style = [
   "github://unicef/hope-code-conventions@main/django/django.toml",
 ]
 cache = "1 day"
-
-[tool.uv]
-package = true
