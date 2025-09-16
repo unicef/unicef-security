@@ -31,7 +31,7 @@ theme:
   color_mode: auto
   custom_dir: docs/_theme/overrides
   favicon: img/favicon.ico
-  logo: img/logo.png
+  logo: img/logo.jpeg
 #  highlightjs: true
 #  hljs_languages:
 #    - yaml
