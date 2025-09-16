@@ -171,7 +171,7 @@ def test_get_unicef_user(backend):
 def test_get_unicef_user_existing(backend):
     email = "ddinicola@unicef.org"
     user = UserFactory(email=email, username=email)
-    user.social_auth.create()
+    user.social_auth.create(provider=backend.name, uid=user.username)
     details = get_details(email)
     response = get_response(email)
     result = get_unicef_user(backend, details, response)
