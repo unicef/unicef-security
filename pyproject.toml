@@ -53,11 +53,6 @@ dev = [
   "flake8",
   "httpretty",
   "isort",
-  "mkdocs",
-  "mkdocs-awesome-pages-plugin",
-  "mkdocs-gen-files",
-  "mkdocs-material",
-  "mkdocstrings[python]",
   "mock",
   "pre-commit",
   "pytest",
@@ -69,8 +64,16 @@ dev = [
   "responses",
   "tox",
   "unittest2",
-  "urllib3",                     # https://github.com/python-social-auth/social-core/pull/1063/files
+  "urllib3",           # https://github.com/python-social-auth/social-core/pull/1063/files
   "vcrpy",
+]
+
+docs = [
+  "mkdocs",
+  "mkdocs-awesome-pages-plugin",
+  "mkdocs-gen-files",
+  "mkdocs-material",
+  "mkdocstrings[python]",
 ]
 
 [tool.hatch]
