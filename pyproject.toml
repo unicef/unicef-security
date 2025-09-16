@@ -69,7 +69,7 @@ dev = [
   "responses",
   "tox",
   "unittest2",
-  "urllib3<2",                   # https://github.com/python-social-auth/social-core/pull/1063/files
+  "urllib3",                     # https://github.com/python-social-auth/social-core/pull/1063/files
   "vcrpy",
 ]
 
