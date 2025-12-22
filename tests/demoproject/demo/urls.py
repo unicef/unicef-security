@@ -3,5 +3,6 @@ from django.urls import include, re_path
 
 urlpatterns = [
     re_path(r"^admin/", admin.site.urls),
+    re_path(r"security/", include("unicef_security.urls", namespace="security")),
     re_path(r"social/", include("social_django.urls", namespace="social")),
 ]

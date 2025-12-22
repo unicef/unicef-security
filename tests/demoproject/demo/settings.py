@@ -58,6 +58,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "unicef_security.context_processors.current_state",
             ],
         },
     },
@@ -89,8 +90,17 @@ MEDIA_ROOT = "/tmp/"
 
 AUTH_USER_MODEL = "demo.User"
 
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+SOCIAL_AUTH_SANITIZE_REDIRECTS = False
+SOCIAL_AUTH_URL_NAMESPACE = "social"
+SOCIAL_AUTH_USER_MODEL = "demo.User"
+
 CONSTANCE_CONFIG = {
-    "DEFAULT_GROUP": ("", "test_grp"),
+    "DEFAULT_GROUP": ("test_grp", "Test Group"),
 }
 
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
+
+LOGOUT_URL = "/"
+
+ADMINS = (("Me", "ddinicola@unicef.org"),)

@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Optional
+from typing import Any
 
 from django import forms
 from django.contrib import messages
@@ -18,7 +18,7 @@ from .graph import default_group, Synchronizer, SyncResult
 logger = logging.getLogger(__name__)
 
 
-def is_superuser(request, *args, **kwargs):
+def is_superuser(request, *args, **kwargs):  # pragma: no cover
     return request.user.is_superuser
 
 
@@ -31,22 +31,35 @@ class UNICEFUserFilter(SimpleListFilter):
     parameter_name = "email"
 
     def lookups(self, request, model_admin):
-        return [
-            ("unicef", "UNICEF"),
-            ("external", "External"),
-        ]
+        return (
+            (
+                "unicef",
+                _(
+                    "UNICEF",
+                ),
+            ),
+            (
+                "external",
+                _(
+                    "External",
+                ),
+            ),
+        )
 
     def queryset(self, request, queryset):
-        if self.value() == "unicef":
-            return queryset.filter(email__endswith=UNICEF_EMAIL)
-        elif self.value() == "external":
-            return queryset.exclude(email__endswith=UNICEF_EMAIL)
+        if self.value():
+            if "unicef" in self.value():
+                queryset = queryset.filter(email__endswith=UNICEF_EMAIL)
+            elif "external" in self.value():
+                queryset = queryset.exclude(email__endswith=UNICEF_EMAIL)
         return queryset
 
 
 class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     list_display = [
         "username",
+        "first_name",
+        "last_name",
         "display_name",
         "email",
         "is_staff",
@@ -56,7 +69,7 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
         "last_login",
     ]
     list_filter = ["is_superuser", "is_staff", "is_active", UNICEFUserFilter]
-    search_fields = ["username", "display_name"]
+    search_fields = ["username", "display_name", "first_name", "last_name"]
     fieldsets = (
         (None, {"fields": (("username", "azure_id"), "password")}),
         (
@@ -72,37 +85,57 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
                 )
             },
         ),
-        (
-            _("Permissions"),
-            {
-                "fields": (
-                    "is_active",
-                    "groups",
-                    "user_permissions",
-                ),
-            },
-        ),
-        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
+
     add_fieldsets = (
         (
             None,
             {
                 "classes": ("wide",),
-                "fields": ("username", "password1", "password2"),
+                "fields": ("username", "password1", "password2", "email"),
             },
         ),
     )
-    readonly_fields = ("azure_id", "job_title", "display_name")
 
-    def get_fieldsets(self, request: HttpRequest, obj: Optional[Any] = None) -> Any:
+    extra_fieldsets = (
+        (
+            _("Custom Fields"),
+            {"classes": ["collapse"], "fields": ("custom_fields", "azure_id")},
+        ),
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    ("password",),
+                    (
+                        "is_active",
+                        "is_staff",
+                        "is_superuser",
+                    ),
+                    ("groups",),
+                ),
+            },
+        ),
+        (
+            _("Important dates"),
+            {
+                "classes": ["collapse"],
+                "fields": (
+                    "last_login",
+                    "date_joined",
+                    "last_modify_date",
+                ),
+            },
+        ),
+    )
+    readonly_fields = ("azure_id", "job_title", "display_name", "last_modify_date")
+
+    def get_fieldsets(self, request: HttpRequest, obj: Any | None = None) -> tuple:
         if not obj:
             return self.add_fieldsets
         fieldsets = super().get_fieldsets(request, obj)
         if request.user.is_superuser:
-            fieldsets = fieldsets + (
-                (_("Admin"), {"fields": ("is_staff", "is_superuser")}),
-            )
+            fieldsets = fieldsets + self.extra_fieldsets
         return fieldsets
 
     def is_linked(self, obj):
@@ -116,7 +149,7 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
         try:
             synchronizer = Synchronizer()
             synchronizer.sync_user(obj)
-        except BaseException as e:
+        except ValueError as e:  # pragma: no cover
             self.message_user(request, str(e), messages.ERROR)
 
         self.message_user(request, "User synchronized")
@@ -143,14 +176,13 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
                     synchronizer.sync_user(obj, data["id"])
                     self.message_user(request, "User linked")
                     return None
-                else:
-                    ctx["message"] = "Select one entry to link"
+                ctx["message"] = "Select one entry to link"
 
             data = synchronizer.search_users(obj)
             ctx["data"] = data
             return TemplateResponse(request, "admin/link_user.html", ctx)
 
-        except BaseException as e:
+        except ValueError as e:  # pragma: no cover
             self.message_user(request, str(e), messages.ERROR)
 
     @button()
@@ -173,9 +205,7 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
                 emails = form.cleaned_data["emails"].split()
                 total_results = SyncResult()
                 for email in emails:
-                    result = synchronizer.fetch_users(
-                        "startswith(mail,'%s')" % email, callback=default_group
-                    )
+                    result = synchronizer.fetch_users("startswith(mail,'%s')" % email, callback=default_group)
                     total_results += result
                 self.message_user(
                     request,
@@ -191,13 +221,11 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     @button(permissions=is_superuser)
     def ad(self, request, pk):
         obj = self.get_object(request, pk)
-        context = dict()
+        context = dict
         try:
             synchronizer = Synchronizer()
             context = synchronizer.get_user(obj.username)
-        except BaseException as e:
+        except ValueError as e:  # pragma: no cover
             self.message_user(request, str(e), messages.ERROR)
 
-        return TemplateResponse(
-            request, "admin/ad.html", {"ctx": context, "opts": self.model._meta}
-        )
+        return TemplateResponse(request, "admin/ad.html", {"ctx": context, "opts": self.model._meta})

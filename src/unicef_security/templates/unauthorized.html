@@ -45,7 +45,7 @@
     </style>
 
 
-    {% endblock %}
+    {% endblock extra_head %}
 
 </head>
 
@@ -65,7 +65,7 @@
             <h1 class="error primary-txt">Not authorized</h1>
         </header>
 
-    <h3> Hi {% if user.is_authenticated %} {{ user }} {% else %} {{request.GET.eu}}{% endif %}, </h3>
+    <h3> Hi {% if user.is_authenticated %} {{ user }} {% else %} {{ request.GET.eu }}{% endif %}, </h3>
         <br>
         <a href="/" style="color:white">Home</a>
         <br><br>
@@ -89,7 +89,7 @@
 </div>
 {% endblock content %}
 {% block extra_js %}
-{% endblock %}
+{% endblock extra_js %}
 </body>
 
 </html>

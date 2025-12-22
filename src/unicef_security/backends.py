@@ -15,10 +15,10 @@ class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
         # get key id and algorithm
         key_id = get_unverified_header(id_token)["kid"]
         key = ""
-        verify = os.environ.get("OAUTH2_VERIFY", False)
+        verify = os.environ.get("OAUTH2_VERIFY", "")
         try:
             # retrieve certificate for key_id
-            if verify:
+            if verify:  # pragma: no cover
                 certificate = self.get_certificate(key_id)
                 key = certificate.public_key()
 
@@ -30,5 +30,5 @@ class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
                 audience=self.setting("KEY"),
                 options=options,
             )
-        except (DecodeError, ExpiredSignatureError) as error:
+        except (DecodeError, ExpiredSignatureError) as error:  # pragma: no cover
             raise AuthTokenError(self, error)

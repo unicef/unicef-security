@@ -2,20 +2,20 @@ from social_django.utils import load_backend, load_strategy
 
 import pytest
 
-from unicef_security.pipeline import create_unicef_user, get_username, social_details
+from unicef_security.pipeline import create_unicef_user, get_username, social_details, user_details
 
 
-@pytest.fixture()
+@pytest.fixture
 def strategy():
     return load_strategy()
 
 
-@pytest.fixture()
+@pytest.fixture
 def backend(strategy):
     return load_backend(strategy=strategy, name="azuread-b2c-oauth2", redirect_uri="/")
 
 
-@pytest.fixture()
+@pytest.fixture
 def response(auth_user):
     return {
         "id_token": "token",
@@ -42,7 +42,7 @@ def response(auth_user):
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def details(auth_user):
     return {
         "username": "Given Family",
@@ -62,6 +62,12 @@ def test_social_details(auth_user, backend, details, response):
 
 
 @pytest.mark.django_db
+def test_social_details_with_user(auth_user, backend, details, response):
+    return_dict = social_details(backend, details, response, user=auth_user)
+    assert return_dict.url == f"/security/unauthorized/?eu={auth_user.email}&msgc=alreadyauthenticated"
+
+
+@pytest.mark.django_db
 def test_get_username(strategy, backend, details, auth_user):
     result_dict = get_username(strategy, details, backend, user=auth_user)
     assert "username" in result_dict
@@ -69,10 +75,59 @@ def test_get_username(strategy, backend, details, auth_user):
 
 
 @pytest.mark.django_db
+def test_get_username_ko(strategy, backend, auth_user):
+    details = {
+        "username": "Given Family",
+        "email": "email@example.com",
+        "fullname": "Given Family",
+        "first_name": "Given",
+        "last_name": "Family",
+        "idp": "UNICEF Azure AD",
+    }
+    result_dict = get_username(strategy, details, backend, user=auth_user)
+    assert result_dict.url == "/security/unauthorized/?eu=email%40example.com&msgc=nouser"
+
+
+@pytest.mark.django_db
 def test_create_unicef_user_ok(strategy, details, backend):
     result_dict = create_unicef_user(strategy, details, backend)
     assert result_dict["is_new"]
     assert result_dict["user"]
+
+
+@pytest.mark.django_db
+def test_create_unicef_user_unicef_response(strategy, details, backend, response):
+    result_dict = create_unicef_user(strategy, details, backend, response=response)
+    assert result_dict["is_new"]
+    assert result_dict["user"]
+
+
+@pytest.mark.django_db
+def test_create_unicef_user_no_unicef_response(strategy, details, backend):
+    response = {
+        "id_token": "token",
+        "token_type": "Bearer",
+        "not_before": 1607541825,
+        "id_token_expires_in": 3600,
+        "profile_info": "profile_info",
+        "scope": "openid",
+        "access_token": "access_token",
+        "exp": 1607545425,
+        "nbf": 1607541825,
+        "ver": "1.0",
+        "iss": "https://tenant.b2clogin.com/1234567890/v2.0/",
+        "sub": "abcdefgh",
+        "aud": "abcdefgh",
+        "acr": "b2c_1a_unicef_social_signup_signin",
+        "iat": 1607541825,
+        "auth_time": 1607541824,
+        "given_name": "Given",
+        "family_name": "Family",
+        "name": "Given Family",
+        "idp": "UNICEF Azure AD",
+        "email": "email@example.com",
+    }
+    assert create_unicef_user(strategy, details, backend, response=response) is None
 
 
 @pytest.mark.django_db
@@ -87,3 +142,13 @@ def test_create_unicef_user_existing(strategy, details, backend):
     result_dict = create_unicef_user(strategy, details, backend, 1)
     assert "is_new" in result_dict
     assert not result_dict["is_new"]
+
+
+@pytest.mark.django_db
+def test_user_details_with_user(strategy, details, backend, auth_user):
+    user_details(strategy, details, backend, user=auth_user)
+
+
+@pytest.mark.django_db
+def test_user_details(strategy, details, backend, auth_user):
+    user_details(strategy, details, backend)

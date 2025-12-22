@@ -1,6 +1,8 @@
 from django.contrib.admin.sites import site
 from django.contrib.admin.templatetags.admin_urls import admin_urlname
-from django.db.models.options import Options
+
+from typing import TYPE_CHECKING
+
 from django.urls import reverse
 
 from admin_extra_buttons.handlers import ChoiceHandler
@@ -9,7 +11,11 @@ from django_regex.utils import RegexList as _RegexList
 import pytest
 from unittest.mock import Mock
 
-from .factories import SuperUserFactory
+from mock import patch
+
+if TYPE_CHECKING:
+    from django.db.models.options import Options
+
 
 pytestmark = [pytest.mark.admin, pytest.mark.smoke, pytest.mark.django_db]
 
@@ -48,7 +54,7 @@ def log_submit_error(res):
         return "Submit failed"
 
 
-def pytest_generate_tests(metafunc):
+def pytest_generate_tests(metafunc):  # noqa
     import django
 
     markers = metafunc.definition.own_markers
@@ -67,12 +73,11 @@ def pytest_generate_tests(metafunc):
         for model, admin in site._registry.items():
             if hasattr(admin, "get_changelist_buttons"):
                 name = model._meta.object_name
-                assert admin.urls  # we need to force this call
-                # admin.get_urls()  # we need to force this call
+                assert admin.urls
                 buttons = admin.extra_button_handlers.values()
                 full_name = f"{model._meta.app_label}.{name}"
                 admin_name = f"{model._meta.app_label}.{admin.__class__.__name__}"
-                if not (full_name in excluded_models):
+                if full_name not in excluded_models:
                     for btn in buttons:
                         tid = f"{admin_name}:{btn.name}"
                         if tid not in excluded_buttons:
@@ -85,40 +90,26 @@ def pytest_generate_tests(metafunc):
         for model, admin in site._registry.items():
             name = model._meta.object_name
             full_name = f"{model._meta.app_label}.{name}"
-            if not (full_name in excluded_models):
+            if full_name not in excluded_models:
                 m.append(admin)
                 ids.append(f"{admin.__class__.__name__}:{full_name}")
         metafunc.parametrize("modeladmin", m, ids=ids)
 
 
-@pytest.fixture()
+@pytest.fixture
 def record(db, request):
     from .factories import get_factory_for_model
 
     modeladmin = request.getfixturevalue("modeladmin")
     instance = modeladmin.model.objects.first()
     if not instance:
-        full_name = (
-            f"{modeladmin.model._meta.app_label}.{modeladmin.model._meta.object_name}"
-        )
+        full_name = f"{modeladmin.model._meta.app_label}.{modeladmin.model._meta.object_name}"
         factory = get_factory_for_model(modeladmin.model)
         try:
             instance = factory(**KWARGS.get(full_name, {}))
         except Exception as e:
-            raise Exception(
-                f"Error creating fixture for {factory} using {KWARGS}"
-            ) from e
+            raise Exception(f"Error creating fixture for {factory} using {KWARGS}") from e
     return instance
-
-
-@pytest.fixture()
-def app(django_app_factory, mocked_responses):
-
-    django_app = django_app_factory(csrf_checks=False)
-    admin_user = SuperUserFactory(username="superuser")
-    django_app.set_user(admin_user)
-    django_app._user = admin_user
-    return django_app
 
 
 def test_admin_index(app):
@@ -144,7 +135,7 @@ def test_admin_changelist(app, modeladmin, record):
 def show_error(res):
     errors = []
     for k, v in dict(res.context["adminform"].form.errors).items():
-        errors.append(f'{k}: {"".join(v)}')
+        errors.append(f"{k}: {''.join(v)}")
     return (f"Form submitting failed: {res.status_code}: {errors}",)
 
 
@@ -185,8 +176,11 @@ def test_admin_delete(app, modeladmin, record, monkeypatch):
         pytest.skip("No 'delete' permission")
 
 
-@pytest.mark.skip_buttons("demo.UserPlus:link_user_data")
-def test_admin_buttons(app, modeladmin, button_handler, record, monkeypatch):
+@patch("unicef_security.admin.Synchronizer.get_token")
+@patch("unicef_security.admin.Synchronizer.get_user")
+@patch("unicef_security.admin.Synchronizer.sync_user")
+@patch("unicef_security.admin.Synchronizer.search_users")
+def test_admin_buttons(patch1, patch2, patch3, patch4, app, modeladmin, button_handler, record, monkeypatch):
     from admin_extra_buttons.handlers import LinkHandler
 
     if isinstance(button_handler, ChoiceHandler):
@@ -195,7 +189,7 @@ def test_admin_buttons(app, modeladmin, button_handler, record, monkeypatch):
         btn = button_handler.get_button({"original": record})
         button_handler.func(None, btn)
     else:
-        if len(button_handler.sig.parameters) == 2:
+        if len(button_handler.func_args) == 2:
             url = reverse(f"admin:{button_handler.url_name}")
         else:
             url = reverse(f"admin:{button_handler.url_name}", args=[record.pk])
