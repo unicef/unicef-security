@@ -9,6 +9,6 @@ def current_state(request: HttpRequest) -> dict[str, Any]:
         "app": {
             "version": os.environ.get("VERSION", ""),
             "build_date": os.environ.get("BUILD_DATE", ""),
-            "commit": os.environ.get("SOURCE_COMMIT", "-"),
+            "commit": os.environ.get("GIT_SHA", "-"),
         },
     }
