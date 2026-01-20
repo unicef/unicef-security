@@ -85,6 +85,17 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
                 )
             },
         ),
+        (
+            _("Important dates"),
+            {
+                "classes": ["collapse"],
+                "fields": (
+                    "last_login",
+                    "date_joined",
+                    "last_modify_date",
+                ),
+            },
+        ),
     )
 
     add_fieldsets = (
@@ -98,35 +109,18 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     )
 
     extra_fieldsets = (
-        (
-            _("Custom Fields"),
-            {"classes": ["collapse"], "fields": ("custom_fields", "azure_id")},
-        ),
-        (
-            _("Permissions"),
-            {
-                "fields": (
-                    ("password",),
-                    (
-                        "is_active",
-                        "is_staff",
-                        "is_superuser",
-                    ),
-                    ("groups",),
+        _("Permissions"),
+        {
+            "fields": (
+                ("password",),
+                (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
                 ),
-            },
-        ),
-        (
-            _("Important dates"),
-            {
-                "classes": ["collapse"],
-                "fields": (
-                    "last_login",
-                    "date_joined",
-                    "last_modify_date",
-                ),
-            },
-        ),
+                ("groups",),
+            ),
+        },
     )
     readonly_fields = ("azure_id", "job_title", "display_name", "last_modify_date")
 
