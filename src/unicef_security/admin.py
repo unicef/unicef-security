@@ -109,18 +109,20 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     )
 
     extra_fieldsets = (
-        _("Permissions"),
-        {
-            "fields": (
-                ("password",),
-                (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    ("password",),
+                    (
+                        "is_active",
+                        "is_staff",
+                        "is_superuser",
+                    ),
+                    ("groups",),
                 ),
-                ("groups",),
-            ),
-        },
+            },
+        ),
     )
     readonly_fields = ("azure_id", "job_title", "display_name", "last_modify_date")
 
