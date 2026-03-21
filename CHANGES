@@ -1,5 +1,10 @@
 Release 1.8
 -----------
+* added support to python 3.14
+* added support to Django 6.0
+
+Release 1.8
+-----------
 * added support to Django 5.2
 
 

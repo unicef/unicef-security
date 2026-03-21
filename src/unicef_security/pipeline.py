@@ -21,9 +21,7 @@ def social_details(backend, details, response, *args, **kwargs):
     resp["details"]["idp"] = response.get("idp")
 
     if not resp["details"].get("email"):  # pragma: no cover
-        resp["details"]["email"] = (
-            response.get("email") if response.get("email") else response["signInNames.emailAddress"]
-        )
+        resp["details"]["email"] = response.get("email") or response["signInNames.emailAddress"]
     email = resp["details"].get("email")
     resp["details"]["email"] = email.lower().strip()
     return resp

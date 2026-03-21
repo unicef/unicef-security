@@ -55,7 +55,7 @@ def log_submit_error(res):
 
 
 def pytest_generate_tests(metafunc):  # noqa
-    import django
+    import django  # noqa
 
     markers = metafunc.definition.own_markers
     excluded_models = RegexList(GLOBAL_EXCLUDED_MODELS)
@@ -98,7 +98,7 @@ def pytest_generate_tests(metafunc):  # noqa
 
 @pytest.fixture
 def record(db, request):
-    from .factories import get_factory_for_model
+    from .factories import get_factory_for_model  # noqa
 
     modeladmin = request.getfixturevalue("modeladmin")
     instance = modeladmin.model.objects.first()
@@ -181,7 +181,7 @@ def test_admin_delete(app, modeladmin, record, monkeypatch):
 @patch("unicef_security.admin.Synchronizer.sync_user")
 @patch("unicef_security.admin.Synchronizer.search_users")
 def test_admin_buttons(patch1, patch2, patch3, patch4, app, modeladmin, button_handler, record, monkeypatch):
-    from admin_extra_buttons.handlers import LinkHandler
+    from admin_extra_buttons.handlers import LinkHandler  # noqa
 
     if isinstance(button_handler, ChoiceHandler):
         pass
