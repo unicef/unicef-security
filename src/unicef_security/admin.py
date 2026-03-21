@@ -1,11 +1,11 @@
 import logging
 from typing import Any
+import typing
 
 from django import forms
 from django.contrib import messages
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.admin import UserAdmin
-from django.http import HttpRequest
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
 
@@ -14,6 +14,9 @@ from admin_extra_buttons.mixins import ExtraButtonsMixin
 
 from .config import UNICEF_EMAIL
 from .graph import default_group, Synchronizer, SyncResult
+
+if typing.TYPE_CHECKING:
+    from django.http import HttpRequest
 
 logger = logging.getLogger(__name__)
 

@@ -1,10 +1,12 @@
 import os
 from typing import Any
+import typing
 
-from django.http import HttpRequest
+if typing.TYPE_CHECKING:
+    from django.http import HttpRequest
 
 
-def current_state(request: HttpRequest) -> dict[str, Any]:
+def current_state(request: "HttpRequest") -> dict[str, Any]:
     return {
         "app": {
             "version": os.environ.get("VERSION", ""),
