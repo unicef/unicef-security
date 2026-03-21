@@ -112,22 +112,24 @@ class UserAdminPlus(ExtraButtonsMixin, UserAdmin):
     )
 
     extra_fieldsets = (
-        _("Permissions"),
-        {
-            "fields": (
-                ("password",),
-                (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    ("password",),
+                    (
+                        "is_active",
+                        "is_staff",
+                        "is_superuser",
+                    ),
+                    ("groups",),
                 ),
-                ("groups",),
-            ),
-        },
+            },
+        ),
     )
     readonly_fields = ("azure_id", "job_title", "display_name", "last_modify_date")
 
-    def get_fieldsets(self, request: HttpRequest, obj: Any | None = None) -> tuple:
+    def get_fieldsets(self, request: "HttpRequest", obj: Any | None = None) -> tuple:
         if not obj:
             return self.add_fieldsets
         fieldsets = super().get_fieldsets(request, obj)
