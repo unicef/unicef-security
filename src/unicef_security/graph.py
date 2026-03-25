@@ -59,7 +59,7 @@ def get_unicef_user(backend, details, response, *args, **kwargs):
         social = user.social_auth.get()
         user.social_user = social
         created = False
-    except User.DoesNotExist, UserSocialAuth.DoesNotExist:
+    except (User.DoesNotExist, UserSocialAuth.DoesNotExist):
         for k, v in response.items():
             if k in ["email", "family_name", "unique_name"]:
                 details[k] = v
