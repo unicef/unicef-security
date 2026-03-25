@@ -1,5 +1,6 @@
 target-version = "py313"
 line-length = 120
+exclude = ["docs"]
 
 [lint.isort]
 case-sensitive = true
