@@ -11,13 +11,13 @@ if typing.TYPE_CHECKING:
     from mkdocs.utils.templates import TemplateContext
 
 
-def on_pre_build(config: MkDocsConfig) -> None:
+def on_pre_build(config: "MkDocsConfig") -> None:
     pass
 
 
-def on_page_markdown(markdown: str, page: Page, config: MkDocsConfig, files: Files) -> None:
+def on_page_markdown(markdown: str, page: "Page", config: "MkDocsConfig", files: "Files") -> None:
     pass
 
 
-def on_page_context(context: TemplateContext, nav: Navigation, page: Page, config: MkDocsConfig) -> None:
+def on_page_context(context: "TemplateContext", nav: "Navigation", page: "Page", config: "MkDocsConfig") -> None:
     context["build_date"] = datetime.now(UTC).strftime("%a, %d, %b %Y - %H:%M")
