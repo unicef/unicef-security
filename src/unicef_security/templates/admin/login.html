@@ -1,5 +1,5 @@
 {% extends "admin/login.html" %}
-{% load security %}
+{% load i18n security %}
 
 {% block content %}
     {% settings_value "LOGIN_ENABLED" as login_enabled %}
@@ -7,5 +7,8 @@
     {% if debug or login_enabled %}
         {{ block.super }}
     {% endif %}
-    <a class="button" href="{% ad_backend %}">Login with Azure</a>
+    <form action="{% ad_backend %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="button" style="width: 100%; text-align: center; box-sizing: border-box; margin-top: 10px; cursor: pointer;">{% translate "Login with Azure" %}</button>
+    </form>
 {% endblock content %}

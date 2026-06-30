@@ -16,6 +16,7 @@ sys.path.insert(0, str(DEMOAPP_PATH))
 
 def pytest_configure(config):
     os.environ["DEBUG"] = "False"
+    os.environ["OAUTH2_VERIFY"] = "True"
     os.environ.update(DJANGO_SETTINGS_MODULE="demo.settings")
 
     import django  # noqa
