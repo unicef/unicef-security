@@ -1,6 +1,7 @@
 import os
 
-from jwt import decode, DecodeError, ExpiredSignatureError, get_unverified_header
+from django.conf import settings
+import jwt
 from social_core.backends.azuread_tenant import AzureADTenantOAuth2
 from social_core.exceptions import AuthTokenError
 
@@ -9,26 +10,20 @@ class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
     name = "unicef-azuread-tenant-oauth2"
 
     def user_data(self, access_token, *args, **kwargs):
-        response = kwargs.get("response")
-        id_token = response.get("id_token")
+        if "OAUTH2_VERIFY" in os.environ:
+            verify = os.environ["OAUTH2_VERIFY"].lower() in ("true", "1", "yes")
+        else:
+            verify = not getattr(settings, "DEBUG", False)
 
-        # get key id and algorithm
-        key_id = get_unverified_header(id_token)["kid"]
-        key = ""
-        verify = os.environ.get("OAUTH2_VERIFY", "")
+        if verify:
+            return super().user_data(access_token, *args, **kwargs)
+
+        response = kwargs.get("response") or {}
+        id_token = response.get("id_token") or access_token
         try:
-            # retrieve certificate for key_id
-            if verify:  # pragma: no cover
-                certificate = self.get_certificate(key_id)
-                key = certificate.public_key()
-
-            options = {"verify_signature": verify}
-            return decode(
+            return jwt.decode(
                 id_token,
-                key=key,
-                algorithms=["RS256"],
-                audience=self.setting("KEY"),
-                options=options,
+                options={"verify_signature": False},
             )
-        except (DecodeError, ExpiredSignatureError) as error:  # pragma: no cover
+        except jwt.PyJWTError as error:
             raise AuthTokenError(self, error)
