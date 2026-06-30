@@ -1,5 +1,6 @@
 import os
 
+from django.conf import settings
 import jwt
 from social_core.backends.azuread_tenant import AzureADTenantOAuth2
 from social_core.exceptions import AuthTokenError
@@ -9,7 +10,11 @@ class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
     name = "unicef-azuread-tenant-oauth2"
 
     def user_data(self, access_token, *args, **kwargs):
-        verify = os.environ.get("OAUTH2_VERIFY", "").lower() in ("true", "1", "yes")
+        if "OAUTH2_VERIFY" in os.environ:
+            verify = os.environ["OAUTH2_VERIFY"].lower() in ("true", "1", "yes")
+        else:
+            verify = not getattr(settings, "DEBUG", False)
+
         if verify:
             return super().user_data(access_token, *args, **kwargs)
 
