@@ -1,7 +1,9 @@
-Release 1.10 ( in development)
+Release 1.10
 ------------------------------
 * added support to python 3.14
 * added support to Django 6.0
+* added support to django-social-auth 5
+
 
 Release 1.9
 ------------
