@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth import logout as auth_logout
 from django.views.generic import RedirectView, TemplateView
 
 from unicef_security import config
@@ -15,6 +16,10 @@ class UnauthorizedView(TemplateView):
 
 
 class UNICEFLogoutView(RedirectView):
+    def get(self, request, *args, **kwargs):
+        auth_logout(request)
+        return super().get(request, *args, **kwargs)
+
     def get_redirect_url(self, *args, **kwargs):
         base_url = config.AZURE_URL
         tenant = config.AZURE_TENANT_NAME
