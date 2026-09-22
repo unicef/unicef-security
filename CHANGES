@@ -1,3 +1,7 @@
+Release 1.11
+------------------------------
+* invalidate server-side session on logout
+
 Release 1.10
 ------------------------------
 * added support to python 3.14
