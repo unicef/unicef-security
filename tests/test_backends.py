@@ -39,27 +39,36 @@ class UNICEFAzureADTenantOAuth2ExtTest(AzureADTenantOAuth2Test):
 
 
 @pytest.mark.django_db
-class TestSuperuserModelBackend:
-    def test_superuser_can_authenticate(self) -> None:
-        user = SuperUserFactory()
-        assert authenticate(username=user.username, password="password") == user
+def test_superuser_can_authenticate() -> None:
+    user = SuperUserFactory()
+    assert authenticate(username=user.username, password="password") == user
 
-    def test_staff_only_user_cannot_authenticate(self) -> None:
-        user = UserFactory(is_staff=True)
-        assert authenticate(username=user.username, password="password") is None
 
-    def test_superuser_without_staff_cannot_authenticate(self) -> None:
-        user = UserFactory(is_superuser=True, is_staff=False)
-        assert authenticate(username=user.username, password="password") is None
+@pytest.mark.django_db
+def test_staff_only_user_cannot_authenticate() -> None:
+    user = UserFactory(is_staff=True)
+    assert authenticate(username=user.username, password="password") is None
 
-    def test_superuser_and_staff_can_authenticate(self) -> None:
-        user = UserFactory(is_superuser=True, is_staff=True)
-        assert authenticate(username=user.username, password="password") == user
 
-    def test_regular_user_cannot_authenticate(self) -> None:
-        user = UserFactory()
-        assert authenticate(username=user.username, password="password") is None
+@pytest.mark.django_db
+def test_superuser_without_staff_cannot_authenticate() -> None:
+    user = UserFactory(is_superuser=True, is_staff=False)
+    assert authenticate(username=user.username, password="password") is None
 
-    def test_wrong_password_cannot_authenticate(self) -> None:
-        user = SuperUserFactory()
-        assert authenticate(username=user.username, password="invalid") is None
+
+@pytest.mark.django_db
+def test_superuser_and_staff_can_authenticate() -> None:
+    user = UserFactory(is_superuser=True, is_staff=True)
+    assert authenticate(username=user.username, password="password") == user
+
+
+@pytest.mark.django_db
+def test_regular_user_cannot_authenticate() -> None:
+    user = UserFactory()
+    assert authenticate(username=user.username, password="password") is None
+
+
+@pytest.mark.django_db
+def test_wrong_password_cannot_authenticate() -> None:
+    user = SuperUserFactory()
+    assert authenticate(username=user.username, password="invalid") is None
