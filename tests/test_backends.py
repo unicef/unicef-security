@@ -3,9 +3,12 @@ import os
 from unittest.mock import patch
 
 from django.conf import settings
+from django.contrib.auth import authenticate
 import pytest
 from social_core.exceptions import AuthTokenError
 from social_core.tests.backends.test_azuread import AzureADTenantOAuth2Test
+
+from .factories import SuperUserFactory, UserFactory
 
 
 class UNICEFAzureADTenantOAuth2ExtTest(AzureADTenantOAuth2Test):
@@ -33,3 +36,22 @@ class UNICEFAzureADTenantOAuth2ExtTest(AzureADTenantOAuth2Test):
         with patch.dict(os.environ, environ, clear=True):
             with patch.object(settings, "DEBUG", True):
                 self.do_login()
+
+
+@pytest.mark.django_db
+class TestSuperuserModelBackend:
+    def test_superuser_can_authenticate(self) -> None:
+        user = SuperUserFactory()
+        assert authenticate(username=user.username, password="password") == user
+
+    def test_staff_can_authenticate(self) -> None:
+        user = UserFactory(is_staff=True)
+        assert authenticate(username=user.username, password="password") == user
+
+    def test_regular_user_cannot_authenticate(self) -> None:
+        user = UserFactory()
+        assert authenticate(username=user.username, password="password") is None
+
+    def test_wrong_password_cannot_authenticate(self) -> None:
+        user = SuperUserFactory()
+        assert authenticate(username=user.username, password="invalid") is None
