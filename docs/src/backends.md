@@ -9,3 +9,7 @@ An extension of `social_core.backends.azuread_tenant.AzureADTenantOAuth2` that a
 ### Methods
 
 - `user_data`: Decodes the ID token and returns the user data.
+
+## SuperuserModelBackend
+
+An extension of `django.contrib.auth.backends.ModelBackend` that restricts database (username/password) login to users who are both staff and superusers. Non-privileged users must authenticate through SSO instead.

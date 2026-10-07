@@ -44,8 +44,16 @@ class TestSuperuserModelBackend:
         user = SuperUserFactory()
         assert authenticate(username=user.username, password="password") == user
 
-    def test_staff_can_authenticate(self) -> None:
+    def test_staff_only_user_cannot_authenticate(self) -> None:
         user = UserFactory(is_staff=True)
+        assert authenticate(username=user.username, password="password") is None
+
+    def test_superuser_without_staff_cannot_authenticate(self) -> None:
+        user = UserFactory(is_superuser=True, is_staff=False)
+        assert authenticate(username=user.username, password="password") is None
+
+    def test_superuser_and_staff_can_authenticate(self) -> None:
+        user = UserFactory(is_superuser=True, is_staff=True)
         assert authenticate(username=user.username, password="password") == user
 
     def test_regular_user_cannot_authenticate(self) -> None:

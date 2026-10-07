@@ -31,7 +31,7 @@ class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
 
 
 class SuperuserModelBackend(ModelBackend):
-    """Allow database (username/password) login only to staff and superusers."""
+    """Allow database (username/password) login only to users who are both staff and superusers."""
 
     def user_can_authenticate(self, user):
-        return super().user_can_authenticate(user) and (user.is_staff or user.is_superuser)
+        return super().user_can_authenticate(user) and user.is_staff and user.is_superuser
