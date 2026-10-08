@@ -1,3 +1,7 @@
+Release 1.12 (in development)
+------------------------------
+* added SuperuserModelBackend: database login restricted to staff and superusers
+
 Release 1.11
 ------------------------------
 * invalidate server-side session on logout

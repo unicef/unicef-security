@@ -1,6 +1,7 @@
 import os
 
 from django.conf import settings
+from django.contrib.auth.backends import ModelBackend
 import jwt
 from social_core.backends.azuread_tenant import AzureADTenantOAuth2
 from social_core.exceptions import AuthTokenError
@@ -27,3 +28,10 @@ class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
             )
         except jwt.PyJWTError as error:
             raise AuthTokenError(self, error)
+
+
+class SuperuserModelBackend(ModelBackend):
+    """Allow database (username/password) login only to users who are both staff and superusers."""
+
+    def user_can_authenticate(self, user):
+        return super().user_can_authenticate(user) and user.is_staff and user.is_superuser
