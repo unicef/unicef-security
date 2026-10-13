@@ -1,10 +1,13 @@
+from django.contrib import admin as django_admin
 from django.urls import reverse
 from mock import patch
+import mock
 import pytest
 
 from demo.admin import UserPlus
 from demo.models import User
-from unicef_security.admin import UNICEFUserFilter
+from unicef_security.admin import UNICEFUserFilter, UserAdminPlus
+from unicef_security.graph import SyncResult
 from .factories import UserFactory
 
 
@@ -61,3 +64,36 @@ def test_unicef_admin_filter():
     )
     external_records = filters.queryset(None, qs)
     assert external_records.count() == 1
+
+
+@pytest.mark.django_db
+def test_get_fieldsets_superuser():
+    model_admin = UserAdminPlus(User, django_admin.site)
+    request = mock.MagicMock()
+    request.user.is_superuser = True
+
+    fieldsets = model_admin.get_fieldsets(request, UserFactory())
+
+    assert UserAdminPlus.extra_fieldsets[0] in fieldsets
+
+
+@pytest.mark.django_db
+def test_get_fieldsets_regular_user():
+    model_admin = UserAdminPlus(User, django_admin.site)
+    request = mock.MagicMock()
+    request.user.is_superuser = False
+
+    fieldsets = model_admin.get_fieldsets(request, UserFactory())
+
+    assert UserAdminPlus.extra_fieldsets[0] not in fieldsets
+
+
+@pytest.mark.django_db
+@patch("unicef_security.admin.Synchronizer.get_token")
+@patch("unicef_security.admin.Synchronizer.fetch_users")
+def test_load_users(mock_fetch, mock_token, app):
+    mock_fetch.return_value = SyncResult()
+    url = reverse("admin:demo_user_load")
+    res = app.post(url, {"emails": "a@unicef.org b@unicef.org"})
+    assert res.status_code == 200
+    assert mock_fetch.call_count == 2

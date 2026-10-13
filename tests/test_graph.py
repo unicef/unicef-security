@@ -222,3 +222,71 @@ def test_sync_result_eq(auth_user):
     result3.log(auth_user, False)
 
     assert result != result3
+
+
+def test_sync_result_hash():
+    result = SyncResult()
+    assert hash(result) == id(result)
+
+
+def test_sync_result_add_invalid():
+    with pytest.raises(ValueError, match="Cannot add"):
+        SyncResult() + "not-a-sync-result"
+
+
+def test_sync_result_eq_other_type():
+    assert SyncResult() != "not-a-sync-result"
+
+
+@pytest.mark.django_db
+def test_default_group_ignored_when_not_new():
+    email = "simple@unicef.org"
+    user = UserFactory(email=email, username=email)
+    GroupFactory(name=constance.DEFAULT_GROUP)
+
+    default_group(user=user, is_new=False)
+
+    user.refresh_from_db()
+    assert not user.groups.exists()
+
+
+@pytest.mark.django_db
+def test_sync_user_without_azure_id():
+    user = UserFactory(azure_id=None)
+    synchronizer = Synchronizer.__new__(Synchronizer)
+    with pytest.raises(ValueError, match="Cannot sync user without azure_id"):
+        synchronizer.sync_user(user)
+
+
+@pytest.mark.django_db
+def test_get_unicef_user_by_unique_name(backend):
+    email = "ddinicola@unicef.org"
+    user = UserFactory(email=email, username=email)
+    user.social_auth.create(provider=backend.name, uid=user.username)
+
+    result = get_unicef_user(backend, {"unique_name": email}, get_response(email))
+
+    assert result["user"] == user
+    assert not result["is_new"]
+
+
+@pytest.mark.django_db
+def test_get_unicef_user_by_username(backend):
+    email = "ddinicola@unicef.org"
+    user = UserFactory(email=email, username=email)
+    user.social_auth.create(provider=backend.name, uid=user.username)
+
+    result = get_unicef_user(backend, {"username": email}, get_response(email))
+
+    assert result["user"] == user
+    assert not result["is_new"]
+
+
+@pytest.mark.django_db
+@responses.activate
+def test_synchronize_with_callback():
+    responses._add_from_file(file_path="tests/vcr_cassettes/synchronizer.yaml")
+    synchronizer = Synchronizer()
+    callback_results = []
+    synchronizer.synchronize(max_records=20, callback=lambda **kwargs: callback_results.append(kwargs))
+    assert callback_results
