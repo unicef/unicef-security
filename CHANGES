@@ -1,6 +1,8 @@
-Release 1.12 (in development)
+Release 1.12
 ------------------------------
 * added SuperuserModelBackend: database login restricted to staff and superusers
+* added support to social-auth-core 6
+* added support to Django 6.1
 
 Release 1.11
 ------------------------------
