@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.backends import ModelBackend
 import jwt
 from social_core.backends.azuread_tenant import AzureADTenantOAuth2
-from social_core.exceptions import AuthTokenError
+from social_core.exceptions import AuthResponseError
 
 
 class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
@@ -27,7 +27,7 @@ class UNICEFAzureADTenantOAuth2Ext(AzureADTenantOAuth2):
                 options={"verify_signature": False},
             )
         except jwt.PyJWTError as error:
-            raise AuthTokenError(self, error)
+            raise AuthResponseError(self, error)
 
 
 class SuperuserModelBackend(ModelBackend):

@@ -3,7 +3,7 @@ from typing import Iterable
 from django.conf import settings
 
 from social_core.backends.azuread_b2c import AzureADB2COAuth2
-from social_core.exceptions import AuthCanceled, AuthMissingParameter
+from social_core.exceptions import AuthCanceled, AuthInputError
 from social_django.middleware import SocialAuthExceptionMiddleware
 
 from . import config
@@ -13,7 +13,7 @@ class UNICEFSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
     """Middleware to ignore Forgot Password Exceptions."""
 
     def process_exception(self, request, exception):
-        if exception in [AuthCanceled, AuthMissingParameter]:
+        if exception in [AuthCanceled, AuthInputError]:
             return self.get_redirect_uri(request, exception)
         return super().process_exception(request, exception)  # pragma: no cover
 
