@@ -1,41 +1,55 @@
-import json
 import os
 from unittest.mock import patch
 
-from django.conf import settings
-from django.contrib.auth import authenticate
 import pytest
-from social_core.exceptions import AuthTokenError
-from social_core.tests.backends.test_azuread import AzureADTenantOAuth2Test
+from django.contrib.auth import authenticate
+from jwt import DecodeError
+from social_core.backends.azuread_tenant import AzureADTenantOAuth2
+from social_core.exceptions import AuthResponseError
+
+from unicef_security.backends import UNICEFAzureADTenantOAuth2Ext
 
 from .factories import SuperUserFactory, UserFactory
 
 
-class UNICEFAzureADTenantOAuth2ExtTest(AzureADTenantOAuth2Test):
-    backend_path = "unicef_security.backends.UNICEFAzureADTenantOAuth2Ext"
+@patch("unicef_security.backends.jwt.decode")
+def test_user_data_unverified_decode_token(mock_decode):
+    mock_decode.return_value = {"sub": "123", "email": "test@example.com"}
+    with patch.dict(os.environ, {"OAUTH2_VERIFY": "False"}):
+        result = UNICEFAzureADTenantOAuth2Ext().user_data("access-token", response={"id_token": "the-id-token"})
+    assert result == {"sub": "123", "email": "test@example.com"}
+    mock_decode.assert_called_once_with("the-id-token", options={"verify_signature": False})
 
-    def test_login_unverified(self) -> None:
-        with patch.dict(os.environ, {"OAUTH2_VERIFY": "False"}):
-            self.do_login()
 
-    def test_login_unverified_malformed_token(self) -> None:
-        self.access_token_body = json.dumps(
-            {
-                "access_token": "foobar",
-                "token_type": "bearer",
-                "id_token": "completely-malformed-token",
-            }
-        )
-        with patch.dict(os.environ, {"OAUTH2_VERIFY": "False"}):
-            with pytest.raises(AuthTokenError):
-                self.do_start()
+@patch("unicef_security.backends.jwt.decode")
+def test_user_data_unverified_malformed_token_raises(mock_decode):
+    mock_decode.side_effect = DecodeError("Invalid header padding")
+    with patch.dict(os.environ, {"OAUTH2_VERIFY": "False"}):
+        with pytest.raises(AuthResponseError):
+            UNICEFAzureADTenantOAuth2Ext().user_data(
+                "access-token", response={"id_token": "completely-malformed-token"}
+            )
 
-    def test_login_unverified_dev_default(self) -> None:
-        environ = os.environ.copy()
-        environ.pop("OAUTH2_VERIFY", None)
-        with patch.dict(os.environ, environ, clear=True):
-            with patch.object(settings, "DEBUG", True):
-                self.do_login()
+
+@patch("unicef_security.backends.jwt.decode")
+def test_user_data_dev_default_disables_verification(mock_decode, settings):
+    mock_decode.return_value = {"sub": "123"}
+    environ = os.environ.copy()
+    environ.pop("OAUTH2_VERIFY", None)
+    with patch.dict(os.environ, environ, clear=True):
+        settings.DEBUG = True
+        result = UNICEFAzureADTenantOAuth2Ext().user_data("the-id-token")
+    assert result == {"sub": "123"}
+    mock_decode.assert_called_once()
+
+
+@patch.object(AzureADTenantOAuth2, "user_data")
+def test_user_data_verify_passes_through_to_base(mock_user_data):
+    mock_user_data.return_value = {"sub": "123"}
+    with patch.dict(os.environ, {"OAUTH2_VERIFY": "true"}):
+        result = UNICEFAzureADTenantOAuth2Ext().user_data("access-token", response={"id_token": "the-id-token"})
+    assert result == {"sub": "123"}
+    mock_user_data.assert_called_once_with("access-token", response={"id_token": "the-id-token"})
 
 
 @pytest.mark.django_db
